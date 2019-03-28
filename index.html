@@ -232,6 +232,140 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/关于runtime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eden的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/28/关于runtime/" itemprop="url">关于runtime</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T17:59:44+08:00">
+                2019-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="关于runtime"><a href="#关于runtime" class="headerlink" title="关于runtime"></a>关于runtime</h1><p>1.什么是runtime？<br>1&gt; runtime是一套底层的C语言API（包含很多强大实用的C语言数据类型、C语言函数）<br>2&gt; 实际上，平时我们编写的OC代码，底层都是基于runtime实现的</p>
+<p>也就是说，平时我们编写的OC代码，最终都是转成了底层的runtime代码（C语言代码）<br>2.runtime有啥用？<br>1&gt; 能动态产生一个类、一个成员变量、一个方法<br>2&gt; 能动态修改一个类、一个成员变量、一个方法<br>3&gt; 能动态删除一个类、一个成员变量、一个方法</p>
+<p>3.常见的函数、头文件</p>
+<p>#import : 成员变量、类、方法<br>Ivar class_copyIvarList : 获得某个类内部的所有成员变量<br>Method class_copyMethodList : 获得某个类内部的所有方法<br>Method class_getInstanceMethod : 获得某个实例方法（对象方法，减号-开头）<br>Method class_getClassMethod : 获得某个类方法（加号+开头）<br>method_exchangeImplementations : 交换2个方法的具体实现</p>
+<p>4.常用方法</p>
+<p>//获取属性列表</p>
+<p>objc_property_t propertyList = class_copyPropertyList([self class], &amp;count);<br>for (unsigned int i=0; i&lt;count; i++) {</p>
+<p>const char propertyName = property_getName(propertyList[i]);<br>NSLog(@”property—-&gt;%@”, [NSString stringWithUTF8String:propertyName]);<br>}</p>
+<p>//获取方法列表<br>Method *methodList = class_copyMethodList([self class], &amp;count);<br>for (unsigned int i; i&lt;count; i++) {<br>Method method = methodList[i];<br>NSLog(@”method—-&gt;%@”, NSStringFromSelector(method_getName(method)));<br>}</p>
+<p>//获取成员变量列表<br>Ivar ivarList = class_copyIvarList([self class], &amp;count);<br>for (unsigned int i; i&lt;count; i++) {<br>Ivar myIvar = ivarList[i];<br>const char ivarName = ivar_getName(myIvar);<br>NSLog(@”Ivar—-&gt;%@”, [NSString stringWithUTF8String:ivarName]);<br>}</p>
+<p>//获取协议列表<br>__unsafe_unretained Protocol <em>protocolList = class_copyProtocolList([self class], &amp;count);<br>for (unsigned int i; i&lt;count; i++) {<br>Protocol myProtocal = protocolList[i];<br>const char </em>protocolName = protocol_getName(myProtocal);<br>NSLog(@”protocol—-&gt;%@”, [NSString stringWithUTF8String:protocolName]);<br>}</p>
+<p>5.拦截调用</p>
+<p>在方法调用中说到了，如果没有找到方法就会转向拦截调用。<br>那么什么是拦截调用呢。<br>拦截调用就是，在找不到调用的方法程序崩溃之前，你有机会通过重写NSObject的四个方法来处理。</p>
+<p>(BOOL)resolveClassMethod:(SEL)sel;<br>(BOOL)resolveInstanceMethod:(SEL)sel;<br>//后两个方法需要转发到其他的类处理</p>
+<p>(id)forwardingTargetForSelector:(SEL)aSelector;<br>(void)forwardInvocation:(NSInvocation *)anInvocation;<br>5.1 第一个方法是当你调用一个不存在的类方法的时候，会调用这个方法，默认返回NO，你可以加上自己的处理然后返回YES。<br>5.2 第二个方法和第一个方法相似，只不过处理的是实例方法。<br>5.3 第三个方法是将你调用的不存在的方法重定向到一个其他声明了这个方法的类，只需要你返回一个有这个方法的target。<br>5.4 第四个方法是将你调用的不存在的方法打包成NSInvocation传给你。做完你自己的处理后，调用invokeWithTarget:方法让某个target触发这个方法。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/Git详细分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -524,7 +658,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

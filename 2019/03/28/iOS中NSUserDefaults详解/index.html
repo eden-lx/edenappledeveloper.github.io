@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="终于有时间重新搞一下hexo博客了">
+<meta name="description" content="关于NSUserDefaults官方文档https://developer.apple.com/reference/foundation/userdefaults 一:NSUserDefaults是什么，有什么用处对于应用来说，每个用户都有自己的独特偏好设置，而好的应用会让用户根据喜好选择合适的使用方式，把这些偏好记录在应用包的plist文件中，通过NSUserDefaults类来访问，这是NSU">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客转移">
-<meta property="og:url" content="http://yoursite.com/2019/03/28/博客转移/index.html">
+<meta property="og:title" content="iOS中NSUserDefaults详解">
+<meta property="og:url" content="http://yoursite.com/2019/03/28/iOS中NSUserDefaults详解/index.html">
 <meta property="og:site_name" content="Eden的博客">
-<meta property="og:description" content="终于有时间重新搞一下hexo博客了">
+<meta property="og:description" content="关于NSUserDefaults官方文档https://developer.apple.com/reference/foundation/userdefaults 一:NSUserDefaults是什么，有什么用处对于应用来说，每个用户都有自己的独特偏好设置，而好的应用会让用户根据喜好选择合适的使用方式，把这些偏好记录在应用包的plist文件中，通过NSUserDefaults类来访问，这是NSU">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-28T07:37:39.755Z">
+<meta property="og:updated_time" content="2019-03-28T10:39:08.088Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客转移">
-<meta name="twitter:description" content="终于有时间重新搞一下hexo博客了">
+<meta name="twitter:title" content="iOS中NSUserDefaults详解">
+<meta name="twitter:description" content="关于NSUserDefaults官方文档https://developer.apple.com/reference/foundation/userdefaults 一:NSUserDefaults是什么，有什么用处对于应用来说，每个用户都有自己的独特偏好设置，而好的应用会让用户根据喜好选择合适的使用方式，把这些偏好记录在应用包的plist文件中，通过NSUserDefaults类来访问，这是NSU">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/28/博客转移/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/28/iOS中NSUserDefaults详解/">
 
 
 
 
 
-  <title>博客转移 | Eden的博客</title>
+  <title>iOS中NSUserDefaults详解 | Eden的博客</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/博客转移/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/iOS中NSUserDefaults详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">博客转移</h1>
+          <h1 class="post-title" itemprop="name headline">iOS中NSUserDefaults详解</h1>
         
 
         <div class="post-meta">
@@ -261,7 +261,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T15:26:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T18:38:51+08:00">
                 2019-03-28
               </time>
             
@@ -299,10 +299,33 @@
       
 
       
-        <p>终于有时间重新搞一下hexo博客了</p>
-<a id="more"></a>
-<p>说起来都是2017年的时候了，自从当时搞完自己的hexo博客后喜不自胜，但是后来出现了一些状况，自己的电脑系统崩溃了，导致我的hexo博客也炸了，后来陆续的搞过几次，但是一直忙于工作没怎么花心思弄这个，到现在时隔两年才有机会重新搭建我的个人hexo博客</p>
-<p>好了，说完就正式开始我的搬砖之路了。</p>
+        <p>关于NSUserDefaults官方文档<br><a href="https://developer.apple.com/reference/foundation/userdefaults" target="_blank" rel="noopener">https://developer.apple.com/reference/foundation/userdefaults</a></p>
+<p>一:NSUserDefaults是什么，有什么用处<br>对于应用来说，每个用户都有自己的独特偏好设置，而好的应用会让用户根据喜好选择合适的使用方式，把这些偏好记录在应用包的plist文件中，通过NSUserDefaults类来访问，这是NSUserDefaults的常用姿势。如果有一些设置你希望用户即使升级后还可以继续使用，比如玩游戏时得过的最高分、喜好和通知设置、主题颜色甚至一个用户头像，那么你可以使用NSUserDefaults来存储这些信息，如果有更多需求，可以了解数据持久化相关的知识。<br>具体来说NSUserDefaults是iOS系统提供的一个单例类(iOS提供了若干个单例类)，通过类方法standardUserDefaults可以获取NSUserDefaults单例。如：<br>NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</p>
+<p>NSUserDefaults单例以key-value的形式存储了一系列偏好设置，key是名称，value是相应的数据。存/取数据时可以使用方法objectForKey:和setObject:forKey:来把对象存储到相应的plist文件中，或者读取，既然是plist文件，那么对象的类型则必须是plist文件可以存储的类型，正如官方文档中提到的——</p>
+<p>NSData<br>NSString<br>NSNumber<br>NSDate<br>NSArray<br>NSDictionary<br>而如果需要存储plist文件不支持的类型，比如图片，可以先将其归档为NSData类型，再存入plist文件，需要注意的是，即使对象是NSArray或NSDictionary，他们存储的类型也应该是以上范围包括的。</p>
+<p>二:存/读不同类型数据<br>比如存/读一个整数、字符串和一张图片：</p>
+<p>###存<br>NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];<br>[defaults setObject:@”jack“ forKey:@”firstName”];<br>[defaults setInteger:10 forKey:@”Age”];</p>
+<p>UIImage <em>image =[UIImage imageNamed:@”somename”];<br>NSData </em>imageData = UIImageJPEGRepresentation(image, 100);//把image归档为NSData<br>[defaults setObject:imageData forKey:@”image”];</p>
+<p>[defaults synchronize];<br>其中，方法synchronise是为了强制存储，其实并非必要，因为这个方法会在系统中默认调用，但是你确认需要马上就存储，这样做是可行的。</p>
+<p>###读</p>
+<p>NSUserDefaults <em>defaults = [NSUserDefaults standardUserDefaults];<br>NSString </em>firstName = [defaults objectForKey:@”firstName”]<br>NSInteger age = [defaults integerForKey:@”Age”];</p>
+<p>NSData <em>imageData = [defaults dataForKey:@”image”];<br>UIImage </em>image = [UIImage imageWithData:imageData];<br>我们通过为三个数据设置key的方式把NSInteger、NSString和UIImage三种数据存储下来，其中图片是通过归档为NSData的方式进行存储的，除此之外，还可以被转为NSNumber或NSString类型。顺便提一句，这里NSInteger没有星号，因为NSInteger根据系统是64位还是32位来判断自身是long还是int类型，并且它也不是一个标准Objective-C对象。</p>
+<p>三:简便方法存取不同类型数据</p>
+<p>由上边的例子可以看到一个方法-setInteger:,这跟常用的-setObject：相比设置类型更明确。其实，NSUserDefaults提供了若干简便方法可以存储某些常用类型的值，例如：</p>
+<ul>
+<li>setBool:forKey:</li>
+<li>setFloat:forKey:</li>
+<li>setInteger:forKey:</li>
+<li>setDouble:forKey:</li>
+<li>setURL:forKey:<br>这将使某些值的设置更简单。</li>
+</ul>
+<p>四:NSUserDefaults域<br>考虑这么一种情况：<br>BOOL showTutorialOnLaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@”ShowTutorial”];</p>
+<p>这种情况下，当key值@“ShowTutorial”已设置后会运行正确。但如果默认数据库没有这个key的默认值时，将会返回NO，这或许就不一定是你需要的值了，因为无法区分NO和no value，前一段所提到的简便方法大多有这种问题。</p>
+<p>解决方式：使用registerDefaults:方法<br>首先创建一个包含用户偏好设置信息的DefaultPreferences.plist文件，添加到target中。在运行时，app就可以加载这个文件并且把内容传到registerDefaults :</p>
+<p>NSURL <em>defaultPrefsFile = [[NSBundle mainBundle]<br>URLForResource:@”DefaultPreferences” withExtension:@”plist”];<br>NSDictionary </em>defaultPrefs = [NSDictionary dictionaryWithContentsOfURL:defaultPrefsFile];<br>[[NSUserDefaults standardUserDefaults] registerDefaults:defaultPrefs];<br>注意需要在每次启动app并且没有在user defaules中读取数据的时候调用以上方法，因为registerDefaults:不能把这些默认数据存储到硬盘上，所以application:didFinishLaunchingWithOptions是最合适的地方。<br>这样做的原因是：默认情况下，应用域是空的，没见键也没有值。当应用第一次设置某项用户偏好设置的值时，相应的值会通过指定的键加入应用域。当通过NSUserDefaults获取某项用户偏好设置的值时，NSUserDefaults会先在应用域中查找，如果找到了值，NSUserDefaults就会返回这个值。如果没有找到，NSUserDefaults就会在注册域中查找并返回默认值。</p>
+<p>五:域</p>
+<p>user defaults数据库中其实是由多个层级的域组成的，当你读取一个键值的数据时，NSUserDefaults从上到下透过域的层级寻找正确的值，不同的域有不同的功能，有些域是可持久的，有些域则不行。</p>
+<p>应用域（application domain）是最重要的域，它存储着你app通过NSUserDefaults set…forKey添加的设置。<br>注册域（registration domain）仅有较低的优先权，只有在应用域没有找到值时才从注册域去寻找。<br>全局域（global domain）则存储着系统的设置<br>语言域（language-specific domains）则包括地区、日期等<br>参数域（ argument domain）有最高优先权<br>写入了NSUserDefaults数据, 那么我们怎么删除呢? 其实很简单:<br>[[NSUserDefaults standardUserDefaults] removeObjectForKey:key];<br>[[NSUserDefaults standardUserDefaults] synchronize];</p>
 
       
     </div>
@@ -327,15 +350,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/28/IQKeyboardManager框架详解/" rel="next" title="IQKeyboardManager框架详解">
+                <i class="fa fa-chevron-left"></i> IQKeyboardManager框架详解
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/28/Git详细分析/" rel="prev" title="Git详细分析">
-                Git详细分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

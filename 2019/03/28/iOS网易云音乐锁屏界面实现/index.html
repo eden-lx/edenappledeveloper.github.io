@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="终于有时间重新搞一下hexo博客了">
+<meta name="description" content="完整的实现思路: App如果需要在锁屏界面上显示相关的信息和按钮, 必须先开启远程控制事件(Remote Control Event), 否则锁屏界面只显示滑动解锁.实现锁屏界面信息, 将歌曲的相关信息更新到锁屏界面上实现锁屏界面的事件处理, 在锁屏界面和上拉的快速功能菜单中实现播放控制 远程控制事件的实现 在iOS7.1之前, 远程控制事件主要涉及以下三个方法: 开始接收远程控制事件结束接收远程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客转移">
-<meta property="og:url" content="http://yoursite.com/2019/03/28/博客转移/index.html">
+<meta property="og:title" content="iOS网易云音乐锁屏界面实现">
+<meta property="og:url" content="http://yoursite.com/2019/03/28/iOS网易云音乐锁屏界面实现/index.html">
 <meta property="og:site_name" content="Eden的博客">
-<meta property="og:description" content="终于有时间重新搞一下hexo博客了">
+<meta property="og:description" content="完整的实现思路: App如果需要在锁屏界面上显示相关的信息和按钮, 必须先开启远程控制事件(Remote Control Event), 否则锁屏界面只显示滑动解锁.实现锁屏界面信息, 将歌曲的相关信息更新到锁屏界面上实现锁屏界面的事件处理, 在锁屏界面和上拉的快速功能菜单中实现播放控制 远程控制事件的实现 在iOS7.1之前, 远程控制事件主要涉及以下三个方法: 开始接收远程控制事件结束接收远程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-28T07:37:39.755Z">
+<meta property="og:updated_time" content="2019-03-28T10:23:16.330Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客转移">
-<meta name="twitter:description" content="终于有时间重新搞一下hexo博客了">
+<meta name="twitter:title" content="iOS网易云音乐锁屏界面实现">
+<meta name="twitter:description" content="完整的实现思路: App如果需要在锁屏界面上显示相关的信息和按钮, 必须先开启远程控制事件(Remote Control Event), 否则锁屏界面只显示滑动解锁.实现锁屏界面信息, 将歌曲的相关信息更新到锁屏界面上实现锁屏界面的事件处理, 在锁屏界面和上拉的快速功能菜单中实现播放控制 远程控制事件的实现 在iOS7.1之前, 远程控制事件主要涉及以下三个方法: 开始接收远程控制事件结束接收远程">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/28/博客转移/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/28/iOS网易云音乐锁屏界面实现/">
 
 
 
 
 
-  <title>博客转移 | Eden的博客</title>
+  <title>iOS网易云音乐锁屏界面实现 | Eden的博客</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/博客转移/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/iOS网易云音乐锁屏界面实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">博客转移</h1>
+          <h1 class="post-title" itemprop="name headline">iOS网易云音乐锁屏界面实现</h1>
         
 
         <div class="post-meta">
@@ -261,7 +261,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T15:26:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T18:23:05+08:00">
                 2019-03-28
               </time>
             
@@ -299,10 +299,49 @@
       
 
       
-        <p>终于有时间重新搞一下hexo博客了</p>
-<a id="more"></a>
-<p>说起来都是2017年的时候了，自从当时搞完自己的hexo博客后喜不自胜，但是后来出现了一些状况，自己的电脑系统崩溃了，导致我的hexo博客也炸了，后来陆续的搞过几次，但是一直忙于工作没怎么花心思弄这个，到现在时隔两年才有机会重新搭建我的个人hexo博客</p>
-<p>好了，说完就正式开始我的搬砖之路了。</p>
+        <p>完整的实现思路:</p>
+<p>App如果需要在锁屏界面上显示相关的信息和按钮, 必须先开启远程控制事件(Remote Control Event), 否则锁屏界面只显示滑动解锁.<br>实现锁屏界面信息, 将歌曲的相关信息更新到锁屏界面上<br>实现锁屏界面的事件处理, 在锁屏界面和上拉的快速功能菜单中实现播放控制</p>
+<p>远程控制事件的实现</p>
+<p>在iOS7.1之前, 远程控制事件主要涉及以下三个方法:</p>
+<p>开始接收远程控制事件<br>结束接收远程控制事件<br>触发远程控制事件后的捕获处理<br>官方文档对这三个方法的描述如下, 这里做了简单的翻译.</p>
+<p>开始接收远程控制事件</p>
+<p>Declaration</p>
+<ul>
+<li>(void)beginReceivingRemoteControlEvents<br>让App开始接收远程控制事件, 该方法属于UIApplication类</li>
+</ul>
+<p>Discussion</p>
+<p>在iOS7.1之后, 使用MPRemoteCommandCenter的共享对象来注册远程控制事件. 当使用shared command center时, 不需要再调用该方法.<br>该方法会开始使用事件响应链来传递远程控制事件. 远程控制事件是当耳机和外部附件意图控制App的多媒体表现时发出的命令. 要停止远程控制事件的接收, 必须调用endReceivingRemoteControlEvents方法</p>
+<p>结束接收远程控制事件</p>
+<p>Declaration</p>
+<ul>
+<li>(void)endReceivingRemoteControlEvents<br>让App停止接收远程控制事件, 该方法属于UIApplication类</li>
+</ul>
+<p>Discussion</p>
+<p>在iOS7.1之前, 使用shared MPRemoteCommandCenter对象来注册远程控制事件. 当使用shared command center时, 不需要再调用该方法.<br>该方法会停止通过事件响应链来传递远程控制事件. 远程控制事件是当耳机和外部附件意图控制App的多媒体表现时发出的命令.</p>
+<p>远程控制事件的捕获处理</p>
+<p>Declaration</p>
+<ul>
+<li>(void)remoteControlReceivedWithEvent:(UIEvent *)event<br>当远程控制事件发生时触发该方法, 该方法属于UIResponder类</li>
+</ul>
+<p>Discussion</p>
+<p>远程控制事件是由外部附件(包括耳机)所发出的命令. 应用需要响应这些命令来控制音频或视频媒体的对用户的表示. 事件响应者通过检查事件的subtype, 来判断命令的意图. 比如UIEventSubtypeRemoteControlPlay为播放操作, 然后做相关处理</p>
+<p>要允许远程控制事件的传递, 需要调用UIApplication的beginReceivingRemoteControlEvents方法; 要关闭远程控制事件的传递则调用endReceivingRemoteControlEvents</p>
+<p>项目中的代码实现</p>
+<p>(BOOL)application:(UIApplication )application didFinishLaunchingWithOptions:(NSDictionary )launchOptions {<br>// 在App启动后开启远程控制事件, 接收来自锁屏界面和上拉菜单的控制<br>[application beginReceivingRemoteControlEvents];</p>
+<p>return YES;<br>}</p>
+<p>(void)applicationWillTerminate:(UIApplication *)application<br>{<br>// 在App要终止前结束接收远程控制事件, 也可以在需要终止时调用该方法终止<br>[application endReceivingRemoteControlEvents];<br>}</p>
+<p>// 在具体的控制器或其它类中捕获处理远程控制事件</p>
+<p>(void)remoteControlReceivedWithEvent:(UIEvent *)event<br>{<br>// 根据事件的子类型(subtype) 来判断具体的事件类型, 并做出处理<br>switch (event.subtype) {<br>case UIEventSubtypeRemoteControlPlay:<br>case UIEventSubtypeRemoteControlPause: {<br>// 执行播放或暂停的相关操作 (锁屏界面和上拉快捷功能菜单处的播放按钮)<br>break;<br>}<br>case UIEventSubtypeRemoteControlPreviousTrack: {<br>// 执行上一曲的相关操作 (锁屏界面和上拉快捷功能菜单处的上一曲按钮)<br>break;<br>}<br>case UIEventSubtypeRemoteControlNextTrack: {<br>// 执行下一曲的相关操作 (锁屏界面和上拉快捷功能菜单处的下一曲按钮)<br>break;<br>}<br>case UIEventSubtypeRemoteControlTogglePlayPause: {<br>// 进行播放/暂停的相关操作 (耳机的播放/暂停按钮)<br>break;<br>}<br>default:<br>break;<br>}<br>}<br>iOS7.1后, 更新了远程控制事件的实现方式</p>
+<p>相关方法的描述中, 已经说明, iOS7.1之后使用MPRemoteCommandCenter类来进行远程控制事件的相关处理, 因此可以不再使用上面所描述的三个方法. 官方文档对MPRemoteCommandCenter的描述如下:</p>
+<p>MPRemoteCommandCenter</p>
+<p>MPRemoteCommandCenter类提供了处理远程控制事件的对象, 包括由外部附件和系统传输控制发送的远程控制事件. 不需要自己创建该类的实例. 而是使用shareCommandCenter方法获取默认的命令中心(share command center)对象. share command center对象的属性包含了MPRemoteCommand对象(表示iOS支持的每种远程控件事件). 如果要对响应的事件特殊处理, 使用适当的MPRemoteCommand对象注册一个handler即可.</p>
+<p>远程命令中心(remote command center)对象为许多不同类型的事件提供了命令(command)对象. 如果你的App不需要支持某些特定类型的事件, 可以通过设置其enabled属性为NO来禁用关联的MPRemoteCommand对象. 使用command对象注册一个handler, 以便让系统知道你的App已经做好了接收事件的准备. 只有当你的App是当前正在播放(Now Playing App)时才能接收到事件的传递.</p>
+<p>项目中的代码实现 :</p>
+<p>// 在需要处理远程控制事件的具体控制器或其它类中实现</p>
+<p>(void)remoteControlEventHandler<br>{<br>// 直接使用sharedCommandCenter来获取MPRemoteCommandCenter的shared实例<br>MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];</p>
+<p>// 启用播放命令 (锁屏界面和上拉快捷功能菜单处的播放按钮触发的命令)<br>commandCenter.playCommand.enabled = YES;<br>// 为播放命令添加响应事件, 在点击后触发<br>[commandCenter.playCommand addTarget:self action:@selector(playAction:)];</p>
+<p>// 播放, 暂停, 上下曲的命令默认都是启用状态, 即enabled默认为YES<br>// 为暂停, 上一曲, 下一曲分别添加对应的响应事件<br>[commandCenter.pauseCommand addTarget:self action:@selector(pauseAction:)];<br>[commandCenter.previousTrackCommand addTarget:self action:@selector(previousTrackAction:)];<br>[commandCenter.nextTrackCommand addTarget:self action:@selector(nextTrackAction:)];</p>
+<p>// 启用耳机的播放/暂停命令 (耳机上的播放按钮触发的命令)<br>commandCenter.togglePlayPauseCommand.enabled = YES;<br>// 为耳机的按钮操作添加相关的响应事件<br>[commandCenter.togglePlayPauseCommand addTarget:self action:@selector(playOrPauseAction:)];<br>}</p>
 
       
     </div>
@@ -327,15 +366,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/28/获取手机信息/" rel="next" title="获取手机信息">
+                <i class="fa fa-chevron-left"></i> 获取手机信息
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/28/Git详细分析/" rel="prev" title="Git详细分析">
-                Git详细分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

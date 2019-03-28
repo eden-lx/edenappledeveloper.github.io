@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="终于有时间重新搞一下hexo博客了">
+<meta name="description" content="iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。 1.UIDeviceUIDevice提供了多种属性、类函数及状态通知，帮助我们全">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客转移">
-<meta property="og:url" content="http://yoursite.com/2019/03/28/博客转移/index.html">
+<meta property="og:title" content="获取手机信息">
+<meta property="og:url" content="http://yoursite.com/2019/03/28/获取手机信息/index.html">
 <meta property="og:site_name" content="Eden的博客">
-<meta property="og:description" content="终于有时间重新搞一下hexo博客了">
+<meta property="og:description" content="iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。 1.UIDeviceUIDevice提供了多种属性、类函数及状态通知，帮助我们全">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-28T07:37:39.755Z">
+<meta property="og:updated_time" content="2019-03-28T10:20:29.204Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客转移">
-<meta name="twitter:description" content="终于有时间重新搞一下hexo博客了">
+<meta name="twitter:title" content="获取手机信息">
+<meta name="twitter:description" content="iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。 1.UIDeviceUIDevice提供了多种属性、类函数及状态通知，帮助我们全">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/28/博客转移/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/28/获取手机信息/">
 
 
 
 
 
-  <title>博客转移 | Eden的博客</title>
+  <title>获取手机信息 | Eden的博客</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/博客转移/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/获取手机信息/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">博客转移</h1>
+          <h1 class="post-title" itemprop="name headline">获取手机信息</h1>
         
 
         <div class="post-meta">
@@ -261,7 +261,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T15:26:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T18:20:16+08:00">
                 2019-03-28
               </time>
             
@@ -299,10 +299,21 @@
       
 
       
-        <p>终于有时间重新搞一下hexo博客了</p>
-<a id="more"></a>
-<p>说起来都是2017年的时候了，自从当时搞完自己的hexo博客后喜不自胜，但是后来出现了一些状况，自己的电脑系统崩溃了，导致我的hexo博客也炸了，后来陆续的搞过几次，但是一直忙于工作没怎么花心思弄这个，到现在时隔两年才有机会重新搭建我的个人hexo博客</p>
-<p>好了，说完就正式开始我的搬砖之路了。</p>
+        <p>iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。</p>
+<p>1.UIDevice<br>UIDevice提供了多种属性、类函数及状态通知，帮助我们全方位了解设备状况。从检测电池电量到定位设备与临近感应，UIDevice所做的工作就是为应用程序提供用户及设备的一些信息。UIDevice类还能够收集关于设备的各种具体细节，例如机型及iOS版本等。其中大部分属性都对开发工作具有积极的辅助作用。下面的代码简单的使用UIDevice获取手机属性。</p>
+<p>//设备相关信息的获取<br>NSString *strName = [[UIDevice currentDevice] name];<br>NSLog(@”设备名称：%@”, strName);//e.g. “My iPhone”</p>
+<p>NSString *strId = [[UIDevice currentDevice] uniqueIdentifier];<br>NSLog(@”设备唯一标识：%@”, strId);//UUID,5.0后不可用  </p>
+<p>NSString *strSysName = [[UIDevice currentDevice] systemName];<br>NSLog(@”系统名称：%@”, strSysName);// e.g. @”iOS”  </p>
+<p>NSString *strSysVersion = [[UIDevice currentDevice] systemVersion];<br>NSLog(@”系统版本号：%@”, strSysVersion);// e.g. @”4.0”  </p>
+<p>NSString *strModel = [[UIDevice currentDevice] model];<br>NSLog(@”设备模式：%@”, strModel);// e.g. @”iPhone”, @”iPod touch”  </p>
+<p>NSString *strLocModel = [[UIDevice currentDevice] localizedModel];<br>NSLog(@”本地设备模式：%@”, strLocModel);// localized version of model<br>2.NSBundle<br>bundle是一个目录,其中包含了程序会使用到的资源. 这些资源包含了如图像,声音,编译好的代码,nib文件(用户也会把bundle称为plug-in). 对应bundle,cocoa提供了类NSBundle.一个应用程序看上去和其他文件没有什么区别. 但是实际上它是一个包含了nib文件,编译代码,以及其他资源的目录. 我们把这个目录叫做程序的main bundle。通过这个路径可以获取到应用的信息，例如应用名、版本号等。</p>
+<p>//app应用相关信息的获取<br>NSDictionary *dicInfo = [[NSBundle mainBundle] infoDictionary];<br>// CFShow(dicInfo);</p>
+<p>NSString *strAppName = [dicInfo objectForKey:@”CFBundleDisplayName”];<br>NSLog(@”App应用名称：%@”, strAppName);</p>
+<p>NSString *strAppVersion = [dicInfo objectForKey:@”CFBundleShortVersionString”];<br>NSLog(@”App应用版本：%@”, strAppVersion);</p>
+<p>NSString *strAppBuild = [dicInfo objectForKey:@”CFBundleVersion”];<br>NSLog(@”App应用Build版本：%@”, strAppBuild);</p>
+<p>3.NSLocale<br>NSLocale可以获取用户的本地化信息设置，例如货币类型，国家，语言，数字，日期格式的格式化，提供正确的地理位置显示等等。下面的代码获取机器当前语言和国家代码。</p>
+<p>NSArray languageArray = [NSLocale preferredLanguages];<br>NSString language = [languageArray objectAtIndex:0];<br>NSLog(@”语言：%@”, language);//en</p>
+<p>NSLocale locale = [NSLocale currentLocale];<br>NSString country = [locale localeIdentifier];<br>NSLog(@”国家：%@”, country); //en_US</p>
 
       
     </div>
@@ -327,14 +338,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/28/关于runtime/" rel="next" title="关于runtime">
+                <i class="fa fa-chevron-left"></i> 关于runtime
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/28/Git详细分析/" rel="prev" title="Git详细分析">
-                Git详细分析 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/28/iOS网易云音乐锁屏界面实现/" rel="prev" title="iOS网易云音乐锁屏界面实现">
+                iOS网易云音乐锁屏界面实现 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

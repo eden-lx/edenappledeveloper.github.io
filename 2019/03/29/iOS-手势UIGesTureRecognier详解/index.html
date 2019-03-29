@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Eden的博客">
 <meta property="og:description" content="一. 手势UIGestureRecognier简介 iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer），在触摸事件处理方面，大大简化了开发者的开发难度。利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势。UIGestureRecognizer是一个抽象类，对iOS中的事件传递机制面向应用进行封装，将手势消息的传递抽象为了对象">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-29T10:15:14.711Z">
+<meta property="og:updated_time" content="2019-03-29T10:17:47.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 手势UIGesTureRecognier详解">
 <meta name="twitter:description" content="一. 手势UIGestureRecognier简介 iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer），在触摸事件处理方面，大大简化了开发者的开发难度。利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势。UIGestureRecognizer是一个抽象类，对iOS中的事件传递机制面向应用进行封装，将手势消息的传递抽象为了对象">
@@ -300,11 +300,11 @@
 
       
         <p>一. 手势UIGestureRecognier简介</p>
-<pre><code>iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer），在触摸事件处理方面，大大简化了开发者的开发难度。利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势。UIGestureRecognizer是一个抽象类，对iOS中的事件传递机制面向应用进行封装，将手势消息的传递抽象为了对象。其中定义了所有手势的基本行为，使用它的子类才能处理具体的手势。
-</code></pre><a id="more"></a>
+<p>iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer），在触摸事件处理方面，大大简化了开发者的开发难度。利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势。UIGestureRecognizer是一个抽象类，对iOS中的事件传递机制面向应用进行封装，将手势消息的传递抽象为了对象。其中定义了所有手势的基本行为，使用它的子类才能处理具体的手势。</p>
+<a id="more"></a>
 <p>二. 手势的抽象类——UIGestureRecognizer</p>
-<pre><code>UIGestureRecognizer将一些和手势操作相关的方法抽象了出来，但它本身并不实现什么手势，因此，在开发中，我们一般不会直接使用UIGestureRecognizer的对象，而是通过其子类进行实例化，iOS系统给我们提供了许多用于实例的子类，这些我们后面再说，我们先来看一下，UIGestureRecognizer中抽象出了哪些方法。
-</code></pre><ol>
+<p>UIGestureRecognizer将一些和手势操作相关的方法抽象了出来，但它本身并不实现什么手势，因此，在开发中，我们一般不会直接使用UIGestureRecognizer的对象，而是通过其子类进行实例化，iOS系统给我们提供了许多用于实例的子类，这些我们后面再说，我们先来看一下，UIGestureRecognizer中抽象出了哪些方法。</p>
+<ol>
 <li><p>初始化方法<br>UIGestureRecognizer类为其子类准备好了一个统一的初始化方法，无论什么样的手势动作，其执行的结果都是一样的：触发一个方法，可以使用下面的方法进行统一的初始化：</p>
 <pre><code>- (instancetype)initWithTarget:(nullable id)target action:(nullable SEL)action
 </code></pre></li>

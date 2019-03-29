@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Eden的博客">
 <meta property="og:description" content="关于NSUserDefaults官方文档https://developer.apple.com/reference/foundation/userdefaults 一:NSUserDefaults是什么，有什么用处对于应用来说，每个用户都有自己的独特偏好设置，而好的应用会让用户根据喜好选择合适的使用方式，把这些偏好记录在应用包的plist文件中，通过NSUserDefaults类来访问，这是NSU">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-28T10:39:08.088Z">
+<meta property="og:updated_time" content="2019-03-29T02:05:17.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS中NSUserDefaults详解">
 <meta name="twitter:description" content="关于NSUserDefaults官方文档https://developer.apple.com/reference/foundation/userdefaults 一:NSUserDefaults是什么，有什么用处对于应用来说，每个用户都有自己的独特偏好设置，而好的应用会让用户根据喜好选择合适的使用方式，把这些偏好记录在应用包的plist文件中，通过NSUserDefaults类来访问，这是NSU">
@@ -301,6 +301,7 @@
       
         <p>关于NSUserDefaults官方文档<br><a href="https://developer.apple.com/reference/foundation/userdefaults" target="_blank" rel="noopener">https://developer.apple.com/reference/foundation/userdefaults</a></p>
 <p>一:NSUserDefaults是什么，有什么用处<br>对于应用来说，每个用户都有自己的独特偏好设置，而好的应用会让用户根据喜好选择合适的使用方式，把这些偏好记录在应用包的plist文件中，通过NSUserDefaults类来访问，这是NSUserDefaults的常用姿势。如果有一些设置你希望用户即使升级后还可以继续使用，比如玩游戏时得过的最高分、喜好和通知设置、主题颜色甚至一个用户头像，那么你可以使用NSUserDefaults来存储这些信息，如果有更多需求，可以了解数据持久化相关的知识。<br>具体来说NSUserDefaults是iOS系统提供的一个单例类(iOS提供了若干个单例类)，通过类方法standardUserDefaults可以获取NSUserDefaults单例。如：<br>NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</p>
+<a id="more"></a>
 <p>NSUserDefaults单例以key-value的形式存储了一系列偏好设置，key是名称，value是相应的数据。存/取数据时可以使用方法objectForKey:和setObject:forKey:来把对象存储到相应的plist文件中，或者读取，既然是plist文件，那么对象的类型则必须是plist文件可以存储的类型，正如官方文档中提到的——</p>
 <p>NSData<br>NSString<br>NSNumber<br>NSDate<br>NSArray<br>NSDictionary<br>而如果需要存储plist文件不支持的类型，比如图片，可以先将其归档为NSData类型，再存入plist文件，需要注意的是，即使对象是NSArray或NSDictionary，他们存储的类型也应该是以上范围包括的。</p>
 <p>二:存/读不同类型数据<br>比如存/读一个整数、字符串和一张图片：</p>

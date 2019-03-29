@@ -302,182 +302,21 @@
 
       
         
-          
-            <p>首先要创建一个带有属性的字符串NSMutableAttributedString</p>
+          <p>首先要创建一个带有属性的字符串NSMutableAttributedString</p>
 <pre><code>NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@&quot;这是一个富文本字符串&quot;]; 
 /* 其他几种创建方法
 - (instancetype)initWithString:(NSString *)str;
 - (instancetype)initWithString:(NSString *)str attributes:(nullable NSDictionary&lt;NSString *, id&gt; *)attrs;
 - (instancetype)initWithAttributedString:(NSAttributedString *)attrStr;
 */
-</code></pre><p>如何设置这个字符串的属性（以下两个方法：）</p>
-<pre><code>- (void)addAttribute:(NSString *)name value:(id)value range:(NSRange)range; // 每次设置一个属性和它对应的值
-- (void)addAttributes:(NSDictionary&lt;NSString *, id&gt; *)attrs range:(NSRange)range; // 一次可以设置多个属性 属性和属性值以字典键值对形式进行设置
-// range参数是设置要设置属性的字符串范围
-</code></pre><p>常用的属性都有哪些</p>
-<ul>
-<li>字体</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:30.0f] range:NSMakeRange(4, 3)];
-</code></pre><ul>
-<li>颜色</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4, 3)];
-</code></pre><ul>
-<li>背景颜色</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSBackgroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4, 3)];
-</code></pre><ul>
-<li>空心字</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSStrokeColorAttributeName
-    value:[UIColor redColor]
-    range:NSMakeRange(4, 3)];  // 设置描边颜色 要和NSStrokeWidthAttributeName设置描边宽度一起使用
-[attrStr addAttribute:NSStrokeWidthAttributeName
-    value:@1.5
-    range:NSMakeRange(4, 3)]; 
-</code></pre><ul>
-<li><p>间距</p>
-<pre><code>[attrStr addAttribute:NSKernAttributeName
-                value:@10                    // NSNumber
-                range:NSMakeRange(4, 3)];
-</code></pre></li>
-</ul>
-<ul>
-<li>倾斜</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSObliquenessAttributeName
-                value:@(0.5f)          // 正值向右倾斜 负值向左倾斜
-                range:NSMakeRange(4, 3)];
-</code></pre><ul>
-<li>拉伸、压缩</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSExpansionAttributeName
-                value:@(0.5f)      // 正值横向拉伸 负值横向压缩
-                range:NSMakeRange(4, 3)];
-</code></pre><ul>
-<li>连体</li>
-</ul>
-<pre><code>NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@&quot;&apos;flush&apos; is a string！&quot;];
-[attrStr addAttribute:NSLigatureAttributeName
-                value:@1
-                range:NSMakeRange(1, 5)];
-[attrStr addAttribute:NSFontAttributeName
-                value:[UIFont fontWithName:@&quot;futura&quot; size:30]
-                range:NSMakeRange(1, 5)];
-</code></pre><ul>
-<li>基线偏移量</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSBaselineOffsetAttributeName
-                value:@(10)   // 正值上偏 负值下偏
-                range:NSMakeRange(4, 3)];
-</code></pre><ul>
-<li>阴影</li>
-</ul>
-<pre><code>NSShadow *shadow = [[NSShadow alloc] init];  // NSShadow只有3个属性：阴影颜色，模糊半径和偏移
-shadow.shadowOffset     = CGSizeMake(3, 3);   // 阴影偏移（X方向偏移和Y方向偏移）
-shadow.shadowBlurRadius = 1.5;                // 模糊半径
-shadow.shadowColor      = [UIColor redColor]; // 阴影颜色
-
-[attrStr addAttribute:NSShadowAttributeName
-value:shadow
-range:NSMakeRange(4, 3)];
-</code></pre><ul>
-<li>特殊效果</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSTextEffectAttributeName
-value:NSTextEffectLetterpressStyle  // NSString类型 目前只有NSTextEffectLetterpressStyle(凸版印刷效果)可用
-range:NSMakeRange(4, 3)];
-</code></pre><ul>
-<li>书写方向</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSWritingDirectionAttributeName
-                value:@[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)]
-                range:NSMakeRange(0, attrStr.length)];
-
-
-//NSWritingDirectionAttributeName 设置文字书写方向，取值为以下组合
-// iOS9.0以前
-//@[@(NSWritingDirectionLeftToRight | NSTextWritingDirectionEmbedding)]
-//@[@(NSWritingDirectionLeftToRight | NSTextWritingDirectionOverride)]
-//@[@(NSWritingDirectionRightToLeft | NSTextWritingDirectionEmbedding)]
-//@[@(NSWritingDirectionRightToLeft | NSTextWritingDirectionOverride)]
-// iOS9.0以后
-//@[@(NSWritingDirectionLeftToRight | NSWritingDirectionEmbedding)]
-//@[@(NSWritingDirectionLeftToRight | NSWritingDirectionOverride)]
-//@[@(NSWritingDirectionRightToLeft | NSWritingDirectionEmbedding)]
-//@[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)]
-// NSWritingDirectionOverride 和 NSWritingDirectionEmbedding 是指定Unicode双向定义的格式控制算法（具体的没太搞清楚）
-</code></pre><ul>
-<li>横、竖排版</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSVerticalGlyphFormAttributeName
-                value:@0   // 0横向排版 1竖向排版 iOS中除了0以外都未定义，所以都为横向排版
-                range:NSMakeRange(0, attrStr.length)];
-</code></pre><ul>
-<li>下划线</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSUnderlineStyleAttributeName
-                value:@(NSUnderlineStyleSingle)
-                range:NSMakeRange(4, 3)];
-
-
-[attrStr addAttribute:NSUnderlineColorAttributeName
-                value:[UIColor redColor]
-                range:NSMakeRange(4, 3)];
-</code></pre><ul>
-<li>删除线</li>
-</ul>
-<pre><code>[attrStr addAttribute:NSStrikethroughStyleAttributeName
-                value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle)
-                range:NSMakeRange(4, 3)];
-
-
-[attrStr addAttribute:NSStrikethroughColorAttributeName
-                value:[UIColor redColor]
-                range:NSMakeRange(4, 3)];
-</code></pre><ul>
-<li>网址</li>
-</ul>
-<pre><code>NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@&quot;这是一个网址http://www.jianshu.com/users/37f2920f6848字符串！&quot;];
-[attrStr addAttribute:NSLinkAttributeName
-value:@&quot;http://www.jianshu.com/users/37f2920f6848&quot;
-range:NSMakeRange(6, attrStr.length -6 -4)];
-// label显示出来的连接是点击不了的 textView的是可以的 有响应的回调函数shouldInteractWithURL
-</code></pre><ul>
-<li>图文混排</li>
-</ul>
-<pre><code>NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@&quot;这是一个富文本字符串！&quot;];
-// 创建一个文字附件对象
-NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-textAttachment.image = [UIImage imageNamed:@&quot;11.png&quot;];  //设置图片源
-textAttachment.bounds = CGRectMake(0, -6, 30, 30);  //设置图片位置和大小
-// 将文字附件转换成属性字符串
-NSAttributedString *attachmentAttrStr = [NSAttributedString attributedStringWithAttachment:textAttachment];
-// 将转换成属性字符串插入到目标字符串
-[attrStr insertAttributedString:attachmentAttrStr atIndex:8];
-</code></pre><ul>
-<li>段落</li>
-</ul>
-<pre><code>NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-// 行间距
-paragraphStyle.lineSpacing = 15.f;
-// 段落间距
-paragraphStyle.paragraphSpacing = 30.f;
-// 段落缩进像素
-paragraphStyle.firstLineHeadIndent = 40.f;
-// 整体缩进像素
-paragraphStyle.headIndent = 15.f;
-// 对齐方式
-paragraphStyle.alignment = NSTextAlignmentLeft;
-// 其他属性请自行查阅NSMutableParagraphStyle头文件
-
-NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@&quot;这是一个富文本字符串。\n这是一个富文本字符串？\n这是一个富文本字符串！&quot;];
-[attrStr addAttribute:NSParagraphStyleAttributeName
-                value:paragraphStyle
-                range:NSMakeRange(0, attrStr.length)];
 </code></pre>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/29/iOS关于富文本字符串/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -594,36 +433,15 @@ NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWit
 
       
         
-          
-            <p>关于NSUserDefaults官方文档<br><a href="https://developer.apple.com/reference/foundation/userdefaults" target="_blank" rel="noopener">https://developer.apple.com/reference/foundation/userdefaults</a></p>
+          <p>关于NSUserDefaults官方文档<br><a href="https://developer.apple.com/reference/foundation/userdefaults" target="_blank" rel="noopener">https://developer.apple.com/reference/foundation/userdefaults</a></p>
 <p>一:NSUserDefaults是什么，有什么用处<br>对于应用来说，每个用户都有自己的独特偏好设置，而好的应用会让用户根据喜好选择合适的使用方式，把这些偏好记录在应用包的plist文件中，通过NSUserDefaults类来访问，这是NSUserDefaults的常用姿势。如果有一些设置你希望用户即使升级后还可以继续使用，比如玩游戏时得过的最高分、喜好和通知设置、主题颜色甚至一个用户头像，那么你可以使用NSUserDefaults来存储这些信息，如果有更多需求，可以了解数据持久化相关的知识。<br>具体来说NSUserDefaults是iOS系统提供的一个单例类(iOS提供了若干个单例类)，通过类方法standardUserDefaults可以获取NSUserDefaults单例。如：<br>NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</p>
-<p>NSUserDefaults单例以key-value的形式存储了一系列偏好设置，key是名称，value是相应的数据。存/取数据时可以使用方法objectForKey:和setObject:forKey:来把对象存储到相应的plist文件中，或者读取，既然是plist文件，那么对象的类型则必须是plist文件可以存储的类型，正如官方文档中提到的——</p>
-<p>NSData<br>NSString<br>NSNumber<br>NSDate<br>NSArray<br>NSDictionary<br>而如果需要存储plist文件不支持的类型，比如图片，可以先将其归档为NSData类型，再存入plist文件，需要注意的是，即使对象是NSArray或NSDictionary，他们存储的类型也应该是以上范围包括的。</p>
-<p>二:存/读不同类型数据<br>比如存/读一个整数、字符串和一张图片：</p>
-<p>###存<br>NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];<br>[defaults setObject:@”jack“ forKey:@”firstName”];<br>[defaults setInteger:10 forKey:@”Age”];</p>
-<p>UIImage <em>image =[UIImage imageNamed:@”somename”];<br>NSData </em>imageData = UIImageJPEGRepresentation(image, 100);//把image归档为NSData<br>[defaults setObject:imageData forKey:@”image”];</p>
-<p>[defaults synchronize];<br>其中，方法synchronise是为了强制存储，其实并非必要，因为这个方法会在系统中默认调用，但是你确认需要马上就存储，这样做是可行的。</p>
-<p>###读</p>
-<p>NSUserDefaults <em>defaults = [NSUserDefaults standardUserDefaults];<br>NSString </em>firstName = [defaults objectForKey:@”firstName”]<br>NSInteger age = [defaults integerForKey:@”Age”];</p>
-<p>NSData <em>imageData = [defaults dataForKey:@”image”];<br>UIImage </em>image = [UIImage imageWithData:imageData];<br>我们通过为三个数据设置key的方式把NSInteger、NSString和UIImage三种数据存储下来，其中图片是通过归档为NSData的方式进行存储的，除此之外，还可以被转为NSNumber或NSString类型。顺便提一句，这里NSInteger没有星号，因为NSInteger根据系统是64位还是32位来判断自身是long还是int类型，并且它也不是一个标准Objective-C对象。</p>
-<p>三:简便方法存取不同类型数据</p>
-<p>由上边的例子可以看到一个方法-setInteger:,这跟常用的-setObject：相比设置类型更明确。其实，NSUserDefaults提供了若干简便方法可以存储某些常用类型的值，例如：</p>
-<ul>
-<li>setBool:forKey:</li>
-<li>setFloat:forKey:</li>
-<li>setInteger:forKey:</li>
-<li>setDouble:forKey:</li>
-<li>setURL:forKey:<br>这将使某些值的设置更简单。</li>
-</ul>
-<p>四:NSUserDefaults域<br>考虑这么一种情况：<br>BOOL showTutorialOnLaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@”ShowTutorial”];</p>
-<p>这种情况下，当key值@“ShowTutorial”已设置后会运行正确。但如果默认数据库没有这个key的默认值时，将会返回NO，这或许就不一定是你需要的值了，因为无法区分NO和no value，前一段所提到的简便方法大多有这种问题。</p>
-<p>解决方式：使用registerDefaults:方法<br>首先创建一个包含用户偏好设置信息的DefaultPreferences.plist文件，添加到target中。在运行时，app就可以加载这个文件并且把内容传到registerDefaults :</p>
-<p>NSURL <em>defaultPrefsFile = [[NSBundle mainBundle]<br>URLForResource:@”DefaultPreferences” withExtension:@”plist”];<br>NSDictionary </em>defaultPrefs = [NSDictionary dictionaryWithContentsOfURL:defaultPrefsFile];<br>[[NSUserDefaults standardUserDefaults] registerDefaults:defaultPrefs];<br>注意需要在每次启动app并且没有在user defaules中读取数据的时候调用以上方法，因为registerDefaults:不能把这些默认数据存储到硬盘上，所以application:didFinishLaunchingWithOptions是最合适的地方。<br>这样做的原因是：默认情况下，应用域是空的，没见键也没有值。当应用第一次设置某项用户偏好设置的值时，相应的值会通过指定的键加入应用域。当通过NSUserDefaults获取某项用户偏好设置的值时，NSUserDefaults会先在应用域中查找，如果找到了值，NSUserDefaults就会返回这个值。如果没有找到，NSUserDefaults就会在注册域中查找并返回默认值。</p>
-<p>五:域</p>
-<p>user defaults数据库中其实是由多个层级的域组成的，当你读取一个键值的数据时，NSUserDefaults从上到下透过域的层级寻找正确的值，不同的域有不同的功能，有些域是可持久的，有些域则不行。</p>
-<p>应用域（application domain）是最重要的域，它存储着你app通过NSUserDefaults set…forKey添加的设置。<br>注册域（registration domain）仅有较低的优先权，只有在应用域没有找到值时才从注册域去寻找。<br>全局域（global domain）则存储着系统的设置<br>语言域（language-specific domains）则包括地区、日期等<br>参数域（ argument domain）有最高优先权<br>写入了NSUserDefaults数据, 那么我们怎么删除呢? 其实很简单:<br>[[NSUserDefaults standardUserDefaults] removeObjectForKey:key];<br>[[NSUserDefaults standardUserDefaults] synchronize];</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/28/iOS中NSUserDefaults详解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -740,32 +558,16 @@ NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWit
 
       
         
-          
-            <p>每一个iOS应用的开发者在工作中都会遇到需要用户键盘输入数据的需求，而输入框(UITextField/UITextView)的父界面可能是普通的UIView，也可能是UIScrollView，UITableView，UICollectionView 等。而如果输入框位于屏幕的底部，弹起的键盘很可能覆盖输入框，导致用户就看不到输入结果，体验较差。</p>
+          <p>每一个iOS应用的开发者在工作中都会遇到需要用户键盘输入数据的需求，而输入框(UITextField/UITextView)的父界面可能是普通的UIView，也可能是UIScrollView，UITableView，UICollectionView 等。而如果输入框位于屏幕的底部，弹起的键盘很可能覆盖输入框，导致用户就看不到输入结果，体验较差。</p>
 <p>那么这篇博客主要就是要介绍IQKeyboardManager框架的详细使用,使用IQKeyboardManager可以很容易地解决弹起键盘遮盖输入框的问题，并且易于集成，不需要侵入性地继承特定的类，也不需要实现某些奇怪的协议，满足大部分需求只需要少于5行代码。更让人惊喜的是IQKeyboardManager已经提供Swift版本。</p>
 <p>首先下载第三方库源码导入已有项目中(也可以使用CocoaPods), 然后只需要一行代码就可控制自动键盘处理事件在整个项目内是否启用。</p>
-<p>// iOS delegate内应用入口</p>
-<p>(BOOL)application:(UIApplication )application didFinishLaunchingWithOptions:(NSDictionary )launchOptions {<br>//关闭设置为NO, 默认值为NO.</p>
-<p>[IQKeyboardManager sharedManager].enable = YES;</p>
-<p>}</p>
-<p>1&gt;如果产品需要当键盘弹起时，点击背景收起键盘，也是一行代码解决。</p>
-<p>[IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;</p>
-<p>2&gt;而当产品需要支持内联编辑(Inline Editing), 这就需要隐藏键盘上的工具条(默认打开)</p>
-<p>[IQKeyboardManager sharedManager].enableAutoToolbar = NO;</p>
-<p>3&gt;如果当某一个输入框特定不需要键盘上的工具条时，一行代码</p>
-<p>textField.inputAccessoryView = [[UIView alloc] init];</p>
-<p>4&gt;如果因为不知名的原因需要在某个页面禁止自动键盘处理事件相应，也很简单。</p>
-<p>(void) viewWillAppear: (BOOL)animated {<br>//打开键盘事件相应</p>
-<p>[IQKeyboardManager sharedManager].enable = YES;</p>
-<p>}</p>
-<p>(void) viewWillDisappear: (BOOL)animated {<br>//关闭键盘事件相应</p>
-<p>[IQKeyboardManager sharedManager].enable = NO;</p>
-<p>}</p>
-<p>另外IQKeyboardManager支持屏幕旋转功能，这对一些应用特别有用。</p>
-<p>请注意的是，IQKeyboardManager还有一些未解决的问题列表:<br><a href="https://github.com/hackiftekhar/IQKeyboardManager/blob/master/KNOWN%20ISSUES.md" target="_blank" rel="noopener">https://github.com/hackiftekhar/IQKeyboardManager/blob/master/KNOWN%20ISSUES.md</a></p>
-<p>如果使用过程发现问题，可以对照参考，免得浪费不必要的时间。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/28/IQKeyboardManager框架详解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -882,10 +684,14 @@ NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWit
 
       
         
-          
-            <p>程序启动的完整过程:<br>1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:<br>int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。<br>argc、argv:标准main函数的参数，直接传递给UIApplicationMain进行相关处理即可<br>principalClassName:指定应用程序类，该类必须是UIApplication(或子类)。如果为nil,则用UIApplication类作为默认值<br>　　 delegateClassName:指定应用程序类的代理类，该类必须遵守UIApplicationDelegate协议。<br>　　<br>　　 2、在UIApplicationMain函数里面做了如下几件事情:<br>　　 　　(1)、根据传入的第三个参数创建UIApplication对象或它的子类对象。如果该参数为nil,直接使用该UIApplication来创建。(该参数只能传人UIApplication或者是它的子类)<br>　　 　　<br>　　 　　　　(2)、根据传入的第四个参数创建AppDelegate对象,并将该对象赋值给第1步创建的 UIApplication对象的delegate属性。<br>　　 　　　　<br>　　 　　　　　　(3)、开启一个事件循环,循环监控应用程序发生的事件。每监听到对应的系统事件时，就会通知AppDelegate。<br>　　 　　　　　　<br>　　 　　　　　　3、分两种情况:<br>　　 　　　　　　(1)有stroyboard<br>　　 　　　　　　<br>　　 　　　　　　应用程创建一个UIWindow对象(继承自UIView),并设置为AppDelegate的window属性。<br>　　 　　　　　　加载Info.plist文件，读取最主要storyboard文件的名称。<br>　　 　　　　　　加载最主要的storyboard文件，创建白色箭头所指的控制器对象。并且设置控制器为UIWindow的rootViewController属性(根控制器)。<br>　　 　　　　　　展示UIWindow,展示之前会将添加rootViewController的view到UIWindow上面(在这一步才会创建控制器的view),其内部会执行该行代码:[window addSubview: window.rootViewControler.view];<br>　　 　　　　　　<br>　　 　　　　　　(2)没有stroyboard<br>　　 　　　　　　<br>　　 　　　　　　首先会调用delegate对象的application:didFinishLaunchingWithOptions:方法。<br>　　 　　　　　　在application:didFinishLaunchingWithOptions:方法中需要主动创建 UIWindow对象。并设置为AppDelegate的window属性。<br>　　 　　　　　　主动创建一个 UIViewController对象，并赋值给window的rootViewController属性。<br>　　 　　　　　　调用 window的makeKeyAndVisible方法显示窗口。</p>
-
-          
+          <p>程序启动的完整过程:<br>1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:<br>int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。<br>argc、argv:标准main函数的参数，直接传递给UIApplicationMain进行相关处理即可<br>principalClassName:指定应用程序类，该类必须是UIApplication(或子类)。如果为nil,则用UIApplication类作为默认值<br>　　 delegateClassName:指定应用程序类的代理类，该类必须遵守UIApplicationDelegate协议。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/28/程序启动的完成过程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1002,52 +808,19 @@ NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWit
 
       
         
-          
-            <p>完整的实现思路:</p>
+          <p>完整的实现思路:</p>
 <p>App如果需要在锁屏界面上显示相关的信息和按钮, 必须先开启远程控制事件(Remote Control Event), 否则锁屏界面只显示滑动解锁.<br>实现锁屏界面信息, 将歌曲的相关信息更新到锁屏界面上<br>实现锁屏界面的事件处理, 在锁屏界面和上拉的快速功能菜单中实现播放控制</p>
 <p>远程控制事件的实现</p>
 <p>在iOS7.1之前, 远程控制事件主要涉及以下三个方法:</p>
 <p>开始接收远程控制事件<br>结束接收远程控制事件<br>触发远程控制事件后的捕获处理<br>官方文档对这三个方法的描述如下, 这里做了简单的翻译.</p>
 <p>开始接收远程控制事件</p>
-<p>Declaration</p>
-<ul>
-<li>(void)beginReceivingRemoteControlEvents<br>让App开始接收远程控制事件, 该方法属于UIApplication类</li>
-</ul>
-<p>Discussion</p>
-<p>在iOS7.1之后, 使用MPRemoteCommandCenter的共享对象来注册远程控制事件. 当使用shared command center时, 不需要再调用该方法.<br>该方法会开始使用事件响应链来传递远程控制事件. 远程控制事件是当耳机和外部附件意图控制App的多媒体表现时发出的命令. 要停止远程控制事件的接收, 必须调用endReceivingRemoteControlEvents方法</p>
-<p>结束接收远程控制事件</p>
-<p>Declaration</p>
-<ul>
-<li>(void)endReceivingRemoteControlEvents<br>让App停止接收远程控制事件, 该方法属于UIApplication类</li>
-</ul>
-<p>Discussion</p>
-<p>在iOS7.1之前, 使用shared MPRemoteCommandCenter对象来注册远程控制事件. 当使用shared command center时, 不需要再调用该方法.<br>该方法会停止通过事件响应链来传递远程控制事件. 远程控制事件是当耳机和外部附件意图控制App的多媒体表现时发出的命令.</p>
-<p>远程控制事件的捕获处理</p>
-<p>Declaration</p>
-<ul>
-<li>(void)remoteControlReceivedWithEvent:(UIEvent *)event<br>当远程控制事件发生时触发该方法, 该方法属于UIResponder类</li>
-</ul>
-<p>Discussion</p>
-<p>远程控制事件是由外部附件(包括耳机)所发出的命令. 应用需要响应这些命令来控制音频或视频媒体的对用户的表示. 事件响应者通过检查事件的subtype, 来判断命令的意图. 比如UIEventSubtypeRemoteControlPlay为播放操作, 然后做相关处理</p>
-<p>要允许远程控制事件的传递, 需要调用UIApplication的beginReceivingRemoteControlEvents方法; 要关闭远程控制事件的传递则调用endReceivingRemoteControlEvents</p>
-<p>项目中的代码实现</p>
-<p>(BOOL)application:(UIApplication )application didFinishLaunchingWithOptions:(NSDictionary )launchOptions {<br>// 在App启动后开启远程控制事件, 接收来自锁屏界面和上拉菜单的控制<br>[application beginReceivingRemoteControlEvents];</p>
-<p>return YES;<br>}</p>
-<p>(void)applicationWillTerminate:(UIApplication *)application<br>{<br>// 在App要终止前结束接收远程控制事件, 也可以在需要终止时调用该方法终止<br>[application endReceivingRemoteControlEvents];<br>}</p>
-<p>// 在具体的控制器或其它类中捕获处理远程控制事件</p>
-<p>(void)remoteControlReceivedWithEvent:(UIEvent *)event<br>{<br>// 根据事件的子类型(subtype) 来判断具体的事件类型, 并做出处理<br>switch (event.subtype) {<br>case UIEventSubtypeRemoteControlPlay:<br>case UIEventSubtypeRemoteControlPause: {<br>// 执行播放或暂停的相关操作 (锁屏界面和上拉快捷功能菜单处的播放按钮)<br>break;<br>}<br>case UIEventSubtypeRemoteControlPreviousTrack: {<br>// 执行上一曲的相关操作 (锁屏界面和上拉快捷功能菜单处的上一曲按钮)<br>break;<br>}<br>case UIEventSubtypeRemoteControlNextTrack: {<br>// 执行下一曲的相关操作 (锁屏界面和上拉快捷功能菜单处的下一曲按钮)<br>break;<br>}<br>case UIEventSubtypeRemoteControlTogglePlayPause: {<br>// 进行播放/暂停的相关操作 (耳机的播放/暂停按钮)<br>break;<br>}<br>default:<br>break;<br>}<br>}<br>iOS7.1后, 更新了远程控制事件的实现方式</p>
-<p>相关方法的描述中, 已经说明, iOS7.1之后使用MPRemoteCommandCenter类来进行远程控制事件的相关处理, 因此可以不再使用上面所描述的三个方法. 官方文档对MPRemoteCommandCenter的描述如下:</p>
-<p>MPRemoteCommandCenter</p>
-<p>MPRemoteCommandCenter类提供了处理远程控制事件的对象, 包括由外部附件和系统传输控制发送的远程控制事件. 不需要自己创建该类的实例. 而是使用shareCommandCenter方法获取默认的命令中心(share command center)对象. share command center对象的属性包含了MPRemoteCommand对象(表示iOS支持的每种远程控件事件). 如果要对响应的事件特殊处理, 使用适当的MPRemoteCommand对象注册一个handler即可.</p>
-<p>远程命令中心(remote command center)对象为许多不同类型的事件提供了命令(command)对象. 如果你的App不需要支持某些特定类型的事件, 可以通过设置其enabled属性为NO来禁用关联的MPRemoteCommand对象. 使用command对象注册一个handler, 以便让系统知道你的App已经做好了接收事件的准备. 只有当你的App是当前正在播放(Now Playing App)时才能接收到事件的传递.</p>
-<p>项目中的代码实现 :</p>
-<p>// 在需要处理远程控制事件的具体控制器或其它类中实现</p>
-<p>(void)remoteControlEventHandler<br>{<br>// 直接使用sharedCommandCenter来获取MPRemoteCommandCenter的shared实例<br>MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];</p>
-<p>// 启用播放命令 (锁屏界面和上拉快捷功能菜单处的播放按钮触发的命令)<br>commandCenter.playCommand.enabled = YES;<br>// 为播放命令添加响应事件, 在点击后触发<br>[commandCenter.playCommand addTarget:self action:@selector(playAction:)];</p>
-<p>// 播放, 暂停, 上下曲的命令默认都是启用状态, 即enabled默认为YES<br>// 为暂停, 上一曲, 下一曲分别添加对应的响应事件<br>[commandCenter.pauseCommand addTarget:self action:@selector(pauseAction:)];<br>[commandCenter.previousTrackCommand addTarget:self action:@selector(previousTrackAction:)];<br>[commandCenter.nextTrackCommand addTarget:self action:@selector(nextTrackAction:)];</p>
-<p>// 启用耳机的播放/暂停命令 (耳机上的播放按钮触发的命令)<br>commandCenter.togglePlayPauseCommand.enabled = YES;<br>// 为耳机的按钮操作添加相关的响应事件<br>[commandCenter.togglePlayPauseCommand addTarget:self action:@selector(playOrPauseAction:)];<br>}</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/28/iOS网易云音乐锁屏界面实现/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1164,24 +937,14 @@ NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWit
 
       
         
-          
-            <p>iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。</p>
-<p>1.UIDevice<br>UIDevice提供了多种属性、类函数及状态通知，帮助我们全方位了解设备状况。从检测电池电量到定位设备与临近感应，UIDevice所做的工作就是为应用程序提供用户及设备的一些信息。UIDevice类还能够收集关于设备的各种具体细节，例如机型及iOS版本等。其中大部分属性都对开发工作具有积极的辅助作用。下面的代码简单的使用UIDevice获取手机属性。</p>
-<p>//设备相关信息的获取<br>NSString *strName = [[UIDevice currentDevice] name];<br>NSLog(@”设备名称：%@”, strName);//e.g. “My iPhone”</p>
-<p>NSString *strId = [[UIDevice currentDevice] uniqueIdentifier];<br>NSLog(@”设备唯一标识：%@”, strId);//UUID,5.0后不可用  </p>
-<p>NSString *strSysName = [[UIDevice currentDevice] systemName];<br>NSLog(@”系统名称：%@”, strSysName);// e.g. @”iOS”  </p>
-<p>NSString *strSysVersion = [[UIDevice currentDevice] systemVersion];<br>NSLog(@”系统版本号：%@”, strSysVersion);// e.g. @”4.0”  </p>
-<p>NSString *strModel = [[UIDevice currentDevice] model];<br>NSLog(@”设备模式：%@”, strModel);// e.g. @”iPhone”, @”iPod touch”  </p>
-<p>NSString *strLocModel = [[UIDevice currentDevice] localizedModel];<br>NSLog(@”本地设备模式：%@”, strLocModel);// localized version of model<br>2.NSBundle<br>bundle是一个目录,其中包含了程序会使用到的资源. 这些资源包含了如图像,声音,编译好的代码,nib文件(用户也会把bundle称为plug-in). 对应bundle,cocoa提供了类NSBundle.一个应用程序看上去和其他文件没有什么区别. 但是实际上它是一个包含了nib文件,编译代码,以及其他资源的目录. 我们把这个目录叫做程序的main bundle。通过这个路径可以获取到应用的信息，例如应用名、版本号等。</p>
-<p>//app应用相关信息的获取<br>NSDictionary *dicInfo = [[NSBundle mainBundle] infoDictionary];<br>// CFShow(dicInfo);</p>
-<p>NSString *strAppName = [dicInfo objectForKey:@”CFBundleDisplayName”];<br>NSLog(@”App应用名称：%@”, strAppName);</p>
-<p>NSString *strAppVersion = [dicInfo objectForKey:@”CFBundleShortVersionString”];<br>NSLog(@”App应用版本：%@”, strAppVersion);</p>
-<p>NSString *strAppBuild = [dicInfo objectForKey:@”CFBundleVersion”];<br>NSLog(@”App应用Build版本：%@”, strAppBuild);</p>
-<p>3.NSLocale<br>NSLocale可以获取用户的本地化信息设置，例如货币类型，国家，语言，数字，日期格式的格式化，提供正确的地理位置显示等等。下面的代码获取机器当前语言和国家代码。</p>
-<p>NSArray languageArray = [NSLocale preferredLanguages];<br>NSString language = [languageArray objectAtIndex:0];<br>NSLog(@”语言：%@”, language);//en</p>
-<p>NSLocale locale = [NSLocale currentLocale];<br>NSString country = [locale localeIdentifier];<br>NSLog(@”国家：%@”, country); //en_US</p>
-
-          
+          <p>iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/28/获取手机信息/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1298,24 +1061,15 @@ NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWit
 
       
         
-          
-            <h1 id="关于runtime"><a href="#关于runtime" class="headerlink" title="关于runtime"></a>关于runtime</h1><p>1.什么是runtime？<br>1&gt; runtime是一套底层的C语言API（包含很多强大实用的C语言数据类型、C语言函数）<br>2&gt; 实际上，平时我们编写的OC代码，底层都是基于runtime实现的</p>
+          <h1 id="关于runtime"><a href="#关于runtime" class="headerlink" title="关于runtime"></a>关于runtime</h1><p>1.什么是runtime？<br>1&gt; runtime是一套底层的C语言API（包含很多强大实用的C语言数据类型、C语言函数）<br>2&gt; 实际上，平时我们编写的OC代码，底层都是基于runtime实现的</p>
 <p>也就是说，平时我们编写的OC代码，最终都是转成了底层的runtime代码（C语言代码）<br>2.runtime有啥用？<br>1&gt; 能动态产生一个类、一个成员变量、一个方法<br>2&gt; 能动态修改一个类、一个成员变量、一个方法<br>3&gt; 能动态删除一个类、一个成员变量、一个方法</p>
-<p>3.常见的函数、头文件</p>
-<p>#import : 成员变量、类、方法<br>Ivar class_copyIvarList : 获得某个类内部的所有成员变量<br>Method class_copyMethodList : 获得某个类内部的所有方法<br>Method class_getInstanceMethod : 获得某个实例方法（对象方法，减号-开头）<br>Method class_getClassMethod : 获得某个类方法（加号+开头）<br>method_exchangeImplementations : 交换2个方法的具体实现</p>
-<p>4.常用方法</p>
-<p>//获取属性列表</p>
-<p>objc_property_t propertyList = class_copyPropertyList([self class], &amp;count);<br>for (unsigned int i=0; i&lt;count; i++) {</p>
-<p>const char propertyName = property_getName(propertyList[i]);<br>NSLog(@”property—-&gt;%@”, [NSString stringWithUTF8String:propertyName]);<br>}</p>
-<p>//获取方法列表<br>Method *methodList = class_copyMethodList([self class], &amp;count);<br>for (unsigned int i; i&lt;count; i++) {<br>Method method = methodList[i];<br>NSLog(@”method—-&gt;%@”, NSStringFromSelector(method_getName(method)));<br>}</p>
-<p>//获取成员变量列表<br>Ivar ivarList = class_copyIvarList([self class], &amp;count);<br>for (unsigned int i; i&lt;count; i++) {<br>Ivar myIvar = ivarList[i];<br>const char ivarName = ivar_getName(myIvar);<br>NSLog(@”Ivar—-&gt;%@”, [NSString stringWithUTF8String:ivarName]);<br>}</p>
-<p>//获取协议列表<br>__unsafe_unretained Protocol <em>protocolList = class_copyProtocolList([self class], &amp;count);<br>for (unsigned int i; i&lt;count; i++) {<br>Protocol myProtocal = protocolList[i];<br>const char </em>protocolName = protocol_getName(myProtocal);<br>NSLog(@”protocol—-&gt;%@”, [NSString stringWithUTF8String:protocolName]);<br>}</p>
-<p>5.拦截调用</p>
-<p>在方法调用中说到了，如果没有找到方法就会转向拦截调用。<br>那么什么是拦截调用呢。<br>拦截调用就是，在找不到调用的方法程序崩溃之前，你有机会通过重写NSObject的四个方法来处理。</p>
-<p>(BOOL)resolveClassMethod:(SEL)sel;<br>(BOOL)resolveInstanceMethod:(SEL)sel;<br>//后两个方法需要转发到其他的类处理</p>
-<p>(id)forwardingTargetForSelector:(SEL)aSelector;<br>(void)forwardInvocation:(NSInvocation *)anInvocation;<br>5.1 第一个方法是当你调用一个不存在的类方法的时候，会调用这个方法，默认返回NO，你可以加上自己的处理然后返回YES。<br>5.2 第二个方法和第一个方法相似，只不过处理的是实例方法。<br>5.3 第三个方法是将你调用的不存在的方法重定向到一个其他声明了这个方法的类，只需要你返回一个有这个方法的target。<br>5.4 第四个方法是将你调用的不存在的方法打包成NSInvocation传给你。做完你自己的处理后，调用invokeWithTarget:方法让某个target触发这个方法。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/28/关于runtime/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1432,25 +1186,15 @@ NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWit
 
       
         
-          
-            <p>1.git与svn的区别<br>1.1 git的作用 : 源代码管理<br>1.2 为什么要进行源代码管理</p>
+          <p>1.git与svn的区别<br>1.1 git的作用 : 源代码管理<br>1.2 为什么要进行源代码管理</p>
 <p>为了方便多人协同开发(多人同时开发时代码整合)<br>为了方便代码备份(标签和分支)<br>1.3 git与svn的区别<br>代码的管理方式不一样<br>版本控制能力 : 提交更新代码<br>svn 集中式的代码管理.版本控制的能力在服务器上.一旦服务器挂掉了,多人开发就受阻<br>git 分布式的代码管理,客户端自己也有版本控制能力,万一服务器挂掉了,多人开发依然可以进行</p>
-<p>工程文件的表现形式不一样<br>svn 会在每个文件夹下创建一个.svn隐藏文件(体积相对大些,且冲突相对较多)<br>git 只会在根目录下创建一个.git的隐藏文件(体积相对较小,且冲突相对较少)</p>
-<p>使用场景不一样<br>svn 公司内部用,公司内网中使用,一般不会公布出去<br>git 开源项目使用</p>
-<p>2.图形化理解svn和git<br>提示 : 新公司入职第一天,公司会分配svn账号和密码<br>svn 服务器 –&gt; 客户端 –&gt; 服务器<br>git 服务器 –&gt; 客户端 –&gt; 本地仓库 –&gt; 服务器</p>
-<p>3.git单人本地操作 (没有服务器)<br>3.1 目的 : 为了演示git常用的终端命令<br>3.2 单人本地操作步骤 :<br>1.在桌面创建本地代码仓库(server文件夹),生成.git的隐藏文件<br>(git init)<br>2.创建项目工程(main.m),先cd到server文件夹目录下<br>(touch main.m)<br>3.查看.git目录下的文件状态.新文件或者被修改过的文件都是红色的,说明需要被添加到暂存区<br>(git status)<br>4.把所有没有添加到暂存区的文件添加到暂存区,添加到暂存区的文件是绿色的<br>(git add .)<br>5.在提交文件之前需要配置个人用户信息<br>(git config user.name “zhangsan”)<br>(git config user.email “<a href="mailto:zhangsan@163.com" target="_blank" rel="noopener">zhangsan@163.com</a>”)<br>6.将暂存区的文件提交到本地仓库<br>(git commit -m “版本描述”)<br>7.工作区文件和本地仓库文件对比<br>(git diff)<br>8.文件添加和提交合并为一步的操作<br>(git commit -m “版本描述”)<br>9.查看提交记录<br>(git reflog) (git log)<br>10.强制回到某个版本<br>(git reset –hard 版本号前6为)<br>11.撤销工作区的代码<br>(git checkout 文件名)</p>
-<p>4.git多人(本地)服务器操作<br>1.创建一个服务器仓库,生成服务器版本控制文件(服务器文件永远不要动)<br>(git init –bare)<br>2.经理clone服务器版本控制文件到他的本地(电脑/客户端)<br>(git clone /Users/zhangjie/Desktop/server)<br>3.经理设置身份信息(在.git隐藏文件的上级目录)<br>(git config user.name “经理”)<br>(git config user.email “<a href="mailto:manager@163.com" target="_blank" rel="noopener">manager@163.com</a>”)<br>4.经理配置.gitignore忽略文件<br>注意 : 忽略文件在.git文件同级目录下配置.且必须在创建项目工程之前配置好并提交到服务器<br>忽略文件下提交到本地,在推送到服务器<br>5.经理创建工程<br>注意 : 项目工程文件和.git文件,忽略文件在同一目录下<br>经理把项目工程推送到服务器<br>6.张三把服务器上经理准备好的项目clone下来<br>(git clone /Users/zhangjie/Desktop/server)<br>7.配置张三的个人信息<br>(git config user.name “张三”)<br>(git config user.email “<a href="mailto:zhangsan@163.com" target="_blank" rel="noopener">zhangsan@163.com</a>”)<br>8.张三修改文件之后提交到服务器<br>注意 : Xcode也可以把提交到本地和推送到服务器合并起来<br>9.经理从服务器上把张三的更新的代码拉取下来<br>10.撤销代码<br>方案一 : 终端命令强制回到某一个版本<br>方案二 : 在Xcode中选择需要discard的文件</p>
-<p>5.git的版本冲突<br>5.1 冲突原因<br>多个人同时操作同一个文件<br>某人一直不更新代码,只提交<br>5.2 解决冲突<br>5.3 避免冲突</p>
-<p>分模块开发<br>写代码之前一定要先pull,写完之后立即提交<br>如果要修改公共文件,或是别人的文件,一定要跟同事打招呼,提示同事不要修改.<br>下班前一定要把没有问题的代码提交到服务器,第二天上班第一件事,先pull再写代码<br>6.git的标签和分支<br>6.1 标签<br>作用 : 代码备份.当我们的某一个版本完成后,打上标签.如果后续的开发出现了问题,还有后悔的机会<br>(git tag -a 标签 -m ‘Version版本’)<br>终端命令 : (git tag -a tag1.0 -m ‘Version1.0’)<br>(git push origin 标签)<br>终端命令 : (git push origin tag1.0)</p>
-<p>6.2 分支<br>作用 : 一般是解决线上的bug,研究新的东西,或者攻关一个难题\<br>使用步骤 :<br>1.创建分支<br>2.在分支上修改代码<br>3.提交分支代码到服务器<br>4.合并分支到主干,并提交到服务器<br>5.此时主干上的代码都是没有问题的</p>
-<p>1.经理创建分支,下载tag1.0的代码,推送到服务器<br>(git checkout 标签名)<br>(git checkout -b 分支名 标签名)<br>(git push origin 分支名)<br>2.张三同步经理建立的分支<br>(git fetch)<br>3.张三选择对应的分支开发<br>4.bug改完了就提交到服务器上对应的分支<br>5.经理负责分支的合并帮推送到服务器主干<br>6.张三切换到主干,pull服务器上主干的代码</p>
-<p>7.OSChina创建项目<br>1.打开OSChina网站,进入码云,注册或者直接登录<br>2.创建私有项目<br>3.打开sourcetree,并设置个人信息<br>4.把OSChina上创建的项目clone到本地,即sourcetree管理经理的代码<br>5.经理创建项目工程,并推送到服务器<br>6.张三添加成为项目开发者之一<br>7.张三把OSChina上的项目clone到本地<br>8.配置张三的个人信息</p>
-<p>8.OSChina上面的标签和分支<br>1.使用sourcetree打标签<br>2.使用sourcetree创建分支并合并分支到主干</p>
-<p>9.发布框架到github<br>1.注册github<br>2.在github上创建项目<br>3.使用github Desktop把创建的项目clone到本地<br>4.在本地文件新建工程<br>5.github Desktop来管理代码的提交和拉取</p>
-<p>10.发布github上的代码到CocoaPods<br>1.先注册成为CocoaPods的开发者<br>2.验证注册是否成功<br>3.给框架打标签,并推送到github<br>4.生成pod的描述文件<br>5.配置pod说明文件<br>6.验证pod说明文件<br>7.推送pod说明文件<br>8.测试 : 搜索发布的框架<br>9.新建工程测试发布的框架</p>
-<p>11.更新框架并发布到CocoaPods<br>1.更新框架内容<br>2.打标签<br>3.修改,验证,推送pod说明文件到CocoaPods<br>4.测试搜索新版本<br>5.pod uodate 更新项目中的框架</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/28/Git详细分析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

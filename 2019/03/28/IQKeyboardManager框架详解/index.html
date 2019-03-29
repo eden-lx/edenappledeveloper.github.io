@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Eden的博客">
 <meta property="og:description" content="每一个iOS应用的开发者在工作中都会遇到需要用户键盘输入数据的需求，而输入框(UITextField/UITextView)的父界面可能是普通的UIView，也可能是UIScrollView，UITableView，UICollectionView 等。而如果输入框位于屏幕的底部，弹起的键盘很可能覆盖输入框，导致用户就看不到输入结果，体验较差。 那么这篇博客主要就是要介绍IQKeyboardMan">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-28T10:38:24.609Z">
+<meta property="og:updated_time" content="2019-03-29T02:05:37.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IQKeyboardManager框架详解">
 <meta name="twitter:description" content="每一个iOS应用的开发者在工作中都会遇到需要用户键盘输入数据的需求，而输入框(UITextField/UITextView)的父界面可能是普通的UIView，也可能是UIScrollView，UITableView，UICollectionView 等。而如果输入框位于屏幕的底部，弹起的键盘很可能覆盖输入框，导致用户就看不到输入结果，体验较差。 那么这篇博客主要就是要介绍IQKeyboardMan">
@@ -302,6 +302,7 @@
         <p>每一个iOS应用的开发者在工作中都会遇到需要用户键盘输入数据的需求，而输入框(UITextField/UITextView)的父界面可能是普通的UIView，也可能是UIScrollView，UITableView，UICollectionView 等。而如果输入框位于屏幕的底部，弹起的键盘很可能覆盖输入框，导致用户就看不到输入结果，体验较差。</p>
 <p>那么这篇博客主要就是要介绍IQKeyboardManager框架的详细使用,使用IQKeyboardManager可以很容易地解决弹起键盘遮盖输入框的问题，并且易于集成，不需要侵入性地继承特定的类，也不需要实现某些奇怪的协议，满足大部分需求只需要少于5行代码。更让人惊喜的是IQKeyboardManager已经提供Swift版本。</p>
 <p>首先下载第三方库源码导入已有项目中(也可以使用CocoaPods), 然后只需要一行代码就可控制自动键盘处理事件在整个项目内是否启用。</p>
+<a id="more"></a>
 <p>// iOS delegate内应用入口</p>
 <p>(BOOL)application:(UIApplication )application didFinishLaunchingWithOptions:(NSDictionary )launchOptions {<br>//关闭设置为NO, 默认值为NO.</p>
 <p>[IQKeyboardManager sharedManager].enable = YES;</p>

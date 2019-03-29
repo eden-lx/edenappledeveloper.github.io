@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Eden的博客">
 <meta property="og:description" content="首先要创建一个带有属性的字符串NSMutableAttributedString NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@&amp;quot;这是一个富文本字符串&amp;quot;];  /* 其他几种创建方法 - (instancetype)initWithString">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-29T01:57:20.961Z">
+<meta property="og:updated_time" content="2019-03-29T02:05:09.507Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS关于富文本字符串">
 <meta name="twitter:description" content="首先要创建一个带有属性的字符串NSMutableAttributedString NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@&amp;quot;这是一个富文本字符串&amp;quot;];  /* 其他几种创建方法 - (instancetype)initWithString">
@@ -306,7 +306,8 @@
 - (instancetype)initWithString:(NSString *)str attributes:(nullable NSDictionary&lt;NSString *, id&gt; *)attrs;
 - (instancetype)initWithAttributedString:(NSAttributedString *)attrStr;
 */
-</code></pre><p>如何设置这个字符串的属性（以下两个方法：）</p>
+</code></pre><a id="more"></a>
+<p>如何设置这个字符串的属性（以下两个方法：）</p>
 <pre><code>- (void)addAttribute:(NSString *)name value:(id)value range:(NSRange)range; // 每次设置一个属性和它对应的值
 - (void)addAttributes:(NSDictionary&lt;NSString *, id&gt; *)attrs range:(NSRange)range; // 一次可以设置多个属性 属性和属性值以字典键值对形式进行设置
 // range参数是设置要设置属性的字符串范围

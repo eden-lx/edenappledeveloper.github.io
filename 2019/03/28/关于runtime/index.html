@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Eden的博客">
 <meta property="og:description" content="关于runtime1.什么是runtime？1&amp;gt; runtime是一套底层的C语言API（包含很多强大实用的C语言数据类型、C语言函数）2&amp;gt; 实际上，平时我们编写的OC代码，底层都是基于runtime实现的 也就是说，平时我们编写的OC代码，最终都是转成了底层的runtime代码（C语言代码）2.runtime有啥用？1&amp;gt; 能动态产生一个类、一个成员变量、一个方法2&amp;gt; 能动">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-28T09:59:56.428Z">
+<meta property="og:updated_time" content="2019-03-29T02:04:41.286Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于runtime">
 <meta name="twitter:description" content="关于runtime1.什么是runtime？1&amp;gt; runtime是一套底层的C语言API（包含很多强大实用的C语言数据类型、C语言函数）2&amp;gt; 实际上，平时我们编写的OC代码，底层都是基于runtime实现的 也就是说，平时我们编写的OC代码，最终都是转成了底层的runtime代码（C语言代码）2.runtime有啥用？1&amp;gt; 能动态产生一个类、一个成员变量、一个方法2&amp;gt; 能动">
@@ -301,6 +301,7 @@
       
         <h1 id="关于runtime"><a href="#关于runtime" class="headerlink" title="关于runtime"></a>关于runtime</h1><p>1.什么是runtime？<br>1&gt; runtime是一套底层的C语言API（包含很多强大实用的C语言数据类型、C语言函数）<br>2&gt; 实际上，平时我们编写的OC代码，底层都是基于runtime实现的</p>
 <p>也就是说，平时我们编写的OC代码，最终都是转成了底层的runtime代码（C语言代码）<br>2.runtime有啥用？<br>1&gt; 能动态产生一个类、一个成员变量、一个方法<br>2&gt; 能动态修改一个类、一个成员变量、一个方法<br>3&gt; 能动态删除一个类、一个成员变量、一个方法</p>
+<a id="more"></a>
 <p>3.常见的函数、头文件</p>
 <p>#import : 成员变量、类、方法<br>Ivar class_copyIvarList : 获得某个类内部的所有成员变量<br>Method class_copyMethodList : 获得某个类内部的所有方法<br>Method class_getInstanceMethod : 获得某个实例方法（对象方法，减号-开头）<br>Method class_getClassMethod : 获得某个类方法（加号+开头）<br>method_exchangeImplementations : 交换2个方法的具体实现</p>
 <p>4.常用方法</p>

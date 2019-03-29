@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。 1.UIDeviceUIDevice提供了多种属性、类函数及状态通知，帮助我们全">
+<meta name="description" content="iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="获取手机信息">
 <meta property="og:url" content="http://yoursite.com/2019/03/28/获取手机信息/index.html">
 <meta property="og:site_name" content="Eden的博客">
-<meta property="og:description" content="iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。 1.UIDeviceUIDevice提供了多种属性、类函数及状态通知，帮助我们全">
+<meta property="og:description" content="iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-28T10:20:29.204Z">
+<meta property="og:updated_time" content="2019-03-29T02:04:48.913Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="获取手机信息">
-<meta name="twitter:description" content="iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。 1.UIDeviceUIDevice提供了多种属性、类函数及状态通知，帮助我们全">
+<meta name="twitter:description" content="iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。">
 
 
 
@@ -300,6 +300,7 @@
 
       
         <p>iOS的APP的应用开发的过程中，有时为了bug跟踪或者获取用反馈的需要自动收集用户设备、系统信息、应用信息等等，这些信息方便开发者诊断问题，当然这些信息是用户的非隐私信息，是通过开发api可以获取到的。那么通过那些api可以获取这些信息呢，iOS的SDK中提供了UIDevice，NSBundle，NSLocale。</p>
+<a id="more"></a>
 <p>1.UIDevice<br>UIDevice提供了多种属性、类函数及状态通知，帮助我们全方位了解设备状况。从检测电池电量到定位设备与临近感应，UIDevice所做的工作就是为应用程序提供用户及设备的一些信息。UIDevice类还能够收集关于设备的各种具体细节，例如机型及iOS版本等。其中大部分属性都对开发工作具有积极的辅助作用。下面的代码简单的使用UIDevice获取手机属性。</p>
 <p>//设备相关信息的获取<br>NSString *strName = [[UIDevice currentDevice] name];<br>NSLog(@”设备名称：%@”, strName);//e.g. “My iPhone”</p>
 <p>NSString *strId = [[UIDevice currentDevice] uniqueIdentifier];<br>NSLog(@”设备唯一标识：%@”, strId);//UUID,5.0后不可用  </p>

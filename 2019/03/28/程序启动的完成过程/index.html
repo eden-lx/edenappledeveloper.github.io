@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Eden的博客">
 <meta property="og:description" content="程序启动的完整过程:1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。argc、argv:标准main函数的参数，直接传递给UIApplicat">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-28T10:37:38.817Z">
+<meta property="og:updated_time" content="2019-03-29T02:04:41.946Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="程序启动的完成过程">
 <meta name="twitter:description" content="程序启动的完整过程:1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。argc、argv:标准main函数的参数，直接传递给UIApplicat">
@@ -299,7 +299,9 @@
       
 
       
-        <p>程序启动的完整过程:<br>1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:<br>int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。<br>argc、argv:标准main函数的参数，直接传递给UIApplicationMain进行相关处理即可<br>principalClassName:指定应用程序类，该类必须是UIApplication(或子类)。如果为nil,则用UIApplication类作为默认值<br>　　 delegateClassName:指定应用程序类的代理类，该类必须遵守UIApplicationDelegate协议。<br>　　<br>　　 2、在UIApplicationMain函数里面做了如下几件事情:<br>　　 　　(1)、根据传入的第三个参数创建UIApplication对象或它的子类对象。如果该参数为nil,直接使用该UIApplication来创建。(该参数只能传人UIApplication或者是它的子类)<br>　　 　　<br>　　 　　　　(2)、根据传入的第四个参数创建AppDelegate对象,并将该对象赋值给第1步创建的 UIApplication对象的delegate属性。<br>　　 　　　　<br>　　 　　　　　　(3)、开启一个事件循环,循环监控应用程序发生的事件。每监听到对应的系统事件时，就会通知AppDelegate。<br>　　 　　　　　　<br>　　 　　　　　　3、分两种情况:<br>　　 　　　　　　(1)有stroyboard<br>　　 　　　　　　<br>　　 　　　　　　应用程创建一个UIWindow对象(继承自UIView),并设置为AppDelegate的window属性。<br>　　 　　　　　　加载Info.plist文件，读取最主要storyboard文件的名称。<br>　　 　　　　　　加载最主要的storyboard文件，创建白色箭头所指的控制器对象。并且设置控制器为UIWindow的rootViewController属性(根控制器)。<br>　　 　　　　　　展示UIWindow,展示之前会将添加rootViewController的view到UIWindow上面(在这一步才会创建控制器的view),其内部会执行该行代码:[window addSubview: window.rootViewControler.view];<br>　　 　　　　　　<br>　　 　　　　　　(2)没有stroyboard<br>　　 　　　　　　<br>　　 　　　　　　首先会调用delegate对象的application:didFinishLaunchingWithOptions:方法。<br>　　 　　　　　　在application:didFinishLaunchingWithOptions:方法中需要主动创建 UIWindow对象。并设置为AppDelegate的window属性。<br>　　 　　　　　　主动创建一个 UIViewController对象，并赋值给window的rootViewController属性。<br>　　 　　　　　　调用 window的makeKeyAndVisible方法显示窗口。</p>
+        <p>程序启动的完整过程:<br>1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:<br>int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。<br>argc、argv:标准main函数的参数，直接传递给UIApplicationMain进行相关处理即可<br>principalClassName:指定应用程序类，该类必须是UIApplication(或子类)。如果为nil,则用UIApplication类作为默认值<br>　　 delegateClassName:指定应用程序类的代理类，该类必须遵守UIApplicationDelegate协议。</p>
+<a id="more"></a>
+<p>　　 2、在UIApplicationMain函数里面做了如下几件事情:<br>　　 　　(1)、根据传入的第三个参数创建UIApplication对象或它的子类对象。如果该参数为nil,直接使用该UIApplication来创建。(该参数只能传人UIApplication或者是它的子类)<br>　　 　　<br>　　 　　　　(2)、根据传入的第四个参数创建AppDelegate对象,并将该对象赋值给第1步创建的 UIApplication对象的delegate属性。<br>　　 　　　　<br>　　 　　　　　　(3)、开启一个事件循环,循环监控应用程序发生的事件。每监听到对应的系统事件时，就会通知AppDelegate。<br>　　 　　　　　　<br>　　 　　　　　　3、分两种情况:<br>　　 　　　　　　(1)有stroyboard<br>　　 　　　　　　<br>　　 　　　　　　应用程创建一个UIWindow对象(继承自UIView),并设置为AppDelegate的window属性。<br>　　 　　　　　　加载Info.plist文件，读取最主要storyboard文件的名称。<br>　　 　　　　　　加载最主要的storyboard文件，创建白色箭头所指的控制器对象。并且设置控制器为UIWindow的rootViewController属性(根控制器)。<br>　　 　　　　　　展示UIWindow,展示之前会将添加rootViewController的view到UIWindow上面(在这一步才会创建控制器的view),其内部会执行该行代码:[window addSubview: window.rootViewControler.view];<br>　　 　　　　　　<br>　　 　　　　　　(2)没有stroyboard<br>　　 　　　　　　<br>　　 　　　　　　首先会调用delegate对象的application:didFinishLaunchingWithOptions:方法。<br>　　 　　　　　　在application:didFinishLaunchingWithOptions:方法中需要主动创建 UIWindow对象。并设置为AppDelegate的window属性。<br>　　 　　　　　　主动创建一个 UIViewController对象，并赋值给window的rootViewController属性。<br>　　 　　　　　　调用 window的makeKeyAndVisible方法显示窗口。</p>
 
       
     </div>

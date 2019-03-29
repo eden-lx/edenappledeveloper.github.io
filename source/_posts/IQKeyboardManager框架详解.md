@@ -1,0 +1,58 @@
+---
+title: IQKeyboardManager框架详解
+date: 2019-03-28 18:38:09
+tags:
+---
+
+
+每一个iOS应用的开发者在工作中都会遇到需要用户键盘输入数据的需求，而输入框(UITextField/UITextView)的父界面可能是普通的UIView，也可能是UIScrollView，UITableView，UICollectionView 等。而如果输入框位于屏幕的底部，弹起的键盘很可能覆盖输入框，导致用户就看不到输入结果，体验较差。
+
+那么这篇博客主要就是要介绍IQKeyboardManager框架的详细使用,使用IQKeyboardManager可以很容易地解决弹起键盘遮盖输入框的问题，并且易于集成，不需要侵入性地继承特定的类，也不需要实现某些奇怪的协议，满足大部分需求只需要少于5行代码。更让人惊喜的是IQKeyboardManager已经提供Swift版本。
+
+首先下载第三方库源码导入已有项目中(也可以使用CocoaPods), 然后只需要一行代码就可控制自动键盘处理事件在整个项目内是否启用。
+
+<!-- more -->
+
+// iOS delegate内应用入口
+
+(BOOL)application:(UIApplication )application didFinishLaunchingWithOptions:(NSDictionary )launchOptions {
+//关闭设置为NO, 默认值为NO.
+
+[IQKeyboardManager sharedManager].enable = YES;
+
+}
+
+1>如果产品需要当键盘弹起时，点击背景收起键盘，也是一行代码解决。
+
+[IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+
+2>而当产品需要支持内联编辑(Inline Editing), 这就需要隐藏键盘上的工具条(默认打开)
+
+[IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+
+3>如果当某一个输入框特定不需要键盘上的工具条时，一行代码
+
+textField.inputAccessoryView = [[UIView alloc] init];
+
+4>如果因为不知名的原因需要在某个页面禁止自动键盘处理事件相应，也很简单。
+
+(void) viewWillAppear: (BOOL)animated {
+//打开键盘事件相应
+
+[IQKeyboardManager sharedManager].enable = YES;
+
+}
+
+(void) viewWillDisappear: (BOOL)animated {
+//关闭键盘事件相应
+
+[IQKeyboardManager sharedManager].enable = NO;
+
+}
+
+另外IQKeyboardManager支持屏幕旋转功能，这对一些应用特别有用。
+
+请注意的是，IQKeyboardManager还有一些未解决的问题列表:
+https://github.com/hackiftekhar/IQKeyboardManager/blob/master/KNOWN%20ISSUES.md
+
+如果使用过程发现问题，可以对照参考，免得浪费不必要的时间。

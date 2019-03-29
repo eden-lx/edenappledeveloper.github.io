@@ -316,85 +316,87 @@
 // range参数是设置要设置属性的字符串范围
 </code></pre><p>常用的属性都有哪些</p>
 <ul>
-<li><p>字体<br>-</p>
-<p>  [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:30.0f] range:NSMakeRange(4, 3)];</p>
-</li>
-<li><p>颜色<br>-</p>
-<p>  [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4, 3)];</p>
-</li>
+<li>字体</li>
 </ul>
-<ul>
-<li><p>背景颜色<br>-</p>
-<p>  [attrStr addAttribute:NSBackgroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4, 3)];</p>
-</li>
+<pre><code>[attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:30.0f] range:NSMakeRange(4, 3)];
+</code></pre><ul>
+<li>颜色</li>
 </ul>
-<ul>
-<li><p>空心字<br>-</p>
-<p>  [attrStr addAttribute:NSStrokeColorAttributeName</p>
-<pre><code>value:[UIColor redColor]
-range:NSMakeRange(4, 3)];  // 设置描边颜色 要和NSStrokeWidthAttributeName设置描边宽度一起使用
-</code></pre><p>  [attrStr addAttribute:NSStrokeWidthAttributeName</p>
-<pre><code>value:@1.5
-range:NSMakeRange(4, 3)]; 
+<pre><code>[attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4, 3)];
+</code></pre><ul>
+<li>背景颜色</li>
+</ul>
+<pre><code>[attrStr addAttribute:NSBackgroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4, 3)];
+</code></pre><ul>
+<li>空心字</li>
+</ul>
+<pre><code>[attrStr addAttribute:NSStrokeColorAttributeName
+    value:[UIColor redColor]
+    range:NSMakeRange(4, 3)];  // 设置描边颜色 要和NSStrokeWidthAttributeName设置描边宽度一起使用
+[attrStr addAttribute:NSStrokeWidthAttributeName
+    value:@1.5
+    range:NSMakeRange(4, 3)]; 
+</code></pre><ul>
+<li><p>间距</p>
+<pre><code>[attrStr addAttribute:NSKernAttributeName
+                value:@10                    // NSNumber
+                range:NSMakeRange(4, 3)];
 </code></pre></li>
 </ul>
 <ul>
-<li><p>间距<br>-</p>
-<p>  [attrStr addAttribute:NSKernAttributeName</p>
-<pre><code>value:@10                    // NSNumber
+<li>倾斜</li>
+</ul>
+<pre><code>[attrStr addAttribute:NSObliquenessAttributeName
+                value:@(0.5f)          // 正值向右倾斜 负值向左倾斜
+                range:NSMakeRange(4, 3)];
+</code></pre><ul>
+<li>拉伸、压缩</li>
+</ul>
+<pre><code>[attrStr addAttribute:NSExpansionAttributeName
+                value:@(0.5f)      // 正值横向拉伸 负值横向压缩
+                range:NSMakeRange(4, 3)];
+</code></pre><ul>
+<li>连体</li>
+</ul>
+<pre><code>NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@&quot;&apos;flush&apos; is a string！&quot;];
+[attrStr addAttribute:NSLigatureAttributeName
+                value:@1
+                range:NSMakeRange(1, 5)];
+[attrStr addAttribute:NSFontAttributeName
+                value:[UIFont fontWithName:@&quot;futura&quot; size:30]
+                range:NSMakeRange(1, 5)];
+</code></pre><ul>
+<li>基线偏移量</li>
+</ul>
+<pre><code>[attrStr addAttribute:NSBaselineOffsetAttributeName
+                value:@(10)   // 正值上偏 负值下偏
+                range:NSMakeRange(4, 3)];
+</code></pre><ul>
+<li>阴影</li>
+</ul>
+<pre><code>NSShadow *shadow = [[NSShadow alloc] init];  // NSShadow只有3个属性：阴影颜色，模糊半径和偏移
+shadow.shadowOffset     = CGSizeMake(3, 3);   // 阴影偏移（X方向偏移和Y方向偏移）
+shadow.shadowBlurRadius = 1.5;                // 模糊半径
+shadow.shadowColor      = [UIColor redColor]; // 阴影颜色
+
+[attrStr addAttribute:NSShadowAttributeName
+value:shadow
 range:NSMakeRange(4, 3)];
-</code></pre></li>
+</code></pre><ul>
+<li>特殊效果</li>
 </ul>
-<ul>
-<li><p>倾斜<br>-</p>
-<p>  [attrStr addAttribute:NSObliquenessAttributeName</p>
-<pre><code>value:@(0.5f)          // 正值向右倾斜 负值向左倾斜
+<pre><code>[attrStr addAttribute:NSTextEffectAttributeName
+value:NSTextEffectLetterpressStyle  // NSString类型 目前只有NSTextEffectLetterpressStyle(凸版印刷效果)可用
 range:NSMakeRange(4, 3)];
-</code></pre></li>
+</code></pre><ul>
+<li>书写方向</li>
 </ul>
-<ul>
-<li><p>拉伸、压缩<br>-</p>
-<p>  [attrStr addAttribute:NSExpansionAttributeName</p>
-<pre><code>value:@(0.5f)      // 正值横向拉伸 负值横向压缩
-range:NSMakeRange(4, 3)];
-</code></pre></li>
-</ul>
-<ul>
-<li><p>连体<br>-</p>
-<p>  NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@”‘flush’ is a string！”];<br>  [attrStr addAttribute:NSLigatureAttributeName</p>
-<pre><code>value:@1
-range:NSMakeRange(1, 5)];
-</code></pre><p>  [attrStr addAttribute:NSFontAttributeName</p>
-<pre><code>value:[UIFont fontWithName:@&quot;futura&quot; size:30]
-range:NSMakeRange(1, 5)];
-</code></pre></li>
-</ul>
-<ul>
-<li><p>基线偏移量<br>-</p>
-<p>  [attrStr addAttribute:NSBaselineOffsetAttributeName</p>
-<pre><code>value:@(10)   // 正值上偏 负值下偏
-range:NSMakeRange(4, 3)];
-</code></pre></li>
-</ul>
-<ul>
-<li><p>阴影<br>-</p>
-<p>  NSShadow *shadow = [[NSShadow alloc] init];  // NSShadow只有3个属性：阴影颜色，模糊半径和偏移<br>  shadow.shadowOffset     = CGSizeMake(3, 3);   // 阴影偏移（X方向偏移和Y方向偏移）<br>  shadow.shadowBlurRadius = 1.5;                // 模糊半径<br>  shadow.shadowColor      = [UIColor redColor]; // 阴影颜色</p>
-<p>  [attrStr addAttribute:NSShadowAttributeName<br>  value:shadow<br>  range:NSMakeRange(4, 3)];</p>
-</li>
-</ul>
-<ul>
-<li><p>特殊效果<br>-</p>
-<p>  [attrStr addAttribute:NSTextEffectAttributeName<br>  value:NSTextEffectLetterpressStyle  // NSString类型 目前只有NSTextEffectLetterpressStyle(凸版印刷效果)可用<br>  range:NSMakeRange(4, 3)];</p>
-</li>
-</ul>
-<ul>
-<li><p>书写方向<br>-</p>
-<p>  [attrStr addAttribute:NSWritingDirectionAttributeName</p>
-<pre><code>value:@[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)]
-range:NSMakeRange(0, attrStr.length)];
-</code></pre></li>
-</ul>
-<pre><code>//NSWritingDirectionAttributeName 设置文字书写方向，取值为以下组合
+<pre><code>[attrStr addAttribute:NSWritingDirectionAttributeName
+                value:@[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)]
+                range:NSMakeRange(0, attrStr.length)];
+
+
+//NSWritingDirectionAttributeName 设置文字书写方向，取值为以下组合
 // iOS9.0以前
 //@[@(NSWritingDirectionLeftToRight | NSTextWritingDirectionEmbedding)]
 //@[@(NSWritingDirectionLeftToRight | NSTextWritingDirectionOverride)]
@@ -407,51 +409,74 @@ range:NSMakeRange(0, attrStr.length)];
 //@[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)]
 // NSWritingDirectionOverride 和 NSWritingDirectionEmbedding 是指定Unicode双向定义的格式控制算法（具体的没太搞清楚）
 </code></pre><ul>
-<li><p>横、竖排版<br>-</p>
-<p>  [attrStr addAttribute:NSVerticalGlyphFormAttributeName</p>
-<pre><code>value:@0   // 0横向排版 1竖向排版 iOS中除了0以外都未定义，所以都为横向排版
-range:NSMakeRange(0, attrStr.length)];
-</code></pre></li>
+<li>横、竖排版</li>
 </ul>
-<ul>
-<li><p>下划线<br>-</p>
-<p>  [attrStr addAttribute:NSUnderlineStyleAttributeName</p>
-<pre><code>value:@(NSUnderlineStyleSingle)
-range:NSMakeRange(4, 3)];
-</code></pre></li>
+<pre><code>[attrStr addAttribute:NSVerticalGlyphFormAttributeName
+                value:@0   // 0横向排版 1竖向排版 iOS中除了0以外都未定义，所以都为横向排版
+                range:NSMakeRange(0, attrStr.length)];
+</code></pre><ul>
+<li>下划线</li>
 </ul>
-<pre><code>[attrStr addAttribute:NSUnderlineColorAttributeName
+<pre><code>[attrStr addAttribute:NSUnderlineStyleAttributeName
+                value:@(NSUnderlineStyleSingle)
+                range:NSMakeRange(4, 3)];
+
+
+[attrStr addAttribute:NSUnderlineColorAttributeName
                 value:[UIColor redColor]
                 range:NSMakeRange(4, 3)];
 </code></pre><ul>
-<li><p>删除线<br>-</p>
-<p>  [attrStr addAttribute:NSStrikethroughStyleAttributeName</p>
-<pre><code>value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle)
-range:NSMakeRange(4, 3)];
-</code></pre></li>
+<li>删除线</li>
 </ul>
-<pre><code>[attrStr addAttribute:NSStrikethroughColorAttributeName
+<pre><code>[attrStr addAttribute:NSStrikethroughStyleAttributeName
+                value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle)
+                range:NSMakeRange(4, 3)];
+
+
+[attrStr addAttribute:NSStrikethroughColorAttributeName
                 value:[UIColor redColor]
                 range:NSMakeRange(4, 3)];
 </code></pre><ul>
 <li>网址</li>
-<li><p>  NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@”这是一个网址<a href="http://www.jianshu.com/users/37f2920f6848字符串！&quot;]" target="_blank" rel="noopener">http://www.jianshu.com/users/37f2920f6848字符串！&quot;]</a>;<br>  [attrStr addAttribute:NSLinkAttributeName<br>  value:@”<a href="http://www.jianshu.com/users/37f2920f6848&quot;" target="_blank" rel="noopener">http://www.jianshu.com/users/37f2920f6848&quot;</a><br>  range:NSMakeRange(6, attrStr.length -6 -4)];<br>  // label显示出来的连接是点击不了的 textView的是可以的 有响应的回调函数shouldInteractWithURL</p>
-</li>
 </ul>
-<ul>
-<li><p>图文混排<br>-</p>
-<p>  NSMutableAttributedString <em> attrStr = [[NSMutableAttributedString alloc] initWithString:@”这是一个富文本字符串！”];<br>  // 创建一个文字附件对象<br>  NSTextAttachment </em>textAttachment = [[NSTextAttachment alloc] init];<br>  textAttachment.image = [UIImage imageNamed:@”11.png”];  //设置图片源<br>  textAttachment.bounds = CGRectMake(0, -6, 30, 30);  //设置图片位置和大小<br>  // 将文字附件转换成属性字符串<br>  NSAttributedString *attachmentAttrStr = [NSAttributedString attributedStringWithAttachment:textAttachment];<br>  // 将转换成属性字符串插入到目标字符串<br>  [attrStr insertAttributedString:attachmentAttrStr atIndex:8];</p>
-</li>
+<pre><code>NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@&quot;这是一个网址http://www.jianshu.com/users/37f2920f6848字符串！&quot;];
+[attrStr addAttribute:NSLinkAttributeName
+value:@&quot;http://www.jianshu.com/users/37f2920f6848&quot;
+range:NSMakeRange(6, attrStr.length -6 -4)];
+// label显示出来的连接是点击不了的 textView的是可以的 有响应的回调函数shouldInteractWithURL
+</code></pre><ul>
+<li>图文混排</li>
 </ul>
-<ul>
-<li><p>段落<br>-</p>
-<p>  NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];<br>  // 行间距<br>  paragraphStyle.lineSpacing = 15.f;<br>  // 段落间距<br>  paragraphStyle.paragraphSpacing = 30.f;<br>  // 段落缩进像素<br>  paragraphStyle.firstLineHeadIndent = 40.f;<br>  // 整体缩进像素<br>  paragraphStyle.headIndent = 15.f;<br>  // 对齐方式<br>  paragraphStyle.alignment = NSTextAlignmentLeft;<br>  // 其他属性请自行查阅NSMutableParagraphStyle头文件</p>
-<p>  NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@”这是一个富文本字符串。\n这是一个富文本字符串？\n这是一个富文本字符串！”];<br>  [attrStr addAttribute:NSParagraphStyleAttributeName</p>
-<pre><code>value:paragraphStyle
-range:NSMakeRange(0, attrStr.length)];
-</code></pre></li>
+<pre><code>NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@&quot;这是一个富文本字符串！&quot;];
+// 创建一个文字附件对象
+NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+textAttachment.image = [UIImage imageNamed:@&quot;11.png&quot;];  //设置图片源
+textAttachment.bounds = CGRectMake(0, -6, 30, 30);  //设置图片位置和大小
+// 将文字附件转换成属性字符串
+NSAttributedString *attachmentAttrStr = [NSAttributedString attributedStringWithAttachment:textAttachment];
+// 将转换成属性字符串插入到目标字符串
+[attrStr insertAttributedString:attachmentAttrStr atIndex:8];
+</code></pre><ul>
+<li>段落</li>
 </ul>
+<pre><code>NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+// 行间距
+paragraphStyle.lineSpacing = 15.f;
+// 段落间距
+paragraphStyle.paragraphSpacing = 30.f;
+// 段落缩进像素
+paragraphStyle.firstLineHeadIndent = 40.f;
+// 整体缩进像素
+paragraphStyle.headIndent = 15.f;
+// 对齐方式
+paragraphStyle.alignment = NSTextAlignmentLeft;
+// 其他属性请自行查阅NSMutableParagraphStyle头文件
 
+NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@&quot;这是一个富文本字符串。\n这是一个富文本字符串？\n这是一个富文本字符串！&quot;];
+[attrStr addAttribute:NSParagraphStyleAttributeName
+                value:paragraphStyle
+                range:NSMakeRange(0, attrStr.length)];
+</code></pre>
           
         
       

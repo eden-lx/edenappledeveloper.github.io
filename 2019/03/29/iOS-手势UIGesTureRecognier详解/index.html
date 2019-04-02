@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一. 手势UIGestureRecognier简介 iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer），在触摸事件处理方面，大大简化了开发者的开发难度。利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势。UIGestureRecognizer是一个抽象类，对iOS中的事件传递机制面向应用进行封装，将手势消息的传递抽象为了对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 手势UIGesTureRecognier详解">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/iOS-手势UIGesTureRecognier详解/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一. 手势UIGestureRecognier简介 iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer），在触摸事件处理方面，大大简化了开发者的开发难度。利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势。UIGestureRecognizer是一个抽象类，对iOS中的事件传递机制面向应用进行封装，将手势消息的传递抽象为了对象">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-02T14:48:46.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 手势UIGesTureRecognier详解">
+<meta name="twitter:description" content="一. 手势UIGestureRecognier简介 iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer），在触摸事件处理方面，大大简化了开发者的开发难度。利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势。UIGestureRecognizer是一个抽象类，对iOS中的事件传递机制面向应用进行封装，将手势消息的传递抽象为了对象">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/29/iOS-手势UIGesTureRecognier详解/">
+
+
+
+
+
+  <title>iOS 手势UIGesTureRecognier详解 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">上个博客丢失，重新建立的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/iOS-手势UIGesTureRecognier详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS 手势UIGesTureRecognier详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-29T18:05:06+08:00">
+                2019-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一. 手势UIGestureRecognier简介</p>
+<p>iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer），在触摸事件处理方面，大大简化了开发者的开发难度。利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势。UIGestureRecognizer是一个抽象类，对iOS中的事件传递机制面向应用进行封装，将手势消息的传递抽象为了对象。其中定义了所有手势的基本行为，使用它的子类才能处理具体的手势。</p>
+<a id="more"></a>
+<p>二. 手势的抽象类——UIGestureRecognizer</p>
+<p>UIGestureRecognizer将一些和手势操作相关的方法抽象了出来，但它本身并不实现什么手势，因此，在开发中，我们一般不会直接使用UIGestureRecognizer的对象，而是通过其子类进行实例化，iOS系统给我们提供了许多用于实例的子类，这些我们后面再说，我们先来看一下，UIGestureRecognizer中抽象出了哪些方法。</p>
+<ol>
+<li><p>初始化方法<br>UIGestureRecognizer类为其子类准备好了一个统一的初始化方法，无论什么样的手势动作，其执行的结果都是一样的：触发一个方法，可以使用下面的方法进行统一的初始化：</p>
+<pre><code>- (instancetype)initWithTarget:(nullable id)target action:(nullable SEL)action
+</code></pre></li>
+</ol>
+<p>当然，如果我们使用alloc-init的方式，也是可以的，下面的方法可以为手势添加触发的selector：</p>
+<pre><code>- (void)addTarget:(id)target action:(SEL)action;
+</code></pre><p>与之相对应的，我们也可以将一个selector从其手势对象上移除：</p>
+<pre><code>- (void)removeTarget:(nullable id)target action:(nullable SEL)action;
+</code></pre><p>因为addTarget方式的存在，iOS系统允许一个手势对象可以添加多个selector触发方法，并且触发的时候，所有添加的selector都会被执行，我们以点击手势示例如下：</p>
+<pre><code>- (void)viewDidLoad {
+[super viewDidLoad];
+UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap1:)];
+    [tap1 addTarget:self action:@selector(tap2:)];
+    [self.view addGestureRecognizer:tap1];
+}
+-(void)tap1:(UITapGestureRecognizer *)tap
+{
+    NSLog(@&quot;%s&quot;,__func__);
+}
+-(void)tap2:(UITapGestureRecognizer *)tap
+{
+    NSLog(@&quot;%s&quot;,__func__);
+}
+</code></pre><p>点击屏幕，打印内容如下，说明两个方法都触发了</p>
+<ol start="2">
+<li><p>手势状态<br>UIgestureRecognizer类中有如下一个属性，里面枚举了一些手势的当前状态:</p>
+<pre><code>@property(nonatomic,readonly) UIGestureRecognizerState state;
+</code></pre></li>
+</ol>
+<p>枚举值如下：</p>
+<pre><code>typedef NS_ENUM(NSInteger, UIGestureRecognizerState) {
+    UIGestureRecognizerStatePossible,   // 默认的状态，这个时候的手势并没有具体的情形状态
+    UIGestureRecognizerStateBegan,      // 手势开始被识别的状态
+    UIGestureRecognizerStateChanged,    // 手势识别发生改变的状态
+    UIGestureRecognizerStateEnded,      // 手势识别结束，将会执行触发的方法
+    UIGestureRecognizerStateCancelled,  // 手势识别取消
+    UIGestureRecognizerStateFailed,     // 识别失败，方法将不会被调用
+    UIGestureRecognizerStateRecognized = UIGestureRecognizerStateEnded 
+};
+</code></pre><ol start="3">
+<li><p>常用属性和方法</p>
+<pre><code>//手势代理 代理中有一些手势触发的方法，后面拿出来详细说明
+@property(nullable,nonatomic,weak) id &lt;UIGestureRecognizerDelegate&gt; delegate; 
+//设置手势是否有效
+@property(nonatomic, getter=isEnabled) BOOL enabled;  
+//获取手势所在的View
+@property(nullable, nonatomic,readonly) UIView *view;          
+//默认是YES。当识别到手势的时候，终止touchesCancelled:withEvent:或pressesCancelled:withEvent:发送的所有触摸事件。
+@property(nonatomic) BOOL cancelsTouchesInView;     
+//默认为NO ,在触摸开始的时候，就会发消息给事件传递链，如果设置为YES，在触摸没有被识别失败前，都不会给事件传递链发送消息。  
+@property(nonatomic) BOOL delaysTouchesBegan;    
+//默认为YES 。这个属性设置手势识别结束后，是立刻发送touchesEnded或pressesEnded消息到事件传递链或者等待一个很短的时间后，如果没有接收到新的手势识别任务，再发送。
+@property(nonatomic) BOOL delaysTouchesEnded;         
+
+@property(nonatomic, copy) NSArray&lt;NSNumber *&gt; *allowedTouchTypes NS_AVAILABLE_IOS(9_0); // Array of UITouchType&apos;s as NSNumbers.
+@property(nonatomic, copy) NSArray&lt;NSNumber *&gt; *allowedPressTypes NS_AVAILABLE_IOS(9_0); // Array of UIPressTypes as NSNumbers.
+
+//[A requireGestureRecognizerToFail：B]手势互斥 它可以指定当A手势发生时，即便A已经滿足条件了，也不会立刻触发，会等到指定的手势B确定失败之后才触发。
+- (void)requireGestureRecognizerToFail:(UIGestureRecognizer *)otherGestureRecognizer;
+//获取当前触摸的点
+- (CGPoint)locationInView:(nullable UIView*)view;
+//设置触摸点数
+- (NSUInteger)numberOfTouches;
+//获取某一个触摸点的触摸位置
+- (CGPoint)locationOfTouch:(NSUInteger)touchIndex inView:(nullable UIView*)view; 
+</code></pre></li>
+</ol>
+<p>3.1 个别属性详解<br>其中几个BOOL值的属性，对于手势触发的控制也十分重要，下面我们举个栗子来详细说明一下以下三个方法。</p>
+<pre><code>@property(nonatomic) BOOL cancelsTouchesInView;
+@property(nonatomic) BOOL delaysTouchesBegan;
+@property(nonatomic) BOOL delaysTouchesEnded;
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
+    pan.cancelsTouchesInView = NO;
+    //    pan.delaysTouchesBegan = YES;
+    [self.view addGestureRecognizer:pan];    
+}
+-(void)touchesMoved:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@&quot;touchMoved手势触发&quot;);
+}
+-(void)pan:(UIPanGestureRecognizer *)pan{
+    NSLog(@&quot;pan手势触发&quot;);
+}
+</code></pre><p>pan.cancelsTouchesInView属性默认设置为YES，如果识别到了手势，系统将会发送touchesCancelled:withEvent:消息在其时间传递链上，终止触摸事件的传递，也就是说默认当识别到手势时，touch事件传递的方法将被终止而不执行，如果设置为NO，touch事件传递的方法仍然会被执行，上例中我们使用了拖拽手势和touchesMoved两个触发方式，当我们把cancelTouchesInView设置为NO时，在屏幕上滑动，两种方式都在触发</p>
+<p>因为此时在拖拽手势识别失败之前，都不会给时间传递链发送消息，所以就不会在调用touchesMoved触发事件了<br>而delaysTouchesEnded属性默认是YES，当设为YES时在手势识别结束后，会等待一个很短的时间，如果没有接收到新的手势识别任务，才会发送touchesEnded消息到事件传递链，设置为NO之后会立刻发送touchesEnded消息到事件传递链我们同样来看一个例子：</p>
+<pre><code>- (void)viewDidLoad {
+    [super viewDidLoad];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+    tap.numberOfTapsRequired = 3;
+    // tap.cancelsTouchesInView = NO;
+    // tap.delaysTouchesBegan = YES;
+    tap.delaysTouchesEnded = NO;
+    [self.view addGestureRecognizer:tap];    
+}
+-(void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event{
+    NSLog(@&quot;touchBegan手势开始&quot;);
+}
+-(void)touchesEnded:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@&quot;touchEnd手势触发结束&quot;);
+}
+-(void)tap:(UITapGestureRecognizer *)tap
+{
+    NSLog(@&quot;tap手势触发&quot;);
+}
+</code></pre><p>3.2 重点方法详解-手势间的互斥处理<br>同一个View上是可以添加多个手势对象的，默认这些手势是互斥的，一个手势触发了就会默认屏蔽其他相似的手势动作。比如，单击和双击并存时，如果不做处理，它就只能发送出单击的消息。为了能够识别出双击手势，就需要用下面的方法一个特殊处理逻辑，即先判断手势是否是双击，在双击失效的情况下作为单击手势处理。</p>
+<pre><code>- (void)requireGestureRecognizerToFail:(UIGestureRecognizer *)otherGestureRecognizer;
+</code></pre><p>[A requireGestureRecognizerToFail：B] 它可以指定当A手势发生时，即便A已经滿足条件了，也不会立刻触发，会等到指定的手势B确定失败之后才触发。<br>看一个例子</p>
+<pre><code>- (void)viewDidLoad {
+    [super viewDidLoad];
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap1:)];
+    tap1.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:tap1];
+    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap2:)];
+    tap2.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:tap2];  
+    //当tap2手势触发失败时才会触发tap1手势
+    [tap1 requireGestureRecognizerToFail:tap2];
+}
+-(void)tap1:(UITapGestureRecognizer *)tap
+{
+    NSLog(@&quot;tap1手势触发&quot;);
+}
+-(void)tap2:(UITapGestureRecognizer *)tap
+{
+    NSLog(@&quot;tap2手势触发&quot;);
+}
+</code></pre><p>3.3. UIGestureRecognizerDelegate<br>前面我们提到过关于手势对象的协议代理，通过代理的回调，我们可以进行自定义手势，也可以处理一些复杂的手势关系，其中方法如下：</p>
+<pre><code>//手指触摸屏幕后回调的方法，返回NO则不再进行手势识别，方法触发等
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
+//开始进行手势识别时调用的方法，返回NO则结束，不再触发手势
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer;
+//是否支持多时候触发，返回YES，则可以多个手势一起触发方法，返回NO则为互斥
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+//下面这个两个方法也是用来控制手势的互斥执行的
+//这个方法返回YES，第一个手势和第二个互斥时，第一个会失效
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer NS_AVAILABLE_IOS(7_0);
+//这个方法返回YES，第一个和第二个互斥时，第二个会失效
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer NS_AVAILABLE_IOS(7_0);
+</code></pre><p>三. UIGestureRecognizer子类及子类属性<br>除了UIGestureRecognizer中的方法和属性是所有子类通用的之外，UIGestureRecognizer子类中分别有不同的属性和方法来对应不同的手势。</p>
+<ol>
+<li><p>点击手势——UITapGestureRecognizer<br>点击手势十分简单，支持单击和多次点击，在我们手指触摸屏幕并抬起手指时会进行触发，其中有如下两个属性我们可以进行设置：</p>
+<pre><code>//设置点击次数，默认为单击
+@property (nonatomic) NSUInteger  numberOfTapsRequired; 
+//设置同时点击的手指数
+@property (nonatomic) NSUInteger  numberOfTouchesRequired;
+</code></pre></li>
+<li><p>捏合手势——UIPinchGestureRecognizer<br>捏合手势是当我们双指捏合和扩张会触发动作的手势，我们可以设置的属性如下：</p>
+<pre><code>//设置缩放比例
+@property (nonatomic)          CGFloat scale; 
+//设置捏合速度
+@property (nonatomic,readonly) CGFloat velocity;
+</code></pre></li>
+<li><p>拖拽手势——UIPanGestureRecognzer<br>当我们点中视图进行慢速拖拽时会触发拖拽手势的方法。</p>
+<pre><code>//设置触发拖拽的最少触摸点，默认为1
+@property (nonatomic)          NSUInteger minimumNumberOfTouches; 
+//设置触发拖拽的最多触摸点
+@property (nonatomic)          NSUInteger maximumNumberOfTouches;  
+//获取当前位置
+- (CGPoint)translationInView:(nullable UIView *)view;            
+//设置当前位置
+- (void)setTranslation:(CGPoint)translation inView:(nullable UIView *)view;
+//设置拖拽速度
+- (CGPoint)velocityInView:(nullable UIView *)view;
+</code></pre></li>
+<li><p>滑动手势——UISwipeGestureRecognizer<br>滑动手势和拖拽手势的不同之处在于滑动手势更快，而拖拽比较慢。</p>
+<pre><code>//设置触发滑动手势的触摸点数
+@property(nonatomic) NSUInteger                        numberOfTouchesRequired; 
+//设置滑动方向
+@property(nonatomic) UISwipeGestureRecognizerDirection direction;  
+//枚举如下
+typedef NS_OPTIONS(NSUInteger, UISwipeGestureRecognizerDirection) {
+    UISwipeGestureRecognizerDirectionRight = 1 &lt;&lt; 0,
+    UISwipeGestureRecognizerDirectionLeft  = 1 &lt;&lt; 1,
+    UISwipeGestureRecognizerDirectionUp    = 1 &lt;&lt; 2,
+    UISwipeGestureRecognizerDirectionDown  = 1 &lt;&lt; 3
+};
+</code></pre></li>
+<li><p>旋转手势——UIRotationGestureRecognizer<br>进行旋转动作时触发手势方法。</p>
+<pre><code>//设置旋转角度
+@property (nonatomic)          CGFloat rotation;
+//设置旋转速度 
+@property (nonatomic,readonly) CGFloat velocity;
+</code></pre></li>
+<li><p>长按手势——UILongPressGestureRecognizer<br>进行长按的时候触发的手势方法。</p>
+<pre><code>//设置触发前的点击次数
+@property (nonatomic) NSUInteger numberOfTapsRequired;    
+//设置触发的触摸点数
+@property (nonatomic) NSUInteger numberOfTouchesRequired; 
+//设置最短的长按时间
+@property (nonatomic) CFTimeInterval minimumPressDuration; 
+//设置在按触时时允许移动的最大距离 默认为10像素
+@property (nonatomic) CGFloat allowableMovement;
+</code></pre></li>
+<li><p>自定义手势<br>自定义手势继承：UIGestureRecognizer，实现下面的方法，在以下方法中判断自定义手势是否实现。</p>
+<pre><code>– touchesBegan:withEvent:  
+– touchesMoved:withEvent:  
+– touchesEnded:withEvent:  
+- touchesCancelled:withEvent: 
+</code></pre></li>
+</ol>
+<p>注意.m文件中需要引入#import &lt;UIKit/UIGestureRecognizerSubclass.h&gt;。</p>
+<p>关于iOS-UITouch事件处理过程可以看这篇文章<a href="https://www.jianshu.com/p/ef60a6c10a8d" target="_blank" rel="noopener">iOS-UITouch事件处理详解</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/29/hexo-多终端同步博客/" rel="next" title="hexo 多终端同步博客">
+                <i class="fa fa-chevron-left"></i> hexo 多终端同步博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/01/iOS中求出UILabel中文字的行数以及每一行的内容/" rel="prev" title="iOS中求出UILabel中文字的行数以及每一行的内容">
+                iOS中求出UILabel中文字的行数以及每一行的内容 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Eden</p>
+              <p class="site-description motion-element" itemprop="description">态度决定一切，细节决定成败</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eden</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

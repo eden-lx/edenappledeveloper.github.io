@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="每一个iOS应用的开发者在工作中都会遇到需要用户键盘输入数据的需求，而输入框(UITextField/UITextView)的父界面可能是普通的UIView，也可能是UIScrollView，UITableView，UICollectionView 等。而如果输入框位于屏幕的底部，弹起的键盘很可能覆盖输入框，导致用户就看不到输入结果，体验较差。 那么这篇博客主要就是要介绍IQKeyboardMan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IQKeyboardManager框架详解">
+<meta property="og:url" content="http://yoursite.com/2019/03/28/IQKeyboardManager框架详解/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="每一个iOS应用的开发者在工作中都会遇到需要用户键盘输入数据的需求，而输入框(UITextField/UITextView)的父界面可能是普通的UIView，也可能是UIScrollView，UITableView，UICollectionView 等。而如果输入框位于屏幕的底部，弹起的键盘很可能覆盖输入框，导致用户就看不到输入结果，体验较差。 那么这篇博客主要就是要介绍IQKeyboardMan">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-29T02:05:37.439Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IQKeyboardManager框架详解">
+<meta name="twitter:description" content="每一个iOS应用的开发者在工作中都会遇到需要用户键盘输入数据的需求，而输入框(UITextField/UITextView)的父界面可能是普通的UIView，也可能是UIScrollView，UITableView，UICollectionView 等。而如果输入框位于屏幕的底部，弹起的键盘很可能覆盖输入框，导致用户就看不到输入结果，体验较差。 那么这篇博客主要就是要介绍IQKeyboardMan">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/28/IQKeyboardManager框架详解/">
+
+
+
+
+
+  <title>IQKeyboardManager框架详解 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">上个博客丢失，重新建立的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/IQKeyboardManager框架详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IQKeyboardManager框架详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T18:38:09+08:00">
+                2019-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>每一个iOS应用的开发者在工作中都会遇到需要用户键盘输入数据的需求，而输入框(UITextField/UITextView)的父界面可能是普通的UIView，也可能是UIScrollView，UITableView，UICollectionView 等。而如果输入框位于屏幕的底部，弹起的键盘很可能覆盖输入框，导致用户就看不到输入结果，体验较差。</p>
+<p>那么这篇博客主要就是要介绍IQKeyboardManager框架的详细使用,使用IQKeyboardManager可以很容易地解决弹起键盘遮盖输入框的问题，并且易于集成，不需要侵入性地继承特定的类，也不需要实现某些奇怪的协议，满足大部分需求只需要少于5行代码。更让人惊喜的是IQKeyboardManager已经提供Swift版本。</p>
+<p>首先下载第三方库源码导入已有项目中(也可以使用CocoaPods), 然后只需要一行代码就可控制自动键盘处理事件在整个项目内是否启用。</p>
+<a id="more"></a>
+<p>// iOS delegate内应用入口</p>
+<p>(BOOL)application:(UIApplication )application didFinishLaunchingWithOptions:(NSDictionary )launchOptions {<br>//关闭设置为NO, 默认值为NO.</p>
+<p>[IQKeyboardManager sharedManager].enable = YES;</p>
+<p>}</p>
+<p>1&gt;如果产品需要当键盘弹起时，点击背景收起键盘，也是一行代码解决。</p>
+<p>[IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;</p>
+<p>2&gt;而当产品需要支持内联编辑(Inline Editing), 这就需要隐藏键盘上的工具条(默认打开)</p>
+<p>[IQKeyboardManager sharedManager].enableAutoToolbar = NO;</p>
+<p>3&gt;如果当某一个输入框特定不需要键盘上的工具条时，一行代码</p>
+<p>textField.inputAccessoryView = [[UIView alloc] init];</p>
+<p>4&gt;如果因为不知名的原因需要在某个页面禁止自动键盘处理事件相应，也很简单。</p>
+<p>(void) viewWillAppear: (BOOL)animated {<br>//打开键盘事件相应</p>
+<p>[IQKeyboardManager sharedManager].enable = YES;</p>
+<p>}</p>
+<p>(void) viewWillDisappear: (BOOL)animated {<br>//关闭键盘事件相应</p>
+<p>[IQKeyboardManager sharedManager].enable = NO;</p>
+<p>}</p>
+<p>另外IQKeyboardManager支持屏幕旋转功能，这对一些应用特别有用。</p>
+<p>请注意的是，IQKeyboardManager还有一些未解决的问题列表:<br><a href="https://github.com/hackiftekhar/IQKeyboardManager/blob/master/KNOWN%20ISSUES.md" target="_blank" rel="noopener">https://github.com/hackiftekhar/IQKeyboardManager/blob/master/KNOWN%20ISSUES.md</a></p>
+<p>如果使用过程发现问题，可以对照参考，免得浪费不必要的时间。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/28/程序启动的完成过程/" rel="next" title="程序启动的完成过程">
+                <i class="fa fa-chevron-left"></i> 程序启动的完成过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/28/iOS中NSUserDefaults详解/" rel="prev" title="iOS中NSUserDefaults详解">
+                iOS中NSUserDefaults详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Eden</p>
+              <p class="site-description motion-element" itemprop="description">态度决定一切，细节决定成败</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eden</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -87,14 +87,14 @@
 <meta property="og:description" content="控制台输出的报错如下">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/04/02/iOS如何定位Masonry约束报错的控件/images/20190402-1">
-<meta property="og:image" content="http://yoursite.com/2019/04/02/iOS如何定位Masonry约束报错的控件/images/20190402-2">
-<meta property="og:image" content="http://yoursite.com/2019/04/02/iOS如何定位Masonry约束报错的控件/images/20190402-3">
-<meta property="og:image" content="http://yoursite.com/2019/04/02/iOS如何定位Masonry约束报错的控件/images/20190402-4">
-<meta property="og:image" content="http://yoursite.com/2019/04/02/iOS如何定位Masonry约束报错的控件/images/20190402-5">
-<meta property="og:image" content="http://yoursite.com/2019/04/02/iOS如何定位Masonry约束报错的控件/images/20190402-6">
-<meta property="og:image" content="http://yoursite.com/2019/04/02/iOS如何定位Masonry约束报错的控件/images/20190402-7">
-<meta property="og:image" content="http://yoursite.com/2019/04/02/iOS如何定位Masonry约束报错的控件/images/20190402-8">
-<meta property="og:updated_time" content="2019-04-02T14:27:23.918Z">
+<meta property="og:image" content="http://yoursite.com/images/20190402-2">
+<meta property="og:image" content="http://yoursite.com/images/20190402-3">
+<meta property="og:image" content="http://yoursite.com/images/20190402-4">
+<meta property="og:image" content="http://yoursite.com/images/20190402-5">
+<meta property="og:image" content="http://yoursite.com/images/20190402-6">
+<meta property="og:image" content="http://yoursite.com/images/20190402-7">
+<meta property="og:image" content="http://yoursite.com/images/20190402-8">
+<meta property="og:updated_time" content="2019-04-02T14:29:16.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS如何定位Masonry约束报错的控件">
 <meta name="twitter:description" content="控制台输出的报错如下">
@@ -311,15 +311,15 @@
         <p>控制台输出的报错如下<br><img src="images/20190402-1" alt></p>
 <a id="more"></a>
 <p>想要定位哪个控件出现问题了,可以按照如下步骤进行</p>
-<p>1.添加Symbolic Breakpoint<br><img src="images/20190402-2" alt></p>
+<p>1.添加Symbolic Breakpoint<br><img src="/images/20190402-2" alt></p>
 <p>2.配置Symbol为UIViewAlertForUnsatisfiableConstraints</p>
-<p>Action 选择Debugger Command 输入框输入 po [[UIWindow keyWindow] _autolayoutTrace]<br><img src="images/20190402-3" alt></p>
-<p>3.从新进入报错的页面,Xcode会出现一个断点,如下图所示<br><img src="images/20190402-4" alt></p>
-<p>4.点击左侧索引停留的位置,右侧会显示断点的具体位置,基本可以确定是EvaluateCell内的某个控件出现约束问题了.<br><img src="images/20190402-5" alt></p>
-<p>5.点击跳过此断点,直至控制台具体的报错原因<br><img src="images/20190402-6" alt></p>
-<p><img src="images/20190402-7" alt></p>
+<p>Action 选择Debugger Command 输入框输入 po [[UIWindow keyWindow] _autolayoutTrace]<br><img src="/images/20190402-3" alt></p>
+<p>3.从新进入报错的页面,Xcode会出现一个断点,如下图所示<br><img src="/images/20190402-4" alt></p>
+<p>4.点击左侧索引停留的位置,右侧会显示断点的具体位置,基本可以确定是EvaluateCell内的某个控件出现约束问题了.<br><img src="/images/20190402-5" alt></p>
+<p>5.点击跳过此断点,直至控制台具体的报错原因<br><img src="/images/20190402-6" alt></p>
+<p><img src="/images/20190402-7" alt></p>
 <p>6.此时你只需要在EvaluateCell中去寻找距某一个视图顶部为10,底部为-10的控件了</p>
-<p>我这里找到了具体哪一个控件(self.replyL),这个控件的父视图高度为0,不能基于这个高度为0的控件再添加约束,所有会有约束异常<br><img src="images/20190402-8" alt></p>
+<p>我这里找到了具体哪一个控件(self.replyL),这个控件的父视图高度为0,不能基于这个高度为0的控件再添加约束,所有会有约束异常<br><img src="/images/20190402-8" alt></p>
 
       
     </div>

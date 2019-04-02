@@ -232,6 +232,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/02/iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/02/iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别/" itemprop="url">iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-02T22:08:23+08:00">
+                2019-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1、viewForkey和objectForkey的区别</p>
+<p>objectForKey: returns the value associated with aKey, or nil if no value is associated with aKey. 返回指定 key 的 value，若没有这个 key 返回 nil.<br>valueForKey: returns the value associated with a given key. 同样是返回指定 key 的 value。<br>但文档里 valueForKey: 有额外一点：一般来说 key 可以是任意字符串组合，如果 key 不是以 @ 符号开头，这时候 valueForKey: 等同于 objectForKey:，如果是以 @ 开头，那么 valueForKey:会去掉 key 里的 @ 然后用剩下部分作为 key 执行 [super valueForKey:]。<br>比如：</p>
+<pre><code>NSDictionary *dict = [NSDictionary dictionaryWithObject:@&quot;theValue&quot;
+
+forKey:@&quot;theKey&quot;];
+
+NSString *value1 = [dict objectForKey:@&quot;theKey&quot;];
+
+NSString *value2 = [dict valueForKey:@&quot;theKey&quot;];
+
+
+这时候 value1 和 value2 是一样的结果。如果是这样一个 dict：
+
+NSDictionary *dict = [NSDictionary dictionaryWithObject:@&quot;theValue&quot;
+
+forKey:@&quot;@theKey&quot;];// 注意这个 key 是以 @ 开头
+
+NSString *value1 = [dict objectForKey:@&quot;@theKey&quot;];
+
+NSString *value2 = [dict valueForKey:@&quot;@theKey&quot;];
+
+
+value1 可以正确取值，但是 value2 取值会直接 crash 掉，报错信息：
+
+Terminating app due to uncaught exception ‘NSUnknownKeyException’, reason: ‘[&lt;__NSCFDictionary 0x892fd80&gt; valueForUndefinedKey:]: this class is not key value coding-compliant for the key theKey.’
+</code></pre><p>这是因为 valueForKey: 是 KVC(NSKeyValueCoding) 的方法，在 KVC 里可以通过 property 同名字符串来获取对应的值。找不到值的时候执行 valueForUndefinedKey:，而 valueForUndefinedKey: 的默认实现是抛出 NSUndefinedKeyException 异常。</p>
+<p>2、setObjectForkey和setValueForkey的区别<br>setObject:forKey: 是NSMutableDictionary类的方法,key参数类型可以是任意类型对象, value不能为nil，不然会报错。<br>setValue:forKey: 是NSObject类的方法也就是说所有的OC对象都有这个方法， key值必须是字符串，value可以为nil，但是当value为空时，会自动调用removeObject:forKey方法</p>
+<pre><code>1、注意：setObject：forKey：对象不能存放nil要与下面的这种情况区分：
+
+    [imageDictionary setObject:[NSNull null]  forKey:indexNumber];
+    [NSNull null]表示的是一个空对象，并不是nil，注意这点
+
+2、setObject：forKey：中Key是NSNumber对象的时候，如下：
+    [imageDictionary setObject:obj forKey:[NSNumber numberWithInt：10]];
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/01/iOS中求出UILabel中文字的行数以及每一行的内容/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1356,135 +1509,6 @@ setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxi
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/iOS网易云音乐锁屏界面实现/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/28/iOS网易云音乐锁屏界面实现/" itemprop="url">iOS网易云音乐锁屏界面实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T18:23:05+08:00">
-                2019-03-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>完整的实现思路:</p>
-<p>App如果需要在锁屏界面上显示相关的信息和按钮, 必须先开启远程控制事件(Remote Control Event), 否则锁屏界面只显示滑动解锁.<br>实现锁屏界面信息, 将歌曲的相关信息更新到锁屏界面上<br>实现锁屏界面的事件处理, 在锁屏界面和上拉的快速功能菜单中实现播放控制</p>
-<p>远程控制事件的实现</p>
-<p>在iOS7.1之前, 远程控制事件主要涉及以下三个方法:</p>
-<p>开始接收远程控制事件<br>结束接收远程控制事件<br>触发远程控制事件后的捕获处理<br>官方文档对这三个方法的描述如下, 这里做了简单的翻译.</p>
-<p>开始接收远程控制事件</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/28/iOS网易云音乐锁屏界面实现/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1535,7 +1559,7 @@ setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxi
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

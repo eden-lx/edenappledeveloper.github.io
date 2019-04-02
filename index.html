@@ -232,6 +232,136 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/02/iOS如何定位Masonry约束报错的控件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/02/iOS如何定位Masonry约束报错的控件/" itemprop="url">iOS如何定位Masonry约束报错的控件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-02T22:20:08+08:00">
+                2019-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>控制台输出的报错如下<br><img src="images/20190402-1" alt></p>
+<p>想要定位哪个控件出现问题了,可以按照如下步骤进行</p>
+<p>1.添加Symbolic Breakpoint<br><img src="images/20190402-2" alt></p>
+<p>2.配置Symbol为UIViewAlertForUnsatisfiableConstraints</p>
+<p>Action 选择Debugger Command 输入框输入 po [[UIWindow keyWindow] _autolayoutTrace]<br><img src="images/20190402-3" alt></p>
+<p>3.从新进入报错的页面,Xcode会出现一个断点,如下图所示<br><img src="images/20190402-4" alt></p>
+<p>4.点击左侧索引停留的位置,右侧会显示断点的具体位置,基本可以确定是EvaluateCell内的某个控件出现约束问题了.<br><img src="images/20190402-5" alt></p>
+<p>5.点击跳过此断点,直至控制台具体的报错原因<br><img src="images/20190402-6" alt></p>
+<p><img src="images/20190402-7" alt></p>
+<p>6.此时你只需要在EvaluateCell中去寻找距某一个视图顶部为10,底部为-10的控件了</p>
+<p>我这里找到了具体哪一个控件(self.replyL),这个控件的父视图高度为0,不能基于这个高度为0的控件再添加约束,所有会有约束异常<br><img src="images/20190402-8" alt></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/02/iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1385,130 +1515,6 @@ setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxi
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/程序启动的完成过程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/28/程序启动的完成过程/" itemprop="url">程序启动的完成过程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T18:37:14+08:00">
-                2019-03-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>程序启动的完整过程:<br>1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:<br>int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。<br>argc、argv:标准main函数的参数，直接传递给UIApplicationMain进行相关处理即可<br>principalClassName:指定应用程序类，该类必须是UIApplication(或子类)。如果为nil,则用UIApplication类作为默认值<br>　　 delegateClassName:指定应用程序类的代理类，该类必须遵守UIApplicationDelegate协议。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/28/程序启动的完成过程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1559,7 +1565,7 @@ setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxi
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

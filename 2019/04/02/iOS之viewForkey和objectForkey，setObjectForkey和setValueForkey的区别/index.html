@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1、viewForkey和objectForkey的区别 objectForKey: returns the value associated with aKey, or nil if no value is associated with aKey. 返回指定 key 的 value，若没有这个 key 返回 nil.valueForKey: returns the value associat">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-02T14:48:46.923Z">
+<meta property="og:updated_time" content="2019-04-08T13:17:06.133Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别">
 <meta name="twitter:description" content="1、viewForkey和objectForkey的区别 objectForKey: returns the value associated with aKey, or nil if no value is associated with aKey. 返回指定 key 的 value，若没有这个 key 返回 nil.valueForKey: returns the value associat">
@@ -301,6 +301,7 @@
       
         <p>1、viewForkey和objectForkey的区别</p>
 <p>objectForKey: returns the value associated with aKey, or nil if no value is associated with aKey. 返回指定 key 的 value，若没有这个 key 返回 nil.<br>valueForKey: returns the value associated with a given key. 同样是返回指定 key 的 value。<br>但文档里 valueForKey: 有额外一点：一般来说 key 可以是任意字符串组合，如果 key 不是以 @ 符号开头，这时候 valueForKey: 等同于 objectForKey:，如果是以 @ 开头，那么 valueForKey:会去掉 key 里的 @ 然后用剩下部分作为 key 执行 [super valueForKey:]。<br>比如：</p>
+<a id="more"></a>
 <pre><code>NSDictionary *dict = [NSDictionary dictionaryWithObject:@&quot;theValue&quot;
 
 forKey:@&quot;theKey&quot;];

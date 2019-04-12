@@ -86,12 +86,10 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="这样的代码运行起来会出现崩溃 //targetButton for (UIButton * button in self.selectedBtnArr) {     if (targetButton.tag ==  button.tag)     {         [self.selectedBtnArr removeObject:button];     } } 在对可变数据类型如字典、数组，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://developer.apple.com/documentation/foundation/nsenumerator?t=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fios%2Fdocumentation%2FCocoa%2FReference%2FFoundation%2FClasses%2FNSEnumerator_Class%2Findex.html">
-<meta property="og:updated_time" content="2019-04-12T06:45:50.793Z">
+<meta property="og:updated_time" content="2019-04-12T06:54:56.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="&lt;__NSArrayM:XXXXXX&gt; was mutated while being enumerated.">
 <meta name="twitter:description" content="这样的代码运行起来会出现崩溃 //targetButton for (UIButton * button in self.selectedBtnArr) {     if (targetButton.tag ==  button.tag)     {         [self.selectedBtnArr removeObject:button];     } } 在对可变数据类型如字典、数组，">
-<meta name="twitter:image" content="https://developer.apple.com/documentation/foundation/nsenumerator?t=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fios%2Fdocumentation%2FCocoa%2FReference%2FFoundation%2FClasses%2FNSEnumerator_Class%2Findex.html">
 
 
 
@@ -312,7 +310,7 @@ for (UIButton * button in self.selectedBtnArr)
 }
 </code></pre><p>在对可变数据类型如字典、数组，进行快速遍历的时候，是不可以对其增、删操作。否则就会引起“&lt;__NSArrayM:XXXXXX&gt; was mutated while being enumerated.”的崩溃。</p>
 <a id="more"></a>
-<p>官网对快速排序的说明<img src="https://developer.apple.com/documentation/foundation/nsenumerator?t=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fios%2Fdocumentation%2FCocoa%2FReference%2FFoundation%2FClasses%2FNSEnumerator_Class%2Findex.html" alt="https://developer.apple.com/documentation/foundation/nsenumerator?t=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fios%2Fdocumentation%2FCocoa%2FReference%2FFoundation%2FClasses%2FNSEnumerator_Class%2Findex.html)">)。重点为NOTE的内容：<br>It is not safe to modify a mutable collection while enumerating through it. Some enumerators may currently allow enumeration of a collection that is modified, but this behavior is not guaranteed to be supported in the future.<br>解决方案：</p>
+<p>官网对快速排序的说明<a href="https://developer.apple.com/documentation/foundation/nsenumerator?t=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fios%2Fdocumentation%2FCocoa%2FReference%2FFoundation%2FClasses%2FNSEnumerator_Class%2Findex.html" target="_blank" rel="noopener">官方文档链接</a>)。重点为NOTE的内容：<br>It is not safe to modify a mutable collection while enumerating through it. Some enumerators may currently allow enumeration of a collection that is modified, but this behavior is not guaranteed to be supported in the future.<br>解决方案：</p>
 <pre><code>for (UIButton * button in self.selectedBtnArr)
 {
     if (targetButton.tag ==  button.tag)

@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="1、禁止手机睡眠 [UIApplication sharedApplication].idleTimerDisabled = YES; 2、隐藏某行cell - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {      if(indexPath.row ==">
+<meta name="description" content="Category(objc_category)Category是表示一个指向分类的结构体的指针，其定义如下： struct category_t {      const char *name;      classref_t cls;      struct method_list_t *instanceMethods;      struct method_list_t *classMetho">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS 开发总结">
-<meta property="og:url" content="http://yoursite.com/2019/04/22/iOS-开发总结/index.html">
+<meta property="og:title" content="ios-分类Category笔记">
+<meta property="og:url" content="http://yoursite.com/2019/04/23/ios-分类Category笔记/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1、禁止手机睡眠 [UIApplication sharedApplication].idleTimerDisabled = YES; 2、隐藏某行cell - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {      if(indexPath.row ==">
+<meta property="og:description" content="Category(objc_category)Category是表示一个指向分类的结构体的指针，其定义如下： struct category_t {      const char *name;      classref_t cls;      struct method_list_t *instanceMethods;      struct method_list_t *classMetho">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-22T02:13:25.405Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/23/ios-分类Category笔记/images/ios-分类Category笔记-1">
+<meta property="og:image" content="http://yoursite.com/2019/04/23/ios-分类Category笔记/images/ios-分类Category笔记-2">
+<meta property="og:image" content="http://yoursite.com/2019/04/23/ios-分类Category笔记/images/ios-分类Category笔记-3">
+<meta property="og:updated_time" content="2019-04-23T06:43:57.464Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 开发总结">
-<meta name="twitter:description" content="1、禁止手机睡眠 [UIApplication sharedApplication].idleTimerDisabled = YES; 2、隐藏某行cell - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {      if(indexPath.row ==">
+<meta name="twitter:title" content="ios-分类Category笔记">
+<meta name="twitter:description" content="Category(objc_category)Category是表示一个指向分类的结构体的指针，其定义如下： struct category_t {      const char *name;      classref_t cls;      struct method_list_t *instanceMethods;      struct method_list_t *classMetho">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/23/ios-分类Category笔记/images/ios-分类Category笔记-1">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/22/iOS-开发总结/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/23/ios-分类Category笔记/">
 
 
 
 
 
-  <title>iOS 开发总结 | Hexo</title>
+  <title>ios-分类Category笔记 | Hexo</title>
   
 
 
@@ -232,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/iOS-开发总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/ios-分类Category笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS 开发总结</h1>
+          <h1 class="post-title" itemprop="name headline">ios-分类Category笔记</h1>
         
 
         <div class="post-meta">
@@ -261,8 +265,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T09:52:01+08:00">
-                2019-04-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-23T14:35:46+08:00">
+                2019-04-23
               </time>
             
 
@@ -299,132 +303,43 @@
       
 
       
-        <p>1、禁止手机睡眠</p>
-<pre><code>[UIApplication sharedApplication].idleTimerDisabled = YES;
-</code></pre><p>2、隐藏某行cell</p>
-<pre><code>- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath { 
-    if(indexPath.row == YouWantToHideRow) return 0;
-    return 44;
-    [self.tableView beginUpdates]; 
-    [self.tableView endUpdates];
-}
-</code></pre><a id="more"></a>
-<p>3、禁用button高亮</p>
-<pre><code>button.adjustsImageWhenHighlighted = NO;
-或者在创建的时候
-UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-</code></pre><p>4、tableview遇到这种报错failed to obtain a cell from its dataSource</p>
-<pre><code>是因为你的cell被调用的早了。先循环使用了cell，后又创建cell。顺序错了
-可能原因：
-1、xib的cell没有注册
-2、内存中已经有这个cell的缓存了(也就是说通过你的cellId找到的cell并不是你想要的类型)，这时候需要改下cell的标识
-</code></pre><p>5、动画切换window的根控制器</p>
-<pre><code>// options是动画选项
-[UIView transitionWithView:[UIApplication sharedApplication].keyWindow duration:0.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-    BOOL oldState = [UIView
-    areAnimationsEnabled];
-    [UIView  setAnimationsEnabled:NO];
-    [UIApplication  sharedApplication].keyWindow.rootViewController = [RootViewController new];
-    [UIView  setAnimationsEnabled:oldState];
-} completion:^(BOOL finished) {
+        <p>Category(objc_category)<br>Category是表示一个指向分类的结构体的指针，其定义如下：</p>
+<pre><code>struct category_t { 
+    const char *name; 
+    classref_t cls; 
+    struct method_list_t *instanceMethods; 
+    struct method_list_t *classMethods;
+    struct protocol_list_t *protocols;
+    struct property_list_t *instanceProperties;
+};
 
-}];
-</code></pre><p>6、去除数组中重复的对象</p>
-<pre><code>NSArray *newArr = [oldArr valueForKeyPath:@“@distinctUnionOfObjects.self&quot;];
-</code></pre><p>7、编译的时候遇到 no such file or directory: ／users／apple／XXX</p>
-<pre><code>是因为编译的时候，在此路径下找不到这个文件，解决这个问题，首先是是要检查缺少的文件是不是在工程中，如果不在工程中，需要从本地拖进去，如果发现已经存在工程中了，或者拖进去还是报错，这时候需要去build phases中搜索这个文件，这时候很可能会搜出现两个相同的文件，这时候，有一个路径是正确的，删除另外一个即可。如果删除了还是不行，需要把两个都删掉，然后重新往工程里拖进这个文件即可
-</code></pre><p>8、iOS8系统中，tableView最好实现下-tableView: heightForRowAtIndexPath:这个代理方法，要不然在iOS8中可能就会出现显示不全或者无法响应事件的问题</p>
-<p>9、给一个view截图</p>
-<pre><code>UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0.0); 
-[view.layer renderInContext:UIGraphicsGetCurrentContext()];
-UIImage *img = UIGraphicsGetImageFromCurrentImageContext(); 
-UIGraphicsEndImageContext();
-</code></pre><p>10、开发中如果要动态修改tableView的tableHeaderView或者tableFooterView的高度，需要给tableView重新设置，而不是直接更改高度。正确的做法是重新设置一下tableView.tableFooterView = 更改过高度的view。为什么？其实在iOS8以上直接改高度是没有问题的，在iOS8中出现了contentSize不准确的问题，这是解决办法。</p>
-<p>11、注意对象为nil的时候，调用此对象分类的方法不会执行</p>
-<p>12、collectionView的内容小于其宽高的时候是不能滚动的，设置可以滚动：</p>
-<pre><code>collectionView.alwaysBounceHorizontal = YES;
-collectionView.alwaysBounceVertical = YES;
-</code></pre><p>13、由角度转换弧度</p>
-<pre><code>#define DegreesToRadian(x) (M_PI * (x) / 180.0)
-</code></pre><p>14、由弧度转换角度</p>
-<pre><code>#define RadianToDegrees(radian) (radian*180.0)/(M_PI)
-</code></pre><p>15、获取图片资源</p>
-<pre><code>#define GetImage(imageName) [UIImage imageNamed:[NSString stringWithFormat:@&quot;%@&quot;,imageName]]
-</code></pre><p>16、获取window</p>
-<pre><code>+(UIWindow*)getWindow {
-UIWindow* win = nil;
-for (id item in [UIApplication sharedApplication].windows) {
-    if ([item class] == [UIWindow class]) {
-        if (!((UIWindow*)item).hidden) {
-                win = item;
-                break;
-            }
-        }
-    }
-    return  win;
-}
-</code></pre><p>17、修改textField的placeholder的字体颜色、大小</p>
-<pre><code>- [textField setValue:[UIColor redColor] forKeyPath:@&quot;_placeholderLabel.textColor&quot;]; 
-- [textField setValue:[UIFont boldSystemFontOfSize:16] forKeyPath:@&quot;_placeholderLabel.font&quot;];
-</code></pre><p>18、统一收起键盘</p>
-<pre><code>[[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-</code></pre><p>19、获取app缓存大小</p>
-<pre><code>- (CGFloat)getCachSize {
-    NSUInteger imageCacheSize = [[SDImageCache sharedImageCache] getSize];
-    NSString *myCachePath = [NSHomeDirectory() stringByAppendingPathComponent:@&quot;Library/Caches&quot;];
-    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:myCachePath];
-    __block NSUInteger count = 0;
-    for (NSString *fileName in enumerator) {
-        NSString *path = [myCachePath stringByAppendingPathComponent:fileName];
-        NSDictionary *fileDict = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
-        count += fileDict.fileSize;
-    }
-    CGFloat totalSize = ((CGFloat)imageCacheSize+count)/1024/1024;
-    return totalSize;
-}
-</code></pre><p>20、清理app缓存</p>
-<pre><code>- (void)handleClearView {
-    [[SDImageCache sharedImageCache] clearMemory];
-    [[SDImageCache sharedImageCache] clearDisk];
-    NSString *myCachePath = [NSHomeDirectory() stringByAppendingPathComponent:@&quot;Library/Caches&quot;]; 
-    [[NSFileManager defaultManager] removeItemAtPath:myCachePath error:nil];
-}
-</code></pre><p>21、打印百分号和引号</p>
-<pre><code>NSLog(@&quot;%%&quot;);
-NSLog(@&quot;\&quot;&quot;);
-</code></pre><p>22、几个常用权限判断</p>
-<pre><code>if ([CLLocationManager authorizationStatus] ==kCLAuthorizationStatusDenied) {
-    NSLog(@&quot;没有定位权限&quot;);
-}
-AVAuthorizationStatus statusVideo = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]; 
-if (statusVideo == AVAuthorizationStatusDenied) {
-    NSLog(@&quot;没有摄像头权限&quot;);
-}
-AVAuthorizationStatus statusAudio = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-if (statusAudio == AVAuthorizationStatusDenied) { 
-    NSLog(@&quot;没有录音权限&quot;);
-} 
-[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-if (status == PHAuthorizationStatusDenied) { 
-    NSLog(@&quot;没有相册权限&quot;);
-} 
-}];
-</code></pre><p>23、长按复制功能    </p>
-<pre><code>- (void)viewDidLoad {
-[self.view addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pasteBoard:)]];
-} 
-- (void)pasteBoard:(UILongPressGestureRecognizer *)longPress {
-    if (longPress.state == UIGestureRecognizerStateBegan) {
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard]; 
-        pasteboard.string = @&quot;需要复制的文本&quot;; 
-    } 
-}
-</code></pre><p>24、cocoapods升级</p>
-<pre><code>在终端执行 sudo gem install -n / usr / local / bin cocoapods --pre
-更新cocoapods本地仓库 $ pod repo update
-pod库搜索不到SDK，删除索引
-rm ~/Library/Caches/CocoaPods/search_index.json,再搜索一次
-</code></pre>
+name：是指 class_name 而不是 category_name。
+cls：要扩展的类对象，编译期间是不会定义的，而是在Runtime阶段通过name对 应到对应的类对象。
+instanceMethods：category中所有给类添加的实例方法的列表。
+classMethods：category中所有添加的类方法的列表。
+protocols：category实现的所有协议的列表。
+instanceProperties：表示Category里所有的properties，这就是我们可以通过objc_setAssociatedObject和objc_getAssociatedObject增加实例变量的原因，不过这个和一般的实例变量是不一样的。
+
+结构体主要包含了分类定义的实例方法与类方法，其中instance_methods 列表是 objc_class 中方法列表的一个子集，而class_methods列表是元类方法列表的一个子集。
+</code></pre><a id="more"></a>
+<p>分类优点<br>声明私有方法</p>
+<ul>
+<li>分解体积庞大的类文件</li>
+<li>把Framework私有方法公开</li>
+<li>模拟多继承（另外可以模拟多继承的还有protocol）</li>
+</ul>
+<p>question1？Category 为什么不能添加实例变量，但可以添加属性</p>
+<ol>
+<li>属性。Property</li>
+<li>实例变量。Ivar（属性是给成员变量默认添加了setter和getter方法。tips：如果不用@dynamic修饰的话。）</li>
+<li>isa指针。在Objective-C中，任何类的定义都是对象。类和类的实例（对象）没有任何本质上的区别。任何对象都有isa指针。但是分类没有。<br>分类没有自己的isa指针.“类最开始生成了很多基本属性，比如IvarList，MethodList。分类只会将自己的method attach到主类，并不会影响到主类的IvarList。这就是为什么分类里面不能增加成员变量的原因”，实例变量没有setter和getter方法。也没有自己的isa指针。所以，就算系统不报错也不能用。</li>
+</ol>
+<p>question2？怎么添加属性</p>
+<p>从下图可以看到。分类添加成员变量报错。添加属性不报错，但是会有警告。并且告诉我们要的去添加setter和getter方法或者用@dynamic修饰。（注意：用@dynamic修饰只是告诉属性setter和getter必须要自己声明。只能解出警告。不能解决问题。运行时会崩溃）</p>
+<p><img src="images/ios-分类Category笔记-1" alt></p>
+<p><img src="images/ios-分类Category笔记-2" alt></p>
+<p><img src="images/ios-分类Category笔记-3" alt></p>
+
       
     </div>
     
@@ -448,8 +363,8 @@ rm ~/Library/Caches/CocoaPods/search_index.json,再搜索一次
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/16/iOS动画执行过程中响应事件/" rel="next" title="iOS动画执行过程中响应事件">
-                <i class="fa fa-chevron-left"></i> iOS动画执行过程中响应事件
+              <a href="/2019/04/22/iOS-开发总结/" rel="next" title="iOS 开发总结">
+                <i class="fa fa-chevron-left"></i> iOS 开发总结
               </a>
             
           </div>
@@ -457,10 +372,6 @@ rm ~/Library/Caches/CocoaPods/search_index.json,再搜索一次
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/23/ios-分类Category笔记/" rel="prev" title="ios-分类Category笔记">
-                ios-分类Category笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

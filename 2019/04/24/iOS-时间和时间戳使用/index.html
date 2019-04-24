@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="为了避免再出现博客丢失的问题在网上也h查询了好多办法，一下为是一个我觉得挺靠谱的方式，本人尝试并且通过，在此记录">
+<meta name="description" content="一、获取当前时间=    //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateForm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo 多终端同步博客">
-<meta property="og:url" content="http://yoursite.com/2019/03/29/hexo-多终端同步博客/index.html">
+<meta property="og:title" content="iOS 时间和时间戳使用">
+<meta property="og:url" content="http://yoursite.com/2019/04/24/iOS-时间和时间戳使用/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="为了避免再出现博客丢失的问题在网上也h查询了好多办法，一下为是一个我觉得挺靠谱的方式，本人尝试并且通过，在此记录">
+<meta property="og:description" content="一、获取当前时间=    //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateForm">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-29T03:08:10.281Z">
+<meta property="og:updated_time" content="2019-04-24T07:30:16.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo 多终端同步博客">
-<meta name="twitter:description" content="为了避免再出现博客丢失的问题在网上也h查询了好多办法，一下为是一个我觉得挺靠谱的方式，本人尝试并且通过，在此记录">
+<meta name="twitter:title" content="iOS 时间和时间戳使用">
+<meta name="twitter:description" content="一、获取当前时间=    //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateForm">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/29/hexo-多终端同步博客/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/24/iOS-时间和时间戳使用/">
 
 
 
 
 
-  <title>hexo 多终端同步博客 | Hexo</title>
+  <title>iOS 时间和时间戳使用 | Hexo</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/hexo-多终端同步博客/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/iOS-时间和时间戳使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">hexo 多终端同步博客</h1>
+          <h1 class="post-title" itemprop="name headline">iOS 时间和时间戳使用</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-29T10:59:24+08:00">
-                2019-03-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T15:27:12+08:00">
+                2019-04-24
               </time>
             
 
@@ -299,68 +299,40 @@
       
 
       
-        <p>为了避免再出现博客丢失的问题在网上也h查询了好多办法，一下为是一个我觉得挺靠谱的方式，本人尝试并且通过，在此记录</p>
-<a id="more"></a>
-<p>A电脑:</p>
-<ul>
-<li>添加 /.deploy_git, /public 到.gitignore文件末尾,一个一行</li>
-<li><p>初始化本地仓库</p>
-<pre><code>git init
-</code></pre></li>
-<li><p>将本地仓库与远程仓库对接</p>
-<pre><code>git remote add origin git@github.com:joahcy/joahcy.github.io.git
-</code></pre></li>
-<li><p>添加所有本地文件到git</p>
-<pre><code>git add . 
-</code></pre></li>
-</ul>
-<p>注意:如果自己的主题是克隆下来的,先把主题下的.git文件夹和.gitignore文件删除,不然上传不上去</p>
-<ul>
-<li><p>git提交</p>
-<pre><code>git commit -m &quot;提交hexo配置文件&quot;
-</code></pre></li>
-<li><p>新建分之并切换</p>
-<pre><code>git branch hexo 
-git checkout hexo
-</code></pre></li>
-<li><p>push到Github项目的hexo分支上</p>
-<pre><code>git push origin hexo
-</code></pre></li>
-</ul>
-<p>B电脑:</p>
-<ul>
-<li>安装好必备环境:git,nodejs,hexo</li>
-<li><p>将hexo分支克隆岛本地:</p>
-<pre><code>git clone -b git@github.com:joahcy/joahcy.github.io.git joahcyBlog
-</code></pre></li>
-<li><p>安装依赖</p>
-<pre><code>npm install
-</code></pre></li>
-</ul>
-<p>环境装好就可以开心的多端同步更新博客了</p>
-<ul>
-<li><p>先从远程仓库pull</p>
-<pre><code>git pull git@github.com:joahcy/joahcy.github.io.git hexo
-</code></pre></li>
-<li><p>写博客</p>
-<pre><code>hexo n &quot;test多端同步&quot;
-</code></pre></li>
-<li><p>利用Markdown编辑器编辑</p>
-</li>
-<li><p>添加source文件夹到本地git,因为只更改了source文件夹</p>
-<pre><code>git add source
-</code></pre></li>
-<li><p>提交</p>
-<pre><code>git commit -m &quot;添加多终端同步更新博客&quot;
-</code></pre></li>
-<li><p>push到远程仓库hexo分支</p>
-<pre><code>git push origin hexo
-</code></pre></li>
-<li><p>部署</p>
-<pre><code>hexo g -d
-</code></pre></li>
-</ul>
-
+        <p>一、获取当前时间<br>=<br>    //获取当前时间</p>
+<pre><code>- (NSString *)currentDateStr{
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
+    [dateFormatter setDateFormat:@&quot;YYYY/MM/dd hh:mm:ss SS &quot;];//设定时间格式,这里可以设置成自己需要的格式
+    NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
+    return dateString;
+}
+</code></pre><p>二、获取当前时间戳<br>=<br>    //获取当前时间戳</p>
+<pre><code>- (NSString *)currentTimeStr{
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
+    NSTimeInterval time=[date timeIntervalSince1970]*1000;// *1000 是精确到毫秒，不乘就是精确到秒
+    NSString *timeString = [NSString stringWithFormat:@&quot;%.0f&quot;, time];
+    return timeString;
+}
+</code></pre><p>三、时间戳转时间<br>=<br>    // 时间戳转时间,时间戳为13位是精确到毫秒的，10位精确到秒</p>
+<pre><code>- (NSString *)getDateStringWithTimeStr:(NSString *)str{
+    NSTimeInterval time=[str doubleValue]/1000;//传入的时间戳str如果是精确到毫秒的记得要/1000
+    NSDate *detailDate=[NSDate dateWithTimeIntervalSince1970:time];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; //实例化一个NSDateFormatter对象
+    //设定时间格式,这里可以设置成自己需要的格式
+    [dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm:ss SS&quot;];
+    NSString *currentDateStr = [dateFormatter stringFromDate: detailDate];
+    return currentDateStr;
+}
+</code></pre><p>四、字符串转时间戳<br>=<br>    //字符串转时间戳 如：2017-4-10 17:15:10</p>
+<pre><code>- (NSString *)getTimeStrWithString:(NSString *)str{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
+    [dateFormatter setDateFormat:@&quot;YYYY-MM-dd HH:mm:ss&quot;]; //设定时间的格式
+    NSDate *tempDate = [dateFormatter dateFromString:str];//将字符串转换为时间对象
+    NSString *timeStr = [NSString stringWithFormat:@&quot;%ld&quot;, (long)[tempDate timeIntervalSince1970]*1000];//字符串转成时间戳,精确到毫秒*1000
+    return timeStr;
+}
+</code></pre>
       
     </div>
     
@@ -384,8 +356,8 @@ git checkout hexo
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/29/iOS中webview和wkwebview获取网页title的方式/" rel="next" title="iOS中webview和wkwebview获取网页title的方式">
-                <i class="fa fa-chevron-left"></i> iOS中webview和wkwebview获取网页title的方式
+              <a href="/2019/04/23/ios-分类Category笔记/" rel="next" title="ios-分类Category笔记">
+                <i class="fa fa-chevron-left"></i> ios-分类Category笔记
               </a>
             
           </div>
@@ -393,10 +365,6 @@ git checkout hexo
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/29/iOS-手势UIGesTureRecognier详解/" rel="prev" title="iOS 手势UIGesTureRecognier详解">
-                iOS 手势UIGesTureRecognier详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

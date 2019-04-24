@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="1.自适应宽度 //宽度够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal]; //宽度不够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UI">
+<meta name="description" content="直接给NSString添加一个分类就可以用了 //邮箱 + (BOOL) validateEmail:(NSString *)email {     NSString *emailRegex = @&amp;quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&amp;quot;;     NSPredicate *emailTest = [NSPredica">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用masonry自适应label高度和宽度">
-<meta property="og:url" content="http://yoursite.com/2017/07/24/用masonry自适应label高度和宽度/index.html">
+<meta property="og:title" content="记录几个常见正则表达式判定方法">
+<meta property="og:url" content="http://yoursite.com/2018/05/02/记录几个常见正则表达式判定方法/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.自适应宽度 //宽度够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal]; //宽度不够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UI">
+<meta property="og:description" content="直接给NSString添加一个分类就可以用了 //邮箱 + (BOOL) validateEmail:(NSString *)email {     NSString *emailRegex = @&amp;quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&amp;quot;;     NSPredicate *emailTest = [NSPredica">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T09:54:20.852Z">
+<meta property="og:updated_time" content="2019-04-24T10:12:27.693Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用masonry自适应label高度和宽度">
-<meta name="twitter:description" content="1.自适应宽度 //宽度够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal]; //宽度不够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UI">
+<meta name="twitter:title" content="记录几个常见正则表达式判定方法">
+<meta name="twitter:description" content="直接给NSString添加一个分类就可以用了 //邮箱 + (BOOL) validateEmail:(NSString *)email {     NSString *emailRegex = @&amp;quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&amp;quot;;     NSPredicate *emailTest = [NSPredica">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/24/用masonry自适应label高度和宽度/">
+  <link rel="canonical" href="http://yoursite.com/2018/05/02/记录几个常见正则表达式判定方法/">
 
 
 
 
 
-  <title>用masonry自适应label高度和宽度 | Hexo</title>
+  <title>记录几个常见正则表达式判定方法 | Hexo</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/24/用masonry自适应label高度和宽度/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/02/记录几个常见正则表达式判定方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">用masonry自适应label高度和宽度</h1>
+          <h1 class="post-title" itemprop="name headline">记录几个常见正则表达式判定方法</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T10:14:35+08:00">
-                2017-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-02T10:20:49+08:00">
+                2018-05-02
               </time>
             
 
@@ -299,15 +299,71 @@
       
 
       
-        <p>1.自适应宽度</p>
-<p>//宽度够时</p>
-<pre><code>[yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-</code></pre><p>//宽度不够时</p>
-<pre><code>[yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-</code></pre><p>2.label多行自适应高度</p>
-<pre><code>label.preferredMaxLayoutWidth = width;//给一个maxWidth[label
-
-setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];//设置huggingPrioritylabel.numberOfLines = 0;//设置换行
+        <p>直接给NSString添加一个分类就可以用了</p>
+<p>//邮箱</p>
+<pre><code>+ (BOOL) validateEmail:(NSString *)email
+{
+    NSString *emailRegex = @&quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
+    return [emailTest evaluateWithObject:email];
+}
+</code></pre><p>//手机号码验证</p>
+<pre><code>+ (BOOL) validateMobile:(NSString *)mobile
+{
+    //手机号以13， 15，18开头，八个 \d 数字字符
+    NSString *phoneRegex = @&quot;^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$&quot;;
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,phoneRegex];
+    return [phoneTest evaluateWithObject:mobile];
+}
+</code></pre><p>//车牌号验证</p>
+<pre><code>+ (BOOL) validateCarNo:(NSString *)carNo
+{
+    NSString *carRegex = @&quot;^[\u4e00-\u9fa5]{1}[a-zA-Z]{1}[a-zA-Z_0-9]{4}[a-zA-Z_0-9_\u4e00-\u9fa5]$&quot;;
+    NSPredicate *carTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,carRegex];
+    NSLog(@&quot;carTest is %@&quot;,carTest);
+    return [carTest evaluateWithObject:carNo];
+}
+</code></pre><p>//车型</p>
+<pre><code>+ (BOOL) validateCarType:(NSString *)CarType
+{
+    NSString *CarTypeRegex = @&quot;^[\u4E00-\u9FFF]+$&quot;;
+    NSPredicate *carTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,CarTypeRegex];
+    return [carTest evaluateWithObject:CarType];
+}
+</code></pre><p>//用户名</p>
+<pre><code>+ (BOOL) validateUserName:(NSString *)name
+{
+    NSString *userNameRegex = @&quot;^[A-Za-z0-9]{6,20}+$&quot;;
+    NSPredicate *userNamePredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,userNameRegex];
+    BOOL B = [userNamePredicate evaluateWithObject:name];
+    return B;
+}
+</code></pre><p>//密码</p>
+<pre><code>+ (BOOL) validatePassword:(NSString *)passWord
+{
+    NSString *passWordRegex = @&quot;^[a-zA-Z0-9]{6,20}+$&quot;;
+    NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,passWordRegex];
+    return [passWordPredicate evaluateWithObject:passWord];
+}
+</code></pre><p>//昵称</p>
+<pre><code>+ (BOOL) validateNickname:(NSString *)nickname
+{
+    NSString *nicknameRegex = @&quot;^[\u4e00-\u9fa5]{4,8}$&quot;;
+    NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,nicknameRegex];
+    return [passWordPredicate evaluateWithObject:nickname];
+}
+</code></pre><p>//身份证号</p>
+<pre><code>+ (BOOL) validateIdentityCard: (NSString *)identityCard
+{
+    BOOL flag;
+    if (identityCard.length &lt;= 0) {
+        flag = NO;
+        return flag;
+    }
+    NSString *regex2 = @&quot;^(\\d{14}|\\d{17})(\\d|[xX])$&quot;;
+    NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,regex2];
+    return [identityCardPredicate evaluateWithObject:identityCard];
+}
 </code></pre>
       
     </div>
@@ -332,8 +388,8 @@ setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxi
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/08/iOS网易云音乐锁屏界面实现/" rel="next" title="iOS网易云音乐锁屏界面实现">
-                <i class="fa fa-chevron-left"></i> iOS网易云音乐锁屏界面实现
+              <a href="/2018/04/26/iOS-try-catch-finally异常机制/" rel="next" title="iOS @try @catch @finally异常机制">
+                <i class="fa fa-chevron-left"></i> iOS @try @catch @finally异常机制
               </a>
             
           </div>
@@ -342,8 +398,8 @@ setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxi
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/28/Git详细分析/" rel="prev" title="Git详细分析">
-                Git详细分析 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/02/iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别/" rel="prev" title="iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别">
+                iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

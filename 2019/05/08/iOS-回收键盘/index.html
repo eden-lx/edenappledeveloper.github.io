@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="1.自适应宽度 //宽度够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal]; //宽度不够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UI">
+<meta name="description" content="//1.这个方法可以让整个view取消第一响应者，从而让所有控件的键盘隐藏。 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {     [self.view endEditing:YES]; } //2.创建点击方法,从而实现键盘回收 -(void)TapAction:(UITapGestureRecognizer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用masonry自适应label高度和宽度">
-<meta property="og:url" content="http://yoursite.com/2017/07/24/用masonry自适应label高度和宽度/index.html">
+<meta property="og:title" content="iOS-回收键盘">
+<meta property="og:url" content="http://yoursite.com/2019/05/08/iOS-回收键盘/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.自适应宽度 //宽度够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal]; //宽度不够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UI">
+<meta property="og:description" content="//1.这个方法可以让整个view取消第一响应者，从而让所有控件的键盘隐藏。 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {     [self.view endEditing:YES]; } //2.创建点击方法,从而实现键盘回收 -(void)TapAction:(UITapGestureRecognizer">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T09:54:20.852Z">
+<meta property="og:updated_time" content="2019-04-24T10:14:44.237Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用masonry自适应label高度和宽度">
-<meta name="twitter:description" content="1.自适应宽度 //宽度够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal]; //宽度不够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UI">
+<meta name="twitter:title" content="iOS-回收键盘">
+<meta name="twitter:description" content="//1.这个方法可以让整个view取消第一响应者，从而让所有控件的键盘隐藏。 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {     [self.view endEditing:YES]; } //2.创建点击方法,从而实现键盘回收 -(void)TapAction:(UITapGestureRecognizer">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/24/用masonry自适应label高度和宽度/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/08/iOS-回收键盘/">
 
 
 
 
 
-  <title>用masonry自适应label高度和宽度 | Hexo</title>
+  <title>iOS-回收键盘 | Hexo</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/24/用masonry自适应label高度和宽度/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/iOS-回收键盘/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">用masonry自适应label高度和宽度</h1>
+          <h1 class="post-title" itemprop="name headline">iOS-回收键盘</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T10:14:35+08:00">
-                2017-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T15:24:36+08:00">
+                2019-05-08
               </time>
             
 
@@ -299,15 +299,17 @@
       
 
       
-        <p>1.自适应宽度</p>
-<p>//宽度够时</p>
-<pre><code>[yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-</code></pre><p>//宽度不够时</p>
-<pre><code>[yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-</code></pre><p>2.label多行自适应高度</p>
-<pre><code>label.preferredMaxLayoutWidth = width;//给一个maxWidth[label
-
-setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];//设置huggingPrioritylabel.numberOfLines = 0;//设置换行
+        <p>//1.这个方法可以让整个view取消第一响应者，从而让所有控件的键盘隐藏。</p>
+<pre><code>-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+</code></pre><p>//2.创建点击方法,从而实现键盘回收</p>
+<pre><code>-(void)TapAction:(UITapGestureRecognizer *)sender
+{
+    [userNameTextField resignFirstResponder];
+    [passWordTextField resignFirstResponder];
+}
 </code></pre>
       
     </div>
@@ -332,8 +334,8 @@ setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxi
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/08/iOS网易云音乐锁屏界面实现/" rel="next" title="iOS网易云音乐锁屏界面实现">
-                <i class="fa fa-chevron-left"></i> iOS网易云音乐锁屏界面实现
+              <a href="/2019/04/24/iOS-分类Category/" rel="next" title="iOS-分类Category">
+                <i class="fa fa-chevron-left"></i> iOS-分类Category
               </a>
             
           </div>
@@ -341,10 +343,6 @@ setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxi
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/28/Git详细分析/" rel="prev" title="Git详细分析">
-                Git详细分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

@@ -232,6 +232,136 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/iOS-回收键盘/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/08/iOS-回收键盘/" itemprop="url">iOS-回收键盘</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T15:24:36+08:00">
+                2019-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>//1.这个方法可以让整个view取消第一响应者，从而让所有控件的键盘隐藏。</p>
+<pre><code>-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+</code></pre><p>//2.创建点击方法,从而实现键盘回收</p>
+<pre><code>-(void)TapAction:(UITapGestureRecognizer *)sender
+{
+    [userNameTextField resignFirstResponder];
+    [passWordTextField resignFirstResponder];
+}
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/iOS-分类Category/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1008,6 +1138,329 @@ for (UIButton * button in self.selectedBtnArr)
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/02/记录几个常见正则表达式判定方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/02/记录几个常见正则表达式判定方法/" itemprop="url">记录几个常见正则表达式判定方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-02T10:20:49+08:00">
+                2018-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>直接给NSString添加一个分类就可以用了</p>
+<p>//邮箱</p>
+<pre><code>+ (BOOL) validateEmail:(NSString *)email
+{
+    NSString *emailRegex = @&quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
+    return [emailTest evaluateWithObject:email];
+}
+</code></pre><p>//手机号码验证</p>
+<pre><code>+ (BOOL) validateMobile:(NSString *)mobile
+{
+    //手机号以13， 15，18开头，八个 \d 数字字符
+    NSString *phoneRegex = @&quot;^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$&quot;;
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,phoneRegex];
+    return [phoneTest evaluateWithObject:mobile];
+}
+</code></pre><p>//车牌号验证</p>
+<pre><code>+ (BOOL) validateCarNo:(NSString *)carNo
+{
+    NSString *carRegex = @&quot;^[\u4e00-\u9fa5]{1}[a-zA-Z]{1}[a-zA-Z_0-9]{4}[a-zA-Z_0-9_\u4e00-\u9fa5]$&quot;;
+    NSPredicate *carTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,carRegex];
+    NSLog(@&quot;carTest is %@&quot;,carTest);
+    return [carTest evaluateWithObject:carNo];
+}
+</code></pre><p>//车型</p>
+<pre><code>+ (BOOL) validateCarType:(NSString *)CarType
+{
+    NSString *CarTypeRegex = @&quot;^[\u4E00-\u9FFF]+$&quot;;
+    NSPredicate *carTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,CarTypeRegex];
+    return [carTest evaluateWithObject:CarType];
+}
+</code></pre><p>//用户名</p>
+<pre><code>+ (BOOL) validateUserName:(NSString *)name
+{
+    NSString *userNameRegex = @&quot;^[A-Za-z0-9]{6,20}+$&quot;;
+    NSPredicate *userNamePredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,userNameRegex];
+    BOOL B = [userNamePredicate evaluateWithObject:name];
+    return B;
+}
+</code></pre><p>//密码</p>
+<pre><code>+ (BOOL) validatePassword:(NSString *)passWord
+{
+    NSString *passWordRegex = @&quot;^[a-zA-Z0-9]{6,20}+$&quot;;
+    NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,passWordRegex];
+    return [passWordPredicate evaluateWithObject:passWord];
+}
+</code></pre><p>//昵称</p>
+<pre><code>+ (BOOL) validateNickname:(NSString *)nickname
+{
+    NSString *nicknameRegex = @&quot;^[\u4e00-\u9fa5]{4,8}$&quot;;
+    NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,nicknameRegex];
+    return [passWordPredicate evaluateWithObject:nickname];
+}
+</code></pre><p>//身份证号</p>
+<pre><code>+ (BOOL) validateIdentityCard: (NSString *)identityCard
+{
+    BOOL flag;
+    if (identityCard.length &lt;= 0) {
+        flag = NO;
+        return flag;
+    }
+    NSString *regex2 = @&quot;^(\\d{14}|\\d{17})(\\d|[xX])$&quot;;
+    NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,regex2];
+    return [identityCardPredicate evaluateWithObject:identityCard];
+}
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/26/iOS-try-catch-finally异常机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/26/iOS-try-catch-finally异常机制/" itemprop="url">iOS @try @catch @finally异常机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T18:03:32+08:00">
+                2018-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原文如下：<br>最近看一些第三方的代码有@try,一副看不懂的样子,真心没用过,于是查了些资料收集在这里,以后遇到就不会再蒙比了.其实这东西确实不怎么用,下文有解释.<br>Objective-C 异常机制 :<br>– 作用 : 开发者将引发异常的代码放在 @try 代码块中, 程序出现异常 使用 @catch 代码块进行捕捉;<br>– 每个代码块作用 : @try 代码块存放可能出现异常的代码, @catch 代码块 异常处理逻辑, @finally 代码块回收资源;<br>– 语法示例 :</p>
+<pre><code>@try
+{
+    // 业务逻辑
+}
+@catch (异常类型名1 ex)
+{
+    //异常处理代码
+}
+@catch (异常类型名2 ex)
+{
+    //异常处理代码
+}
+    // 可以捕捉 N 个 异常 ...
+@finally
+{
+    //回收资源
+}
+</code></pre><p>(2) Objective-C 异常处理过程<br><strong>异常处理过程 </strong>:<br>– 生成异常对象 : @try 中出现异常, 系统会生成一个异常对象, 该对象提交到系统中 系统就会抛出异常;<br>– <strong>异常处理流程 </strong>: 运行环境接收到 异常对象时, 如果存在能处理该异常对象的 @catch 代码块, 就将该异常对象交给 @catch 处理, 该过程就是捕获异常, 如果没有 @catch 代码块处理异常, 程序就会终止;<br>– <strong>@catch 代码块捕获过程 </strong>: 运行环境接收到 异常对象 时, 会依次判断该异常对象类型是否是 @catch 代码块中异常或其子类实例, 如果匹配成功, 被匹配的 @catch 就会处理该异常, 都则就会跟下一个 @catch 代码块对比;<br>– @catch 处理异常 : 系统将异常对象传递给 @catch 形参, @catch 通过该形参获取异常对象详细信息;<br>其它注意点 :<br>– @try 与 @catch 对应关系 : 一个 @try 代码块 可以对应 多个 @catch 代码块;<br>– {} 省略问题 : 异常捕获的 @try @catch @finally 的花括号不可省略;<br>NSException 异常类 :<br>– 简介 : NSException 是 OC 中所有异常的父类;<br>– 位置永远在最后 : @catch 代码块捕获异常时查看 异常对象类型是否是 捕获的异常类型 或者其子类, 一旦放在开头, 后面的异常永远不可能捕获;<br>(3) 异常信息访问<br>异常信息访问 :<br>– name : 返回异常的详细名称;<br>– reason : 返回异常引发的原因;<br>– userInfo : 返回异常的用户信息, 一个 NSDictionary 对象;</p>
+<p>2.ios<strong><strong>中很少用到</strong></strong>try <strong><strong>和</strong></strong>catch**<br>简单的来说，Apple虽然同时提供了错误处理（NSError）和异常处理（exception）两种机制，但是Apple更加提倡开发者使用NSError来处理程序运行中可恢复的错误。而异常被推荐用来处理不可恢复的错误。<br>原因有几个，在非gc情况下，exception容易造成内存管理问题（文档有描述即使是arc下，也不是安全的）；exception使用block造成额外的开销，效率较低等等，另外这也的确是Cocoa开发者的习惯。<a href="http://blog.csdn.net/x32sky/article/details/23753597" target="_blank" rel="noopener">http://blog.csdn.net/x32sky/article/details/23753597</a>//怪不得我没听周围IOS开发人员用这个<br>3.try,catch,finally 执行流程<br><a href="http://blog.csdn.net/phoenix001/article/details/4293472" target="_blank" rel="noopener">http://blog.csdn.net/phoenix001/article/details/4293472</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/24/iOS如何定位Masonry约束报错的控件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1120,395 +1573,6 @@ for (UIButton * button in self.selectedBtnArr)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/16/iOS动画执行过程中响应事件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/16/iOS动画执行过程中响应事件/" itemprop="url">iOS动画执行过程中响应事件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-16T17:36:45+08:00">
-                2018-04-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>工作中遇到一个需求是在一个页面中使用定时器来执行一个呼吸动画形式的动画过程，但是在呼吸动画过程中需要view来响应事件，具体实现贴上代码：</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/16/iOS动画执行过程中响应事件/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/08/iOS-音频录制以及播放/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/08/iOS-音频录制以及播放/" itemprop="url">iOS 音频录制以及播放</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T18:08:44+08:00">
-                2018-04-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在工作中又遇到了音频录制的需求，再次做此记录</p>
-<p>贴上关键代码</p>
-<pre><code>#import &quot;GXHLXRecordVoiceEmailView.h&quot;
-#import &lt;AVFoundation/AVFoundation.h&gt;
-
-@interface GXHLXRecordVoiceEmailView () &lt;AVAudioRecorderDelegate,AVAudioPlayerDelegate&gt; {
-
-    AVAudioRecorder *recorder;//录音对象
-    AVAudioPlayer *player;//播放对象
-    NSURL *fileUrl;//文件路径
-    NSTimer *timer;
-}
-
-
-@property (nonatomic, strong) AVAudioSession *session;
-
-@end
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/08/iOS-音频录制以及播放/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/01/iOS中求出UILabel中文字的行数以及每一行的内容/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/01/iOS中求出UILabel中文字的行数以及每一行的内容/" itemprop="url">iOS中求出UILabel中文字的行数以及每一行的内容</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T14:19:52+08:00">
-                2018-04-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>今天遇到一个需求，需要计算label中文字的行数。想了好久也没想到好的解决方法，就在网上找了下。结果发现一篇文章是讲这个的。这部分代码不但能够求出一个label中文字行数，更厉害的是能够求出每一行的内容是什么； 代码如下。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/01/iOS中求出UILabel中文字的行数以及每一行的内容/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1559,7 +1623,7 @@ for (UIButton * button in self.selectedBtnArr)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -79,17 +79,26 @@
 
 
 
-<meta name="description" content="1、viewForkey和objectForkey的区别 objectForKey: returns the value associated with aKey, or nil if no value is associated with aKey. 返回指定 key 的 value，若没有这个 key 返回 nil.valueForKey: returns the value associat">
+<meta name="description" content="控制台输出的报错如下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别">
-<meta property="og:url" content="http://yoursite.com/2019/04/02/iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别/index.html">
+<meta property="og:title" content="iOS如何定位Masonry约束报错的控件">
+<meta property="og:url" content="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1、viewForkey和objectForkey的区别 objectForKey: returns the value associated with aKey, or nil if no value is associated with aKey. 返回指定 key 的 value，若没有这个 key 返回 nil.valueForKey: returns the value associat">
+<meta property="og:description" content="控制台输出的报错如下">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-18T02:04:22.134Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-1.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-2.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-3.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-4.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-5.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-6.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-7.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-8.png">
+<meta property="og:updated_time" content="2019-04-24T09:46:38.377Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别">
-<meta name="twitter:description" content="1、viewForkey和objectForkey的区别 objectForKey: returns the value associated with aKey, or nil if no value is associated with aKey. 返回指定 key 的 value，若没有这个 key 返回 nil.valueForKey: returns the value associat">
+<meta name="twitter:title" content="iOS如何定位Masonry约束报错的控件">
+<meta name="twitter:description" content="控制台输出的报错如下">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-1.png">
 
 
 
@@ -119,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/02/iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/">
 
 
 
 
 
-  <title>iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别 | Hexo</title>
+  <title>iOS如何定位Masonry约束报错的控件 | Hexo</title>
   
 
 
@@ -232,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/02/iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/iOS如何定位Masonry约束报错的控件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +258,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别</h1>
+          <h1 class="post-title" itemprop="name headline">iOS如何定位Masonry约束报错的控件</h1>
         
 
         <div class="post-meta">
@@ -261,8 +270,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-02T22:08:23+08:00">
-                2019-04-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T17:44:42+08:00">
+                2019-04-24
               </time>
             
 
@@ -299,42 +308,20 @@
       
 
       
-        <p>1、viewForkey和objectForkey的区别</p>
-<p>objectForKey: returns the value associated with aKey, or nil if no value is associated with aKey. 返回指定 key 的 value，若没有这个 key 返回 nil.<br>valueForKey: returns the value associated with a given key. 同样是返回指定 key 的 value。<br>但文档里 valueForKey: 有额外一点：一般来说 key 可以是任意字符串组合，如果 key 不是以 @ 符号开头，这时候 valueForKey: 等同于 objectForKey:，如果是以 @ 开头，那么 valueForKey:会去掉 key 里的 @ 然后用剩下部分作为 key 执行 [super valueForKey:]。<br>比如：</p>
+        <p>控制台输出的报错如下</p>
+<p><img src="/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-1.png" alt></p>
 <a id="more"></a>
-<pre><code>NSDictionary *dict = [NSDictionary dictionaryWithObject:@&quot;theValue&quot;
+<p>想要定位哪个控件出现问题了,可以按照如下步骤进行</p>
+<p>1.添加Symbolic Breakpoint<br><img src="/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-2.png" alt></p>
+<p>2.配置Symbol为UIViewAlertForUnsatisfiableConstraints</p>
+<p>Action 选择Debugger Command 输入框输入 po [[UIWindow keyWindow] _autolayoutTrace]<br><img src="/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-3.png" alt></p>
+<p>3.从新进入报错的页面,Xcode会出现一个断点,如下图所示<br><img src="/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-4.png" alt></p>
+<p>4.点击左侧索引停留的位置,右侧会显示断点的具体位置,基本可以确定是EvaluateCell内的某个控件出现约束问题了.<br><img src="/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-5.png" alt></p>
+<p>5.点击跳过此断点,直至控制台具体的报错原因<br><img src="/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-6.png" alt></p>
+<p><img src="/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-7.png" alt></p>
+<p>6.此时你只需要在EvaluateCell中去寻找距某一个视图顶部为10,底部为-10的控件了</p>
+<p>我这里找到了具体哪一个控件(self.replyL),这个控件的父视图高度为0,不能基于这个高度为0的控件再添加约束,所有会有约束异常<br><img src="/2019/04/24/iOS如何定位Masonry约束报错的控件/20190424-8.png" alt></p>
 
-forKey:@&quot;theKey&quot;];
-
-NSString *value1 = [dict objectForKey:@&quot;theKey&quot;];
-
-NSString *value2 = [dict valueForKey:@&quot;theKey&quot;];
-
-
-这时候 value1 和 value2 是一样的结果。如果是这样一个 dict：
-
-NSDictionary *dict = [NSDictionary dictionaryWithObject:@&quot;theValue&quot;
-
-forKey:@&quot;@theKey&quot;];// 注意这个 key 是以 @ 开头
-
-NSString *value1 = [dict objectForKey:@&quot;@theKey&quot;];
-
-NSString *value2 = [dict valueForKey:@&quot;@theKey&quot;];
-
-
-value1 可以正确取值，但是 value2 取值会直接 crash 掉，报错信息：
-
-Terminating app due to uncaught exception ‘NSUnknownKeyException’, reason: ‘[&lt;__NSCFDictionary 0x892fd80&gt; valueForUndefinedKey:]: this class is not key value coding-compliant for the key theKey.’
-</code></pre><p>这是因为 valueForKey: 是 KVC(NSKeyValueCoding) 的方法，在 KVC 里可以通过 property 同名字符串来获取对应的值。找不到值的时候执行 valueForUndefinedKey:，而 valueForUndefinedKey: 的默认实现是抛出 NSUndefinedKeyException 异常。</p>
-<p>2、setObjectForkey和setValueForkey的区别<br>setObject:forKey: 是NSMutableDictionary类的方法,key参数类型可以是任意类型对象, value不能为nil，不然会报错。<br>setValue:forKey: 是NSObject类的方法也就是说所有的OC对象都有这个方法， key值必须是字符串，value可以为nil，但是当value为空时，会自动调用removeObject:forKey方法</p>
-<pre><code>1、注意：setObject：forKey：对象不能存放nil要与下面的这种情况区分：
-
-    [imageDictionary setObject:[NSNull null]  forKey:indexNumber];
-    [NSNull null]表示的是一个空对象，并不是nil，注意这点
-
-2、setObject：forKey：中Key是NSNumber对象的时候，如下：
-    [imageDictionary setObject:obj forKey:[NSNumber numberWithInt：10]];
-</code></pre>
       
     </div>
     
@@ -358,8 +345,8 @@ Terminating app due to uncaught exception ‘NSUnknownKeyException’, reason: �
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/01/iOS中求出UILabel中文字的行数以及每一行的内容/" rel="next" title="iOS中求出UILabel中文字的行数以及每一行的内容">
-                <i class="fa fa-chevron-left"></i> iOS中求出UILabel中文字的行数以及每一行的内容
+              <a href="/2019/04/24/iOS-分类Category/" rel="next" title="iOS-分类Category">
+                <i class="fa fa-chevron-left"></i> iOS-分类Category
               </a>
             
           </div>
@@ -367,10 +354,6 @@ Terminating app due to uncaught exception ‘NSUnknownKeyException’, reason: �
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/08/iOS-音频录制以及播放/" rel="prev" title="iOS 音频录制以及播放">
-                iOS 音频录制以及播放 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

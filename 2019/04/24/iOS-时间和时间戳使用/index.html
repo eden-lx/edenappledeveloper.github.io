@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="一、获取当前时间=    //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateForm">
+<meta name="description" content="一、获取当前时间 //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateFormatte">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 时间和时间戳使用">
 <meta property="og:url" content="http://yoursite.com/2019/04/24/iOS-时间和时间戳使用/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一、获取当前时间=    //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateForm">
+<meta property="og:description" content="一、获取当前时间 //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateFormatte">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T07:31:15.382Z">
+<meta property="og:updated_time" content="2019-04-24T09:35:19.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 时间和时间戳使用">
-<meta name="twitter:description" content="一、获取当前时间=    //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateForm">
+<meta name="twitter:description" content="一、获取当前时间 //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateFormatte">
 
 
 
@@ -299,8 +299,9 @@
       
 
       
-        <p>一、获取当前时间<br>=<br>    //获取当前时间</p>
-<pre><code>- (NSString *)currentDateStr{
+        <p>一、获取当前时间</p>
+<pre><code>//获取当前时间
+- (NSString *)currentDateStr{
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
     [dateFormatter setDateFormat:@&quot;YYYY/MM/dd hh:mm:ss SS &quot;];//设定时间格式,这里可以设置成自己需要的格式
@@ -308,15 +309,17 @@
     return dateString;
 }
 </code></pre><a id="more"></a>
-<p>二、获取当前时间戳<br>=<br>    //获取当前时间戳</p>
-<pre><code>- (NSString *)currentTimeStr{
+<p>二、获取当前时间戳</p>
+<pre><code>//获取当前时间戳
+- (NSString *)currentTimeStr{
     NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
     NSTimeInterval time=[date timeIntervalSince1970]*1000;// *1000 是精确到毫秒，不乘就是精确到秒
     NSString *timeString = [NSString stringWithFormat:@&quot;%.0f&quot;, time];
     return timeString;
 }
-</code></pre><p>三、时间戳转时间<br>=<br>    // 时间戳转时间,时间戳为13位是精确到毫秒的，10位精确到秒</p>
-<pre><code>- (NSString *)getDateStringWithTimeStr:(NSString *)str{
+</code></pre><p>三、时间戳转时间</p>
+<pre><code>// 时间戳转时间,时间戳为13位是精确到毫秒的，10位精确到秒
+- (NSString *)getDateStringWithTimeStr:(NSString *)str{
     NSTimeInterval time=[str doubleValue]/1000;//传入的时间戳str如果是精确到毫秒的记得要/1000
     NSDate *detailDate=[NSDate dateWithTimeIntervalSince1970:time];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; //实例化一个NSDateFormatter对象
@@ -325,8 +328,9 @@
     NSString *currentDateStr = [dateFormatter stringFromDate: detailDate];
     return currentDateStr;
 }
-</code></pre><p>四、字符串转时间戳<br>=<br>    //字符串转时间戳 如：2017-4-10 17:15:10</p>
-<pre><code>- (NSString *)getTimeStrWithString:(NSString *)str{
+</code></pre><p>四、字符串转时间戳</p>
+<pre><code>//字符串转时间戳 如：2017-4-10 17:15:10
+- (NSString *)getTimeStrWithString:(NSString *)str{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
     [dateFormatter setDateFormat:@&quot;YYYY-MM-dd HH:mm:ss&quot;]; //设定时间的格式
     NSDate *tempDate = [dateFormatter dateFromString:str];//将字符串转换为时间对象
@@ -366,10 +370,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/24/image测试/" rel="prev" title="image测试">
-                image测试 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -437,7 +437,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

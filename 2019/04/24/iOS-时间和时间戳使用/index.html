@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="一、获取当前时间=    //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateForm">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T07:30:16.547Z">
+<meta property="og:updated_time" content="2019-04-24T07:31:15.382Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 时间和时间戳使用">
 <meta name="twitter:description" content="一、获取当前时间=    //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateForm">
@@ -307,7 +307,8 @@
     NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
     return dateString;
 }
-</code></pre><p>二、获取当前时间戳<br>=<br>    //获取当前时间戳</p>
+</code></pre><a id="more"></a>
+<p>二、获取当前时间戳<br>=<br>    //获取当前时间戳</p>
 <pre><code>- (NSString *)currentTimeStr{
     NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
     NSTimeInterval time=[date timeIntervalSince1970]*1000;// *1000 是精确到毫秒，不乘就是精确到秒

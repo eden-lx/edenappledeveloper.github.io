@@ -302,8 +302,7 @@
 
       
         
-          
-            <p>一、获取当前时间<br>=<br>    //获取当前时间</p>
+          <p>一、获取当前时间<br>=<br>    //获取当前时间</p>
 <pre><code>- (NSString *)currentDateStr{
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
@@ -311,33 +310,14 @@
     NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
     return dateString;
 }
-</code></pre><p>二、获取当前时间戳<br>=<br>    //获取当前时间戳</p>
-<pre><code>- (NSString *)currentTimeStr{
-    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
-    NSTimeInterval time=[date timeIntervalSince1970]*1000;// *1000 是精确到毫秒，不乘就是精确到秒
-    NSString *timeString = [NSString stringWithFormat:@&quot;%.0f&quot;, time];
-    return timeString;
-}
-</code></pre><p>三、时间戳转时间<br>=<br>    // 时间戳转时间,时间戳为13位是精确到毫秒的，10位精确到秒</p>
-<pre><code>- (NSString *)getDateStringWithTimeStr:(NSString *)str{
-    NSTimeInterval time=[str doubleValue]/1000;//传入的时间戳str如果是精确到毫秒的记得要/1000
-    NSDate *detailDate=[NSDate dateWithTimeIntervalSince1970:time];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; //实例化一个NSDateFormatter对象
-    //设定时间格式,这里可以设置成自己需要的格式
-    [dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm:ss SS&quot;];
-    NSString *currentDateStr = [dateFormatter stringFromDate: detailDate];
-    return currentDateStr;
-}
-</code></pre><p>四、字符串转时间戳<br>=<br>    //字符串转时间戳 如：2017-4-10 17:15:10</p>
-<pre><code>- (NSString *)getTimeStrWithString:(NSString *)str{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
-    [dateFormatter setDateFormat:@&quot;YYYY-MM-dd HH:mm:ss&quot;]; //设定时间的格式
-    NSDate *tempDate = [dateFormatter dateFromString:str];//将字符串转换为时间对象
-    NSString *timeStr = [NSString stringWithFormat:@&quot;%ld&quot;, (long)[tempDate timeIntervalSince1970]*1000];//字符串转成时间戳,精确到毫秒*1000
-    return timeStr;
-}
 </code></pre>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/24/iOS-时间和时间戳使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

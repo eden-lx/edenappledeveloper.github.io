@@ -79,21 +79,17 @@
 
 
 
-<meta name="description" content="Category(objc_category)Category是表示一个指向分类的结构体的指针，其定义如下： struct category_t {      const char *name;      classref_t cls;      struct method_list_t *instanceMethods;      struct method_list_t *classMetho">
+<meta name="description" content="//1.这个方法可以让整个view取消第一响应者，从而让所有控件的键盘隐藏。 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {     [self.view endEditing:YES]; } //2.创建点击方法,从而实现键盘回收 -(void)TapAction:(UITapGestureRecognizer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS-分类Category">
-<meta property="og:url" content="http://yoursite.com/2019/04/24/iOS-分类Category/index.html">
+<meta property="og:title" content="iOS-回收键盘">
+<meta property="og:url" content="http://yoursite.com/2018/05/08/iOS-回收键盘/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Category(objc_category)Category是表示一个指向分类的结构体的指针，其定义如下： struct category_t {      const char *name;      classref_t cls;      struct method_list_t *instanceMethods;      struct method_list_t *classMetho">
+<meta property="og:description" content="//1.这个方法可以让整个view取消第一响应者，从而让所有控件的键盘隐藏。 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {     [self.view endEditing:YES]; } //2.创建点击方法,从而实现键盘回收 -(void)TapAction:(UITapGestureRecognizer">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS-分类Category/20190423-1.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS-分类Category/20190423-2.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/24/iOS-分类Category/20190423-3.png">
-<meta property="og:updated_time" content="2019-04-24T09:40:13.612Z">
+<meta property="og:updated_time" content="2019-04-24T10:18:58.217Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS-分类Category">
-<meta name="twitter:description" content="Category(objc_category)Category是表示一个指向分类的结构体的指针，其定义如下： struct category_t {      const char *name;      classref_t cls;      struct method_list_t *instanceMethods;      struct method_list_t *classMetho">
-<meta name="twitter:image" content="http://yoursite.com/2019/04/24/iOS-分类Category/20190423-1.png">
+<meta name="twitter:title" content="iOS-回收键盘">
+<meta name="twitter:description" content="//1.这个方法可以让整个view取消第一响应者，从而让所有控件的键盘隐藏。 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {     [self.view endEditing:YES]; } //2.创建点击方法,从而实现键盘回收 -(void)TapAction:(UITapGestureRecognizer">
 
 
 
@@ -123,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/24/iOS-分类Category/">
+  <link rel="canonical" href="http://yoursite.com/2018/05/08/iOS-回收键盘/">
 
 
 
 
 
-  <title>iOS-分类Category | Hexo</title>
+  <title>iOS-回收键盘 | Hexo</title>
   
 
 
@@ -236,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/iOS-分类Category/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/iOS-回收键盘/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -253,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS-分类Category</h1>
+          <h1 class="post-title" itemprop="name headline">iOS-回收键盘</h1>
         
 
         <div class="post-meta">
@@ -265,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T17:38:26+08:00">
-                2019-04-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T15:24:36+08:00">
+                2018-05-08
               </time>
             
 
@@ -303,43 +299,18 @@
       
 
       
-        <p>Category(objc_category)<br>Category是表示一个指向分类的结构体的指针，其定义如下：</p>
-<pre><code>struct category_t { 
-    const char *name; 
-    classref_t cls; 
-    struct method_list_t *instanceMethods; 
-    struct method_list_t *classMethods;
-    struct protocol_list_t *protocols;
-    struct property_list_t *instanceProperties;
-};
-
-name：是指 class_name 而不是 category_name。
-cls：要扩展的类对象，编译期间是不会定义的，而是在Runtime阶段通过name对 应到对应的类对象。
-instanceMethods：category中所有给类添加的实例方法的列表。
-classMethods：category中所有添加的类方法的列表。
-protocols：category实现的所有协议的列表。
-instanceProperties：表示Category里所有的properties，这就是我们可以通过objc_setAssociatedObject和objc_getAssociatedObject增加实例变量的原因，不过这个和一般的实例变量是不一样的。
-
-结构体主要包含了分类定义的实例方法与类方法，其中instance_methods 列表是 objc_class 中方法列表的一个子集，而class_methods列表是元类方法列表的一个子集。
-</code></pre><a id="more"></a>
-<p>分类优点<br>声明私有方法</p>
-<ul>
-<li>分解体积庞大的类文件</li>
-<li>把Framework私有方法公开</li>
-<li>模拟多继承（另外可以模拟多继承的还有protocol）</li>
-</ul>
-<p>question1？Category 为什么不能添加实例变量，但可以添加属性</p>
-<ol>
-<li>属性。Property</li>
-<li>实例变量。Ivar（属性是给成员变量默认添加了setter和getter方法。tips：如果不用@dynamic修饰的话。）</li>
-<li>isa指针。在Objective-C中，任何类的定义都是对象。类和类的实例（对象）没有任何本质上的区别。任何对象都有isa指针。但是分类没有。<br>分类没有自己的isa指针.“类最开始生成了很多基本属性，比如IvarList，MethodList。分类只会将自己的method attach到主类，并不会影响到主类的IvarList。这就是为什么分类里面不能增加成员变量的原因”，实例变量没有setter和getter方法。也没有自己的isa指针。所以，就算系统不报错也不能用。</li>
-</ol>
-<p>question2？怎么添加属性</p>
-<p>从下图可以看到。分类添加成员变量报错。添加属性不报错，但是会有警告。并且告诉我们要的去添加setter和getter方法或者用@dynamic修饰。（注意：用@dynamic修饰只是告诉属性setter和getter必须要自己声明。只能解出警告。不能解决问题。运行时会崩溃）</p>
-<p><img src="/2019/04/24/iOS-分类Category/20190423-1.png" alt></p>
-<p><img src="/2019/04/24/iOS-分类Category/20190423-2.png" alt></p>
-<p><img src="/2019/04/24/iOS-分类Category/20190423-3.png" alt></p>
-
+        <p>//1.这个方法可以让整个view取消第一响应者，从而让所有控件的键盘隐藏。</p>
+<pre><code>-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+</code></pre><p>//2.创建点击方法,从而实现键盘回收</p>
+<pre><code>-(void)TapAction:(UITapGestureRecognizer *)sender
+{
+    [userNameTextField resignFirstResponder];
+    [passWordTextField resignFirstResponder];
+}
+</code></pre>
       
     </div>
     
@@ -363,15 +334,19 @@ instanceProperties：表示Category里所有的properties，这就是我们可�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/12/NSArrayM-XXXXXX-was-mutated-while-being-enumerated/" rel="next" title="<__NSArrayM:XXXXXX> was mutated while being enumerated.">
-                <i class="fa fa-chevron-left"></i> <__nsarraym:xxxxxx> was mutated while being enumerated.
-              </__nsarraym:xxxxxx></a>
+              <a href="/2018/05/02/记录几个常见正则表达式判定方法/" rel="next" title="记录几个常见正则表达式判定方法">
+                <i class="fa fa-chevron-left"></i> 记录几个常见正则表达式判定方法
+              </a>
             
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/02/iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别/" rel="prev" title="iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别">
+                iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>

@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="原文如下：最近看一些第三方的代码有@try,一副看不懂的样子,真心没用过,于是查了些资料收集在这里,以后遇到就不会再蒙比了.其实这东西确实不怎么用,下文有解释.Objective-C 异常机制 :– 作用 : 开发者将引发异常的代码放在 @try 代码块中, 程序出现异常 使用 @catch 代码块进行捕捉;– 每个代码块作用 : @try 代码块存放可能出现异常的代码, @catch 代码块 异">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T10:07:19.588Z">
+<meta property="og:updated_time" content="2019-04-25T09:22:33.941Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS @try @catch @finally异常机制">
 <meta name="twitter:description" content="原文如下：最近看一些第三方的代码有@try,一副看不懂的样子,真心没用过,于是查了些资料收集在这里,以后遇到就不会再蒙比了.其实这东西确实不怎么用,下文有解释.Objective-C 异常机制 :– 作用 : 开发者将引发异常的代码放在 @try 代码块中, 程序出现异常 使用 @catch 代码块进行捕捉;– 每个代码块作用 : @try 代码块存放可能出现异常的代码, @catch 代码块 异">
@@ -300,6 +300,7 @@
 
       
         <p>原文如下：<br>最近看一些第三方的代码有@try,一副看不懂的样子,真心没用过,于是查了些资料收集在这里,以后遇到就不会再蒙比了.其实这东西确实不怎么用,下文有解释.<br>Objective-C 异常机制 :<br>– 作用 : 开发者将引发异常的代码放在 @try 代码块中, 程序出现异常 使用 @catch 代码块进行捕捉;<br>– 每个代码块作用 : @try 代码块存放可能出现异常的代码, @catch 代码块 异常处理逻辑, @finally 代码块回收资源;<br>– 语法示例 :</p>
+<a id="more"></a>
 <pre><code>@try
 {
     // 业务逻辑

@@ -1340,29 +1340,14 @@ for (UIButton * button in self.selectedBtnArr)
 
       
         
-          
-            <p>原文如下：<br>最近看一些第三方的代码有@try,一副看不懂的样子,真心没用过,于是查了些资料收集在这里,以后遇到就不会再蒙比了.其实这东西确实不怎么用,下文有解释.<br>Objective-C 异常机制 :<br>– 作用 : 开发者将引发异常的代码放在 @try 代码块中, 程序出现异常 使用 @catch 代码块进行捕捉;<br>– 每个代码块作用 : @try 代码块存放可能出现异常的代码, @catch 代码块 异常处理逻辑, @finally 代码块回收资源;<br>– 语法示例 :</p>
-<pre><code>@try
-{
-    // 业务逻辑
-}
-@catch (异常类型名1 ex)
-{
-    //异常处理代码
-}
-@catch (异常类型名2 ex)
-{
-    //异常处理代码
-}
-    // 可以捕捉 N 个 异常 ...
-@finally
-{
-    //回收资源
-}
-</code></pre><p>(2) Objective-C 异常处理过程<br><strong>异常处理过程 </strong>:<br>– 生成异常对象 : @try 中出现异常, 系统会生成一个异常对象, 该对象提交到系统中 系统就会抛出异常;<br>– <strong>异常处理流程 </strong>: 运行环境接收到 异常对象时, 如果存在能处理该异常对象的 @catch 代码块, 就将该异常对象交给 @catch 处理, 该过程就是捕获异常, 如果没有 @catch 代码块处理异常, 程序就会终止;<br>– <strong>@catch 代码块捕获过程 </strong>: 运行环境接收到 异常对象 时, 会依次判断该异常对象类型是否是 @catch 代码块中异常或其子类实例, 如果匹配成功, 被匹配的 @catch 就会处理该异常, 都则就会跟下一个 @catch 代码块对比;<br>– @catch 处理异常 : 系统将异常对象传递给 @catch 形参, @catch 通过该形参获取异常对象详细信息;<br>其它注意点 :<br>– @try 与 @catch 对应关系 : 一个 @try 代码块 可以对应 多个 @catch 代码块;<br>– {} 省略问题 : 异常捕获的 @try @catch @finally 的花括号不可省略;<br>NSException 异常类 :<br>– 简介 : NSException 是 OC 中所有异常的父类;<br>– 位置永远在最后 : @catch 代码块捕获异常时查看 异常对象类型是否是 捕获的异常类型 或者其子类, 一旦放在开头, 后面的异常永远不可能捕获;<br>(3) 异常信息访问<br>异常信息访问 :<br>– name : 返回异常的详细名称;<br>– reason : 返回异常引发的原因;<br>– userInfo : 返回异常的用户信息, 一个 NSDictionary 对象;</p>
-<p>2.ios<strong><strong>中很少用到</strong></strong>try <strong><strong>和</strong></strong>catch**<br>简单的来说，Apple虽然同时提供了错误处理（NSError）和异常处理（exception）两种机制，但是Apple更加提倡开发者使用NSError来处理程序运行中可恢复的错误。而异常被推荐用来处理不可恢复的错误。<br>原因有几个，在非gc情况下，exception容易造成内存管理问题（文档有描述即使是arc下，也不是安全的）；exception使用block造成额外的开销，效率较低等等，另外这也的确是Cocoa开发者的习惯。<a href="http://blog.csdn.net/x32sky/article/details/23753597" target="_blank" rel="noopener">http://blog.csdn.net/x32sky/article/details/23753597</a>//怪不得我没听周围IOS开发人员用这个<br>3.try,catch,finally 执行流程<br><a href="http://blog.csdn.net/phoenix001/article/details/4293472" target="_blank" rel="noopener">http://blog.csdn.net/phoenix001/article/details/4293472</a></p>
-
-          
+          <p>原文如下：<br>最近看一些第三方的代码有@try,一副看不懂的样子,真心没用过,于是查了些资料收集在这里,以后遇到就不会再蒙比了.其实这东西确实不怎么用,下文有解释.<br>Objective-C 异常机制 :<br>– 作用 : 开发者将引发异常的代码放在 @try 代码块中, 程序出现异常 使用 @catch 代码块进行捕捉;<br>– 每个代码块作用 : @try 代码块存放可能出现异常的代码, @catch 代码块 异常处理逻辑, @finally 代码块回收资源;<br>– 语法示例 :</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/26/iOS-try-catch-finally异常机制/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

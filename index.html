@@ -1208,8 +1208,7 @@ for (UIButton * button in self.selectedBtnArr)
 
       
         
-          
-            <p>直接给NSString添加一个分类就可以用了</p>
+          <p>直接给NSString添加一个分类就可以用了</p>
 <p>//邮箱</p>
 <pre><code>+ (BOOL) validateEmail:(NSString *)email
 {
@@ -1217,65 +1216,14 @@ for (UIButton * button in self.selectedBtnArr)
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
     return [emailTest evaluateWithObject:email];
 }
-</code></pre><p>//手机号码验证</p>
-<pre><code>+ (BOOL) validateMobile:(NSString *)mobile
-{
-    //手机号以13， 15，18开头，八个 \d 数字字符
-    NSString *phoneRegex = @&quot;^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$&quot;;
-    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,phoneRegex];
-    return [phoneTest evaluateWithObject:mobile];
-}
-</code></pre><p>//车牌号验证</p>
-<pre><code>+ (BOOL) validateCarNo:(NSString *)carNo
-{
-    NSString *carRegex = @&quot;^[\u4e00-\u9fa5]{1}[a-zA-Z]{1}[a-zA-Z_0-9]{4}[a-zA-Z_0-9_\u4e00-\u9fa5]$&quot;;
-    NSPredicate *carTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,carRegex];
-    NSLog(@&quot;carTest is %@&quot;,carTest);
-    return [carTest evaluateWithObject:carNo];
-}
-</code></pre><p>//车型</p>
-<pre><code>+ (BOOL) validateCarType:(NSString *)CarType
-{
-    NSString *CarTypeRegex = @&quot;^[\u4E00-\u9FFF]+$&quot;;
-    NSPredicate *carTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,CarTypeRegex];
-    return [carTest evaluateWithObject:CarType];
-}
-</code></pre><p>//用户名</p>
-<pre><code>+ (BOOL) validateUserName:(NSString *)name
-{
-    NSString *userNameRegex = @&quot;^[A-Za-z0-9]{6,20}+$&quot;;
-    NSPredicate *userNamePredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,userNameRegex];
-    BOOL B = [userNamePredicate evaluateWithObject:name];
-    return B;
-}
-</code></pre><p>//密码</p>
-<pre><code>+ (BOOL) validatePassword:(NSString *)passWord
-{
-    NSString *passWordRegex = @&quot;^[a-zA-Z0-9]{6,20}+$&quot;;
-    NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,passWordRegex];
-    return [passWordPredicate evaluateWithObject:passWord];
-}
-</code></pre><p>//昵称</p>
-<pre><code>+ (BOOL) validateNickname:(NSString *)nickname
-{
-    NSString *nicknameRegex = @&quot;^[\u4e00-\u9fa5]{4,8}$&quot;;
-    NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,nicknameRegex];
-    return [passWordPredicate evaluateWithObject:nickname];
-}
-</code></pre><p>//身份证号</p>
-<pre><code>+ (BOOL) validateIdentityCard: (NSString *)identityCard
-{
-    BOOL flag;
-    if (identityCard.length &lt;= 0) {
-        flag = NO;
-        return flag;
-    }
-    NSString *regex2 = @&quot;^(\\d{14}|\\d{17})(\\d|[xX])$&quot;;
-    NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;,regex2];
-    return [identityCardPredicate evaluateWithObject:identityCard];
-}
 </code></pre>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/02/记录几个常见正则表达式判定方法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

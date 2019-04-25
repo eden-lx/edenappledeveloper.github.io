@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="直接给NSString添加一个分类就可以用了 //邮箱 + (BOOL) validateEmail:(NSString *)email {     NSString *emailRegex = @&amp;quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&amp;quot;;     NSPredicate *emailTest = [NSPredica">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T10:12:27.693Z">
+<meta property="og:updated_time" content="2019-04-25T09:17:56.899Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记录几个常见正则表达式判定方法">
 <meta name="twitter:description" content="直接给NSString添加一个分类就可以用了 //邮箱 + (BOOL) validateEmail:(NSString *)email {     NSString *emailRegex = @&amp;quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&amp;quot;;     NSPredicate *emailTest = [NSPredica">
@@ -307,7 +307,8 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
     return [emailTest evaluateWithObject:email];
 }
-</code></pre><p>//手机号码验证</p>
+</code></pre><a id="more"></a>
+<p>//手机号码验证</p>
 <pre><code>+ (BOOL) validateMobile:(NSString *)mobile
 {
     //手机号以13， 15，18开头，八个 \d 数字字符

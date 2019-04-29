@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="AVPlayerViewController是iOS8新增视频框架AVKit中的一个播放器类。由于iOS9弃用前两种播放器类的原因，AVPlayerViewController也将变得更加常用。AVPlayerViewController适合开发播放界面要求不是很高的应用。其相比AVPlayer的使用更加方便，但是原理上还是AVPlayerViewController包含了一个AVPlayer对象">
+<meta name="description" content="1.播放视频MPMoviewPlayerController继承于NSObject，使用它播放视频需要将其自带的视频View添加到视图控制器的View上才能显示视频，使用步骤如下： 第一步:引用MediaPlayer框架，声明视图控制器属性PlayerController #import &amp;lt;MediaPlayer/MediaPlayer.h&amp;gt;  @property(nonatomic,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS 视频播放控制器AVPlayViewControer">
-<meta property="og:url" content="http://yoursite.com/2019/05/13/iOS-视频播放控制器AVPlayViewControer/index.html">
+<meta property="og:title" content="iOS -基于MediaPlayer框架进行视频播放">
+<meta property="og:url" content="http://yoursite.com/2018/05/23/iOS-基于MediaPlayer框架进行视频播放/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="AVPlayerViewController是iOS8新增视频框架AVKit中的一个播放器类。由于iOS9弃用前两种播放器类的原因，AVPlayerViewController也将变得更加常用。AVPlayerViewController适合开发播放界面要求不是很高的应用。其相比AVPlayer的使用更加方便，但是原理上还是AVPlayerViewController包含了一个AVPlayer对象">
+<meta property="og:description" content="1.播放视频MPMoviewPlayerController继承于NSObject，使用它播放视频需要将其自带的视频View添加到视图控制器的View上才能显示视频，使用步骤如下： 第一步:引用MediaPlayer框架，声明视图控制器属性PlayerController #import &amp;lt;MediaPlayer/MediaPlayer.h&amp;gt;  @property(nonatomic,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-29T09:10:20.142Z">
+<meta property="og:updated_time" content="2019-04-29T09:18:31.990Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 视频播放控制器AVPlayViewControer">
-<meta name="twitter:description" content="AVPlayerViewController是iOS8新增视频框架AVKit中的一个播放器类。由于iOS9弃用前两种播放器类的原因，AVPlayerViewController也将变得更加常用。AVPlayerViewController适合开发播放界面要求不是很高的应用。其相比AVPlayer的使用更加方便，但是原理上还是AVPlayerViewController包含了一个AVPlayer对象">
+<meta name="twitter:title" content="iOS -基于MediaPlayer框架进行视频播放">
+<meta name="twitter:description" content="1.播放视频MPMoviewPlayerController继承于NSObject，使用它播放视频需要将其自带的视频View添加到视图控制器的View上才能显示视频，使用步骤如下： 第一步:引用MediaPlayer框架，声明视图控制器属性PlayerController #import &amp;lt;MediaPlayer/MediaPlayer.h&amp;gt;  @property(nonatomic,">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/13/iOS-视频播放控制器AVPlayViewControer/">
+  <link rel="canonical" href="http://yoursite.com/2018/05/23/iOS-基于MediaPlayer框架进行视频播放/">
 
 
 
 
 
-  <title>iOS 视频播放控制器AVPlayViewControer | Hexo</title>
+  <title>iOS -基于MediaPlayer框架进行视频播放 | Hexo</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/iOS-视频播放控制器AVPlayViewControer/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/iOS-基于MediaPlayer框架进行视频播放/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS 视频播放控制器AVPlayViewControer</h1>
+          <h1 class="post-title" itemprop="name headline">iOS -基于MediaPlayer框架进行视频播放</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-13T16:34:20+08:00">
-                2019-05-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T13:12:50+08:00">
+                2018-05-23
               </time>
             
 
@@ -299,35 +299,143 @@
       
 
       
-        <p>AVPlayerViewController是iOS8新增视频框架AVKit中的一个播放器类。由于iOS9弃用前两种播放器类的原因，AVPlayerViewController也将变得更加常用。AVPlayerViewController适合开发播放界面要求不是很高的应用。其相比AVPlayer的使用更加方便，但是原理上还是AVPlayerViewController包含了一个AVPlayer对象。<br>AVPlayerViewController有两种播放视频的方式：</p>
-<a id="more"></a>
-<p>第一种:直接弹出模态视图控制器播放</p>
-<pre><code>//步骤1：获取视频路径
-NSString *webVideoPath = @&quot;http://api.junqingguanchashi.net/yunpan/bd/c.php?vid=/junqing/1213.mp4&quot;;
+        <p>1.播放视频<br>MPMoviewPlayerController继承于NSObject，使用它播放视频需要将其自带的视频View添加到视图控制器的View上才能显示视频，使用步骤如下：</p>
+<pre><code>第一步:引用MediaPlayer框架，声明视图控制器属性PlayerController
+#import &lt;MediaPlayer/MediaPlayer.h&gt;
+
+@property(nonatomic,strong)MPMoviePlayerController *playerController;
+
+//第二步：获取视频路径，创建播放器
+//本地视频路径
+NSString* localFilePath=[[NSBundle mainBundle]pathForResource:@&quot;不能说的秘密&quot; ofType:@&quot;mp4&quot;];
+NSURL *localVideoUrl = [NSURL fileURLWithPath:localFilePath];
+//网络视频路径
+NSString *webVideoPath = @&quot;http://api.junqingguanchashi.net/yunpan/bd/c.php?vid=/junqing/1115.mp4&quot;;
 NSURL *webVideoUrl = [NSURL URLWithString:webVideoPath];
-//步骤2：创建AVPlayer
-AVPlayer *avPlayer = [[AVPlayer alloc] initWithURL:webVideoUrl];
-//步骤3：使用AVPlayer创建AVPlayerViewController，并跳转播放界面
-AVPlayerViewController *avPlayerVC =[[AVPlayerViewController alloc] init];
-avPlayerVC.player = avPlayer;
-[self presentViewController:avPlayerVC animated:YES completion:nil];
-</code></pre><p>第二种：添加AVPlayerViewController的View到父视图上播放。</p>
-<p>使用这种方式播放的优点在于可以指定播放界面的原始尺寸大小，但是值得注意的是AVPlayerViewController必须被当前视图控制器所持有，以防止被当做局部变量被释放。为了满足这一条件，我们可以将AVPlayerViewController作为属性，也可以使用addChildViewController方法将其作为当前视图控制器的子视图控制器，示例代码如下：</p>
-<pre><code>//步骤1：获取视频路径
-NSString *webVideoPath = @&quot;http://api.junqingguanchashi.net/yunpan/bd/c.php?vid=/junqing/1213.mp4&quot;;
-NSURL *webVideoUrl = [NSURL URLWithString:webVideoPath];
-//步骤2：创建AVPlayer
-AVPlayer *avPlayer = [[AVPlayer alloc] initWithURL:webVideoUrl];
-//步骤3：使用AVPlayer创建AVPlayerViewController，并跳转播放界面
-AVPlayerViewController *avPlayerVC =[[AVPlayerViewController alloc] init];
-avPlayerVC.player = avPlayer;
-//步骤4：设置播放器视图大小
-avPlayerVC.view.frame = CGRectMake(25, 0, 320, 300);
-//特别注意:AVPlayerViewController不能作为局部变量被释放，否则无法播放成功
-//解决1.AVPlayerViewController作为属性
-//解决2:使用addChildViewController，AVPlayerViewController作为子视图控制器
-[self addChildViewController:avPlayerVC];
-[self.view addSubview:avPlayerVC.view];
+self.playerController =[[MPMoviePlayerController alloc]initWithContentURL:webVideoUrl];
+
+//第三步：设置Frame将播放器View添加到视图控制器View上
+self.playerController.view.frame = CGRectMake(0, 10, kDeviceWidth, 300);
+[self.view addSubview: self.playerController.view];
+
+//第四步：设置播放器属性
+//设置控制面板风格:无，嵌入，全屏，默认
+self.playerController.controlStyle = MPMovieControlStyleDefault;
+//设置是否自动播放(默认为YES）
+self.playerController.shouldAutoplay = NO;
+//设置播放器显示模式，类似于图片的处理，设置Fill有可能造成部分区域被裁剪
+self.playerController.scalingMode = MPMovieScalingModeAspectFit;
+//设置重复模式
+self.playerController.repeatMode = MPMovieRepeatModeOne;
+
+//第五步：播放视频
+//播放前的准备，会中断当前正在活跃的音频会话
+[ self.playerController  prepareToPlay];
+//播放视频，设置了自动播放之后可以不调用此方法
+//[ self.playerController  play];
+
+//第六步：在退出界面的时候，关闭播放器，移除通知
+- (void)dealloc{
+    //当前视图控制器pop之后并不会关闭播放，需要手动关闭
+    [self.playerController stop];
+    self.playerController = nil;
+    //移除播放器相关的通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+</code></pre><a id="more"></a>
+<p>2.视频播放相关的通知<br>MPMoviePlayerController有关视频播放的很多状态控制都是通过通知完成的，尤其是播放在线视频的时候，我们不仅监控视频加载是否成功，也会监控是视频缓存进度等。这里演示一些常用的通知如下：</p>
+<pre><code>//关于通知的使用(还有很多通知可以监听，可查看SDK)
+NSNotificationCenter *notificaionCenter = [NSNotificationCenter defaultCenter];
+//监听播放器状态的变化
+[notificaionCenter addObserver:self
+selector:@selector(playerStateChanged:)
+name:MPMoviePlayerPlaybackStateDidChangeNotification
+object:nil];
+//监听播放完成
+[notificaionCenter addObserver:self
+selector:@selector(playerFinished) name:MPMoviePlayerPlaybackDidFinishNotification
+object:nil];
+//监听切换到全屏
+[notificaionCenter addObserver:self
+selector:@selector(palyerChangeFullScreen) name:MPMoviePlayerDidEnterFullscreenNotification
+object:nil];
+//监听截屏操作完成
+[notificaionCenter addObserver:self
+selector:@selector(playerCaptureFinished:) name:MPMoviePlayerThumbnailImageRequestDidFinishNotification
+object:nil];
+
+#pragma mark - 监听通知的响应方法
+//播放状态变化，注意播放完成时的状态是暂停
+- (void)playerStateChanged:(NSNotification *)notificaion{
+    switch (self.playerController.playbackState) {
+        case MPMoviePlaybackStateStopped:{
+            NSLog(@&quot;播放停止&quot;);
+            break;
+        }
+        case MPMoviePlaybackStatePlaying:{
+            NSLog(@&quot;播放器正在播放&quot;);
+            break;
+        }
+        case MPMoviePlaybackStatePaused:{
+            NSLog(@&quot;播放器暂停&quot;);
+            break;
+        }
+        case MPMoviePlaybackStateInterrupted:{
+            NSLog(@&quot;播放器中断&quot;);
+            break;
+        }
+        case MPMoviePlaybackStateSeekingForward:{
+            NSLog(@&quot;播放器快进&quot;);
+            break;
+        }
+        case MPMoviePlaybackStateSeekingBackward:{
+            NSLog(@&quot;播放器快退&quot;);
+            break;
+        }
+        default:
+        break;
+    }
+}
+
+//视频播放结束
+- (void)playerFinished{
+    NSLog(@&quot;playerFinished：播放结束&quot;);
+}
+
+//播放器切换到了全屏
+- (void)palyerChangeFullScreen{
+    NSLog(@&quot;palyerChangeFullScreen：播放器进入全屏&quot;);
+}
+
+//播放器截屏结束
+- (void)playerCaptureFinished:(NSNotification *)notification{
+    //获取并显示截图
+    UIImage *image=notification.userInfo[MPMoviePlayerThumbnailImageKey];
+    self.captureImgView.image = image;
+}
+</code></pre><p>3.实现截屏</p>
+<pre><code>//添加一个按钮，点击开始截屏
+_captureBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, CGRectGetMaxY(self.playerController.view.frame) + 30, kDeviceWidth - 30 * 2, 50)];
+_captureBtn.backgroundColor = [UIColor purpleColor];
+[_captureBtn setTitle:@&quot;截图当前屏幕&quot; forState: UIControlStateNormal];
+[_captureBtn addTarget:self action:@selector(captureCurrentScreenImg) forControlEvents:UIControlEventTouchUpInside];
+[self.view addSubview:_captureBtn];
+//添加一个ImgView 显示截屏后的图片
+_captureImgView = [[UIImageView alloc] initWithFrame:CGRectMake((kDeviceWidth - 150)/2, CGRectGetMaxY(_captureBtn.frame) + 20, 150, 150)];
+_captureImgView.contentMode = UIViewContentModeScaleAspectFit;
+_captureImgView.backgroundColor = [UIColor grayColor];
+[self.view addSubview:_captureImgView];
+
+//截取当前屏幕
+- (void)captureCurrentScreenImg{
+    [self.playerController requestThumbnailImagesAtTimes:@[@(self.playerController.currentPlaybackTime)] timeOption:MPMovieTimeOptionNearestKeyFrame];
+}
+
+//监听通知：播放器截屏结束，得到图片并显示截图
+- (void)playerCaptureFinished:(NSNotification *)notification{
+    UIImage *image=notification.userInfo[MPMoviePlayerThumbnailImageKey];
+    self.captureImgView.image = image;
+}
 </code></pre>
       
     </div>
@@ -352,8 +460,8 @@ avPlayerVC.view.frame = CGRectMake(25, 0, 320, 300);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/24/iOS-分类Category/" rel="next" title="iOS-分类Category">
-                <i class="fa fa-chevron-left"></i> iOS-分类Category
+              <a href="/2018/05/13/iOS-基于AVPlayer视频播放/" rel="next" title="iOS 基于AVPlayer视频播放">
+                <i class="fa fa-chevron-left"></i> iOS 基于AVPlayer视频播放
               </a>
             
           </div>
@@ -361,6 +469,10 @@ avPlayerVC.view.frame = CGRectMake(25, 0, 320, 300);
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/24/ios-视频播放控制器MPMoviePlayViewController/" rel="prev" title="ios -视频播放控制器MPMoviePlayViewController">
+                ios -视频播放控制器MPMoviePlayViewController <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>

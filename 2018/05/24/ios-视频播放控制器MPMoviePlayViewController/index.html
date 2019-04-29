@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="AVPlayerViewController是iOS8新增视频框架AVKit中的一个播放器类。由于iOS9弃用前两种播放器类的原因，AVPlayerViewController也将变得更加常用。AVPlayerViewController适合开发播放界面要求不是很高的应用。其相比AVPlayer的使用更加方便，但是原理上还是AVPlayerViewController包含了一个AVPlayer对象">
+<meta name="description" content="MPMovicePlayerViewControlle只能全屏幕播放视频，它是一个包含了MPMoviePlayerController类型属性的特殊视图控制器，因此它是通过模态视图弹出的方式显示视频的。理解了这个，我们就可以知道在使用MPMovicePlayerViewController的时候我们可以通过它的MPMoviePlayerController属性设置很多播放器的属性了，具体用法和MP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS 视频播放控制器AVPlayViewControer">
-<meta property="og:url" content="http://yoursite.com/2019/05/13/iOS-视频播放控制器AVPlayViewControer/index.html">
+<meta property="og:title" content="ios -视频播放控制器MPMoviePlayViewController">
+<meta property="og:url" content="http://yoursite.com/2018/05/24/ios-视频播放控制器MPMoviePlayViewController/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="AVPlayerViewController是iOS8新增视频框架AVKit中的一个播放器类。由于iOS9弃用前两种播放器类的原因，AVPlayerViewController也将变得更加常用。AVPlayerViewController适合开发播放界面要求不是很高的应用。其相比AVPlayer的使用更加方便，但是原理上还是AVPlayerViewController包含了一个AVPlayer对象">
+<meta property="og:description" content="MPMovicePlayerViewControlle只能全屏幕播放视频，它是一个包含了MPMoviePlayerController类型属性的特殊视图控制器，因此它是通过模态视图弹出的方式显示视频的。理解了这个，我们就可以知道在使用MPMovicePlayerViewController的时候我们可以通过它的MPMoviePlayerController属性设置很多播放器的属性了，具体用法和MP">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-29T09:10:20.142Z">
+<meta property="og:updated_time" content="2019-04-29T09:18:30.891Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 视频播放控制器AVPlayViewControer">
-<meta name="twitter:description" content="AVPlayerViewController是iOS8新增视频框架AVKit中的一个播放器类。由于iOS9弃用前两种播放器类的原因，AVPlayerViewController也将变得更加常用。AVPlayerViewController适合开发播放界面要求不是很高的应用。其相比AVPlayer的使用更加方便，但是原理上还是AVPlayerViewController包含了一个AVPlayer对象">
+<meta name="twitter:title" content="ios -视频播放控制器MPMoviePlayViewController">
+<meta name="twitter:description" content="MPMovicePlayerViewControlle只能全屏幕播放视频，它是一个包含了MPMoviePlayerController类型属性的特殊视图控制器，因此它是通过模态视图弹出的方式显示视频的。理解了这个，我们就可以知道在使用MPMovicePlayerViewController的时候我们可以通过它的MPMoviePlayerController属性设置很多播放器的属性了，具体用法和MP">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/13/iOS-视频播放控制器AVPlayViewControer/">
+  <link rel="canonical" href="http://yoursite.com/2018/05/24/ios-视频播放控制器MPMoviePlayViewController/">
 
 
 
 
 
-  <title>iOS 视频播放控制器AVPlayViewControer | Hexo</title>
+  <title>ios -视频播放控制器MPMoviePlayViewController | Hexo</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/iOS-视频播放控制器AVPlayViewControer/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/ios-视频播放控制器MPMoviePlayViewController/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS 视频播放控制器AVPlayViewControer</h1>
+          <h1 class="post-title" itemprop="name headline">ios -视频播放控制器MPMoviePlayViewController</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-13T16:34:20+08:00">
-                2019-05-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T15:02:14+08:00">
+                2018-05-24
               </time>
             
 
@@ -299,35 +299,24 @@
       
 
       
-        <p>AVPlayerViewController是iOS8新增视频框架AVKit中的一个播放器类。由于iOS9弃用前两种播放器类的原因，AVPlayerViewController也将变得更加常用。AVPlayerViewController适合开发播放界面要求不是很高的应用。其相比AVPlayer的使用更加方便，但是原理上还是AVPlayerViewController包含了一个AVPlayer对象。<br>AVPlayerViewController有两种播放视频的方式：</p>
-<a id="more"></a>
-<p>第一种:直接弹出模态视图控制器播放</p>
-<pre><code>//步骤1：获取视频路径
-NSString *webVideoPath = @&quot;http://api.junqingguanchashi.net/yunpan/bd/c.php?vid=/junqing/1213.mp4&quot;;
-NSURL *webVideoUrl = [NSURL URLWithString:webVideoPath];
-//步骤2：创建AVPlayer
-AVPlayer *avPlayer = [[AVPlayer alloc] initWithURL:webVideoUrl];
-//步骤3：使用AVPlayer创建AVPlayerViewController，并跳转播放界面
-AVPlayerViewController *avPlayerVC =[[AVPlayerViewController alloc] init];
-avPlayerVC.player = avPlayer;
-[self presentViewController:avPlayerVC animated:YES completion:nil];
-</code></pre><p>第二种：添加AVPlayerViewController的View到父视图上播放。</p>
-<p>使用这种方式播放的优点在于可以指定播放界面的原始尺寸大小，但是值得注意的是AVPlayerViewController必须被当前视图控制器所持有，以防止被当做局部变量被释放。为了满足这一条件，我们可以将AVPlayerViewController作为属性，也可以使用addChildViewController方法将其作为当前视图控制器的子视图控制器，示例代码如下：</p>
-<pre><code>//步骤1：获取视频路径
-NSString *webVideoPath = @&quot;http://api.junqingguanchashi.net/yunpan/bd/c.php?vid=/junqing/1213.mp4&quot;;
-NSURL *webVideoUrl = [NSURL URLWithString:webVideoPath];
-//步骤2：创建AVPlayer
-AVPlayer *avPlayer = [[AVPlayer alloc] initWithURL:webVideoUrl];
-//步骤3：使用AVPlayer创建AVPlayerViewController，并跳转播放界面
-AVPlayerViewController *avPlayerVC =[[AVPlayerViewController alloc] init];
-avPlayerVC.player = avPlayer;
-//步骤4：设置播放器视图大小
-avPlayerVC.view.frame = CGRectMake(25, 0, 320, 300);
-//特别注意:AVPlayerViewController不能作为局部变量被释放，否则无法播放成功
-//解决1.AVPlayerViewController作为属性
-//解决2:使用addChildViewController，AVPlayerViewController作为子视图控制器
-[self addChildViewController:avPlayerVC];
-[self.view addSubview:avPlayerVC.view];
+        <p>MPMovicePlayerViewControlle只能全屏幕播放视频，它是一个包含了MPMoviePlayerController类型属性的特殊视图控制器，因此它是通过模态视图弹出的方式显示视频的。理解了这个，我们就可以知道在使用MPMovicePlayerViewController的时候我们可以通过它的MPMoviePlayerController属性设置很多播放器的属性了，具体用法和MPMoviePlayerController相同，就不过多的解释了,播放视频的代码示例如下；</p>
+<pre><code>//第一步:获取视频路径
+//本地视频
+NSString* localFilePath=[[NSBundle mainBundle]pathForResource:@&quot;不能说的秘密&quot; ofType:@&quot;mp4&quot;];
+NSURL *localVideoUrl = [NSURL fileURLWithPath:localFilePath];
+//在线视频
+//NSString *webVideoPath = @&quot;http://api.junqingguanchashi.net/yunpan/bd/c.php?vid=/junqing/1115.mp4&quot;;
+//NSURL *webVideoUrl = [NSURL URLWithString:webVideoPath];
+
+//第二步:创建视频播放器
+MPMoviePlayerViewController *playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:localVideoUrl];
+
+//第三步:设置播放器属性
+//通过moviePlayer属性设置播放器属性(与MPMoviePlayerController类似)
+playerViewController.moviePlayer.scalingMode = MPMovieScalingModeFill;
+
+//第四步:跳转视频播放界面
+[self presentViewController:playerViewController animated:YES completion:nil];
 </code></pre>
       
     </div>
@@ -352,8 +341,8 @@ avPlayerVC.view.frame = CGRectMake(25, 0, 320, 300);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/24/iOS-分类Category/" rel="next" title="iOS-分类Category">
-                <i class="fa fa-chevron-left"></i> iOS-分类Category
+              <a href="/2018/05/23/iOS-基于MediaPlayer框架进行视频播放/" rel="next" title="iOS -基于MediaPlayer框架进行视频播放">
+                <i class="fa fa-chevron-left"></i> iOS -基于MediaPlayer框架进行视频播放
               </a>
             
           </div>
@@ -361,6 +350,10 @@ avPlayerVC.view.frame = CGRectMake(25, 0, 320, 300);
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/02/iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别/" rel="prev" title="iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别">
+                iOS之viewForkey和objectForkey，setObjectForkey和setValueForkey的区别 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>

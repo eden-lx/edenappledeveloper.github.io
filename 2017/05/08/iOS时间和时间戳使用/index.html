@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="在工作中又遇到了音频录制的需求，再次做此记录 贴上关键代码 #import &amp;quot;GXHLXRecordVoiceEmailView.h&amp;quot; #import &amp;lt;AVFoundation/AVFoundation.h&amp;gt;  @interface GXHLXRecordVoiceEmailView () &amp;lt;AVAudioRecorderDelegate,AVAudioPl">
+<meta name="description" content="一、获取当前时间 //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateFormatte">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS 音频录制以及播放">
-<meta property="og:url" content="http://yoursite.com/2018/04/08/iOS-音频录制以及播放/index.html">
+<meta property="og:title" content="iOS时间和时间戳使用">
+<meta property="og:url" content="http://yoursite.com/2017/05/08/iOS时间和时间戳使用/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="在工作中又遇到了音频录制的需求，再次做此记录 贴上关键代码 #import &amp;quot;GXHLXRecordVoiceEmailView.h&amp;quot; #import &amp;lt;AVFoundation/AVFoundation.h&amp;gt;  @interface GXHLXRecordVoiceEmailView () &amp;lt;AVAudioRecorderDelegate,AVAudioPl">
+<meta property="og:description" content="一、获取当前时间 //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateFormatte">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T09:56:34.339Z">
+<meta property="og:updated_time" content="2019-04-29T09:00:10.263Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 音频录制以及播放">
-<meta name="twitter:description" content="在工作中又遇到了音频录制的需求，再次做此记录 贴上关键代码 #import &amp;quot;GXHLXRecordVoiceEmailView.h&amp;quot; #import &amp;lt;AVFoundation/AVFoundation.h&amp;gt;  @interface GXHLXRecordVoiceEmailView () &amp;lt;AVAudioRecorderDelegate,AVAudioPl">
+<meta name="twitter:title" content="iOS时间和时间戳使用">
+<meta name="twitter:description" content="一、获取当前时间 //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateFormatte">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/08/iOS-音频录制以及播放/">
+  <link rel="canonical" href="http://yoursite.com/2017/05/08/iOS时间和时间戳使用/">
 
 
 
 
 
-  <title>iOS 音频录制以及播放 | Hexo</title>
+  <title>iOS时间和时间戳使用 | Hexo</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/08/iOS-音频录制以及播放/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/08/iOS时间和时间戳使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS 音频录制以及播放</h1>
+          <h1 class="post-title" itemprop="name headline">iOS时间和时间戳使用</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T18:08:44+08:00">
-                2018-04-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-08T16:57:55+08:00">
+                2017-05-08
               </time>
             
 
@@ -299,113 +299,47 @@
       
 
       
-        <p>在工作中又遇到了音频录制的需求，再次做此记录</p>
-<p>贴上关键代码</p>
-<pre><code>#import &quot;GXHLXRecordVoiceEmailView.h&quot;
-#import &lt;AVFoundation/AVFoundation.h&gt;
-
-@interface GXHLXRecordVoiceEmailView () &lt;AVAudioRecorderDelegate,AVAudioPlayerDelegate&gt; {
-
-    AVAudioRecorder *recorder;//录音对象
-    AVAudioPlayer *player;//播放对象
-    NSURL *fileUrl;//文件路径
-    NSTimer *timer;
+        <p>一、获取当前时间</p>
+<pre><code>//获取当前时间
+- (NSString *)currentDateStr{
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
+    [dateFormatter setDateFormat:@&quot;YYYY/MM/dd hh:mm:ss SS &quot;];//设定时间格式,这里可以设置成自己需要的格式
+    NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
+    return dateString;
 }
-
-
-@property (nonatomic, strong) AVAudioSession *session;
-
-@end
 </code></pre><a id="more"></a>
-<pre><code>@implementation GXHLXRecordVoiceEmailView
-#pragma mark  --- 按住开始录制 ---
-- (IBAction)recordButtonAction:(id)sender {
-
-    // 注意这里必须设置AVAudioSession否则会导致第一次录制失败以及会导致播放时无法使用扬声器播放
-    AVAudioSession *session =[AVAudioSession sharedInstance];
-    NSError *sessionError;
-    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&amp;sessionError];
-    if (session == nil) {
-
-        NSLog(@&quot;Error creating session: %@&quot;,[sessionError description]);
-    }else{
-
-        [session setActive:YES error:nil];
-    }
-
-    self.session = session;
-
-    NSString *urlStr = [NSHomeDirectory() stringByAppendingPathComponent:@&quot;Documents/GXRecoder.aac&quot;];
-
-    //删除之前的录音
-    [[NSFileManager defaultManager]removeItemAtPath:urlStr error:nil];
-
-
-    fileUrl = [NSURL fileURLWithPath:urlStr];
-
-
-    //(2)设置录音的音频参数
-    /*
-    1 ID号:acc
-    2 采样率(HZ):每秒从连续的信号中提取并组成离散信号的采样个数
-    3 通道的个数:(1 单声道 2 立体声)
-    4 采样位数(8 16 24 32) 衡量声音波动变化的参数
-    5 大端或者小端 (内存的组织方式)
-    6 采集信号是整数还是浮点数
-    7 音频编码质量
-
-    */
-    NSDictionary *info = @{
-    AVFormatIDKey:[NSNumber numberWithInt:kAudioFormatMPEG4AAC],//音频格式
-    AVSampleRateKey:@8000,//采样率
-    AVNumberOfChannelsKey:@1,//声道数
-    AVLinearPCMBitDepthKey:@16,//采样位数
-    AVEncoderAudioQualityKey:[NSNumber numberWithInt:AVAudioQualityHigh],
-
-    };
-
-
-    /*
-    url:录音文件保存的路径
-    settings: 录音的设置
-    error:错误
-    */
-    recorder = [[AVAudioRecorder alloc]initWithURL:fileUrl settings:info error:nil];
-    recorder.delegate = self;
-    recorder.meteringEnabled = YES;
-    [recorder prepareToRecord];
-    [recorder record];
+<p>二、获取当前时间戳</p>
+<pre><code>//获取当前时间戳
+- (NSString *)currentTimeStr{
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
+    NSTimeInterval time=[date timeIntervalSince1970]*1000;// *1000 是精确到毫秒，不乘就是精确到秒
+    NSString *timeString = [NSString stringWithFormat:@&quot;%.0f&quot;, time];
+    return timeString;
 }
-
-
-
-#pragma mark  --- 抬起停止录制 ---
-- (IBAction)stopRecordAction:(id)sender {
-
-    [recorder stop];
-
-    //手动释放
-    recorder =nil;
+</code></pre><p>三、时间戳转时间</p>
+<pre><code>// 时间戳转时间,时间戳为13位是精确到毫秒的，10位精确到秒
+- (NSString *)getDateStringWithTimeStr:(NSString *)str{
+    NSTimeInterval time=[str doubleValue]/1000;//传入的时间戳str如果是精确到毫秒的记得要/1000
+    NSDate *detailDate=[NSDate dateWithTimeIntervalSince1970:time];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; //实例化一个NSDateFormatter对象
+    //设定时间格式,这里可以设置成自己需要的格式
+    [dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm:ss SS&quot;];
+    NSString *currentDateStr = [dateFormatter stringFromDate: detailDate];
+    return currentDateStr;
 }
-
-#pragma mark  --- 发送点击事件 ---
-- (IBAction)sendRecordEmailAction:(id)sender {
-
-    //多次播放的时候
-    player = nil;
-
-    player = [[AVAudioPlayer alloc]initWithContentsOfURL:fileUrl error:nil];
-
-    if (player) {
-
-        // 注意播放前设置AVAudioSession恢复设置回放标志
-        [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
-        [player prepareToPlay];
-        [player play];
-
-    }
+</code></pre><p>四、字符串转时间戳</p>
+<pre><code>//字符串转时间戳 如：2017-4-10 17:15:10
+- (NSString *)getTimeStrWithString:(NSString *)str{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
+    [dateFormatter setDateFormat:@&quot;YYYY-MM-dd HH:mm:ss&quot;]; //设定时间的格式
+    NSDate *tempDate = [dateFormatter dateFromString:str];//将字符串转换为时间对象
+    NSString *timeStr = [NSString stringWithFormat:@&quot;%ld&quot;, (long)[tempDate timeIntervalSince1970]*1000];//字符串转成时间戳,精确到毫秒*1000
+    return timeStr;
 }
-</code></pre>
+</code></pre><p>IOS–Objecti</p>
+<p>作者：尼古拉斯超仔<br>链接：<a href="https://www.jianshu.com/p/43d2b343d7f4" target="_blank" rel="noopener">https://www.jianshu.com/p/43d2b343d7f4</a><br>来源：简书<br>简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。</p>
+
       
     </div>
     
@@ -429,8 +363,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/01/iOS中求出UILabel中文字的行数以及每一行的内容/" rel="next" title="iOS中求出UILabel中文字的行数以及每一行的内容">
-                <i class="fa fa-chevron-left"></i> iOS中求出UILabel中文字的行数以及每一行的内容
+              <a href="/2017/04/28/获取手机信息/" rel="next" title="获取手机信息">
+                <i class="fa fa-chevron-left"></i> 获取手机信息
               </a>
             
           </div>
@@ -439,8 +373,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/16/iOS动画执行过程中响应事件/" rel="prev" title="iOS动画执行过程中响应事件">
-                iOS动画执行过程中响应事件 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/08/iOS网易云音乐锁屏界面实现/" rel="prev" title="iOS网易云音乐锁屏界面实现">
+                iOS网易云音乐锁屏界面实现 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

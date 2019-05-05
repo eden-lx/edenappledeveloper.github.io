@@ -79,17 +79,22 @@
 
 
 
-<meta name="description" content="原文如下：最近看一些第三方的代码有@try,一副看不懂的样子,真心没用过,于是查了些资料收集在这里,以后遇到就不会再蒙比了.其实这东西确实不怎么用,下文有解释.Objective-C 异常机制 :– 作用 : 开发者将引发异常的代码放在 @try 代码块中, 程序出现异常 使用 @catch 代码块进行捕捉;– 每个代码块作用 : @try 代码块存放可能出现异常的代码, @catch 代码块 异">
+<meta name="description" content="一个NSObject对象占用多少内存？一开始想到的方法可以直接用sizeof打印,我们直接用这个打印看一下NSObject对象大小. NSObject *obj = [[NSObject alloc] init]; NSLog(@&amp;quot;%zd&amp;quot;,sizeof(obj));">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS @try @catch @finally异常机制">
-<meta property="og:url" content="http://yoursite.com/2018/04/26/iOS-try-catch-finally异常机制/index.html">
+<meta property="og:title" content="NSObiect对象占用多少内存">
+<meta property="og:url" content="http://yoursite.com/2019/05/05/NSObiect对象占用多少内存/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="原文如下：最近看一些第三方的代码有@try,一副看不懂的样子,真心没用过,于是查了些资料收集在这里,以后遇到就不会再蒙比了.其实这东西确实不怎么用,下文有解释.Objective-C 异常机制 :– 作用 : 开发者将引发异常的代码放在 @try 代码块中, 程序出现异常 使用 @catch 代码块进行捕捉;– 每个代码块作用 : @try 代码块存放可能出现异常的代码, @catch 代码块 异">
+<meta property="og:description" content="一个NSObject对象占用多少内存？一开始想到的方法可以直接用sizeof打印,我们直接用这个打印看一下NSObject对象大小. NSObject *obj = [[NSObject alloc] init]; NSLog(@&amp;quot;%zd&amp;quot;,sizeof(obj));">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-25T09:22:33.941Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/05/NSObiect对象占用多少内存/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/05/NSObiect对象占用多少内存/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/05/NSObiect对象占用多少内存/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/05/NSObiect对象占用多少内存/4.png">
+<meta property="og:updated_time" content="2019-05-05T06:26:30.023Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS @try @catch @finally异常机制">
-<meta name="twitter:description" content="原文如下：最近看一些第三方的代码有@try,一副看不懂的样子,真心没用过,于是查了些资料收集在这里,以后遇到就不会再蒙比了.其实这东西确实不怎么用,下文有解释.Objective-C 异常机制 :– 作用 : 开发者将引发异常的代码放在 @try 代码块中, 程序出现异常 使用 @catch 代码块进行捕捉;– 每个代码块作用 : @try 代码块存放可能出现异常的代码, @catch 代码块 异">
+<meta name="twitter:title" content="NSObiect对象占用多少内存">
+<meta name="twitter:description" content="一个NSObject对象占用多少内存？一开始想到的方法可以直接用sizeof打印,我们直接用这个打印看一下NSObject对象大小. NSObject *obj = [[NSObject alloc] init]; NSLog(@&amp;quot;%zd&amp;quot;,sizeof(obj));">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/05/NSObiect对象占用多少内存/1.png">
 
 
 
@@ -119,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/26/iOS-try-catch-finally异常机制/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/05/NSObiect对象占用多少内存/">
 
 
 
 
 
-  <title>iOS @try @catch @finally异常机制 | Hexo</title>
+  <title>NSObiect对象占用多少内存 | Hexo</title>
   
 
 
@@ -232,7 +237,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/26/iOS-try-catch-finally异常机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/NSObiect对象占用多少内存/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +254,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS @try @catch @finally异常机制</h1>
+          <h1 class="post-title" itemprop="name headline">NSObiect对象占用多少内存</h1>
         
 
         <div class="post-meta">
@@ -261,8 +266,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T18:03:32+08:00">
-                2018-04-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-05T14:19:04+08:00">
+                2019-05-05
               </time>
             
 
@@ -299,27 +304,45 @@
       
 
       
-        <p>原文如下：<br>最近看一些第三方的代码有@try,一副看不懂的样子,真心没用过,于是查了些资料收集在这里,以后遇到就不会再蒙比了.其实这东西确实不怎么用,下文有解释.<br>Objective-C 异常机制 :<br>– 作用 : 开发者将引发异常的代码放在 @try 代码块中, 程序出现异常 使用 @catch 代码块进行捕捉;<br>– 每个代码块作用 : @try 代码块存放可能出现异常的代码, @catch 代码块 异常处理逻辑, @finally 代码块回收资源;<br>– 语法示例 :</p>
+        <p>一个NSObject对象占用多少内存？<br>一开始想到的方法可以直接用sizeof打印,我们直接用这个打印看一下NSObject对象大小.</p>
+<pre><code>NSObject *obj = [[NSObject alloc] init];
+NSLog(@&quot;%zd&quot;,sizeof(obj));
+</code></pre><p><img src="/2019/05/05/NSObiect对象占用多少内存/1.png" alt="sizeofNSObject"></p>
 <a id="more"></a>
-<pre><code>@try
-{
-    // 业务逻辑
+<p>从打印来看,这个对象大小8字节.<br>所以对象大小就是8字节??我们来研究一下…<br>OC底层实现<br>OC是基于C/C++实现的,意味着编译是这个过程OC–&gt;C/C++–&gt;汇编—&gt;机器码.</p>
+<p><img src="/2019/05/05/NSObiect对象占用多少内存/2.png" alt="OC编译过程"></p>
+<p>其实OC能实现面向对象跟C++分不开,是基于C++的结构体实现.C++的结构体跟Class几乎是一样的.</p>
+<p>1.OC利用Xcode编译成C++</p>
+<pre><code>$ xcrun  -sdk  iphoneos  clang  -arch  arm64  -rewrite-objc  OC源文件  -o  输出的CPP文件
+</code></pre><p>2.OC对象的本质<br>1.将代码编译成C++</p>
+<pre><code>$ xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc main.m -o main-arm64.cpp
+</code></pre><p>可以看到一个文件main-arm64.cpp,大概3万多行的代码.最终main函数转成的几行代码在最下方,也可以看到objc_msgsend的消息机制:</p>
+<pre><code>int main(int argc, const char * argv[]) {
+    /* @autoreleasepool */ { __AtAutoreleasePool __autoreleasepool; 
+        NSObject *obj = ((NSObject *(*)(id, SEL))(void *)objc_msgSend)((id)((NSObject *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass(&quot;NSObject&quot;), sel_registerName(&quot;alloc&quot;)), sel_registerName(&quot;init&quot;));
+        NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_h7_n1ts5dlj4hgg5sky9q8w7c7w0000gp_T_main_684d68_mi_0,sizeof(obj));
+        return 0;
+    }
 }
-@catch (异常类型名1 ex)
-{
-    //异常处理代码
+</code></pre><p>在文件中可以到一个结构体NSObject_IMPL 基本就是NSObject实现,类似于下图,你定义一个interface,在底层就是一个结构体</p>
+<p><img src="/2019/05/05/NSObiect对象占用多少内存/3.png" alt="NSObject底层结构体"></p>
+<p>可以看到NSObject对象的底层就只有一个isa指针,我们知道64位指针大小就是8字节.从这里看对象也是8字节.但是还有另外方式打印对象大小,OC的方法,我们试试:</p>
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+#import &lt;malloc/malloc.h&gt;
+#import &lt;objc/runtime.h&gt;
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+    // insert code here...
+
+    NSObject *obj = [[NSObject alloc] init];
+    NSLog(@&quot;%zd&quot;,malloc_size((__bridge const void *)(obj)));
+    NSLog(@&quot;%zd&quot;,class_getInstanceSize([NSObject class]));
+    NSLog(@&quot;%zd&quot;,sizeof(obj));
+    return 0;
+    }
 }
-@catch (异常类型名2 ex)
-{
-    //异常处理代码
-}
-    // 可以捕捉 N 个 异常 ...
-@finally
-{
-    //回收资源
-}
-</code></pre><p>(2) Objective-C 异常处理过程<br><strong>异常处理过程 </strong>:<br>– 生成异常对象 : @try 中出现异常, 系统会生成一个异常对象, 该对象提交到系统中 系统就会抛出异常;<br>– <strong>异常处理流程 </strong>: 运行环境接收到 异常对象时, 如果存在能处理该异常对象的 @catch 代码块, 就将该异常对象交给 @catch 处理, 该过程就是捕获异常, 如果没有 @catch 代码块处理异常, 程序就会终止;<br>– <strong>@catch 代码块捕获过程 </strong>: 运行环境接收到 异常对象 时, 会依次判断该异常对象类型是否是 @catch 代码块中异常或其子类实例, 如果匹配成功, 被匹配的 @catch 就会处理该异常, 都则就会跟下一个 @catch 代码块对比;<br>– @catch 处理异常 : 系统将异常对象传递给 @catch 形参, @catch 通过该形参获取异常对象详细信息;<br>其它注意点 :<br>– @try 与 @catch 对应关系 : 一个 @try 代码块 可以对应 多个 @catch 代码块;<br>– {} 省略问题 : 异常捕获的 @try @catch @finally 的花括号不可省略;<br>NSException 异常类 :<br>– 简介 : NSException 是 OC 中所有异常的父类;<br>– 位置永远在最后 : @catch 代码块捕获异常时查看 异常对象类型是否是 捕获的异常类型 或者其子类, 一旦放在开头, 后面的异常永远不可能捕获;<br>(3) 异常信息访问<br>异常信息访问 :<br>– name : 返回异常的详细名称;<br>– reason : 返回异常引发的原因;<br>– userInfo : 返回异常的用户信息, 一个 NSDictionary 对象;</p>
-<p>2.ios<strong><strong>中很少用到</strong></strong>try <strong><strong>和</strong></strong>catch**<br>简单的来说，Apple虽然同时提供了错误处理（NSError）和异常处理（exception）两种机制，但是Apple更加提倡开发者使用NSError来处理程序运行中可恢复的错误。而异常被推荐用来处理不可恢复的错误。<br>原因有几个，在非gc情况下，exception容易造成内存管理问题（文档有描述即使是arc下，也不是安全的）；exception使用block造成额外的开销，效率较低等等，另外这也的确是Cocoa开发者的习惯。<a href="http://blog.csdn.net/x32sky/article/details/23753597" target="_blank" rel="noopener">http://blog.csdn.net/x32sky/article/details/23753597</a>//怪不得我没听周围IOS开发人员用这个<br>3.try,catch,finally 执行流程<br><a href="http://blog.csdn.net/phoenix001/article/details/4293472" target="_blank" rel="noopener">http://blog.csdn.net/phoenix001/article/details/4293472</a></p>
+</code></pre><p>运行结果:<br><img src="/2019/05/05/NSObiect对象占用多少内存/4.png" alt="运行结果"></p>
+<p>发现分配了16个字节,但是对象大小只占了8字节?<br>源码查看NSObject对象分配<br>查看objc的源码<br>可看到alloc的底层做了内存对齐,最少为16字节.<br>总结:<br>1.系统分配了16个字节给NSObject对象（通过malloc_size函数获得）<br>2.但NSObject对象内部只使用了8个字节的空间（64bit环境下，可以通过class_getInstanceSize函数获得）</p>
 
       
     </div>
@@ -344,8 +367,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/24/iOS如何定位Masonry约束报错的控件/" rel="next" title="iOS如何定位Masonry约束报错的控件">
-                <i class="fa fa-chevron-left"></i> iOS如何定位Masonry约束报错的控件
+              <a href="/2019/04/24/iOS-分类Category/" rel="next" title="iOS-分类Category">
+                <i class="fa fa-chevron-left"></i> iOS-分类Category
               </a>
             
           </div>
@@ -353,10 +376,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/02/记录几个常见正则表达式判定方法/" rel="prev" title="记录几个常见正则表达式判定方法">
-                记录几个常见正则表达式判定方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

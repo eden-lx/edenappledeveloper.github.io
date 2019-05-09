@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="态度决定一切，细节决定成败">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2018/01/index.html">
+<meta name="description" content="iOS 系统在 UIResponder 类中提供了一个摇一摇的实现方法,大体实现思路为: 想让哪个 VC 实现摇一摇方案,将该 VC 变为第一响应者即可;在 UIResponder 类中提供了三个摇一摇的实现方法: 三个方法一次为: 开始摇一摇、结束摇一摇、取消摇一摇 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS「摇一摇」功能的实现">
+<meta property="og:url" content="http://yoursite.com/2019/05/10/iOS「摇一摇」功能的实现/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="态度决定一切，细节决定成败">
+<meta property="og:description" content="iOS 系统在 UIResponder 类中提供了一个摇一摇的实现方法,大体实现思路为: 想让哪个 VC 实现摇一摇方案,将该 VC 变为第一响应者即可;在 UIResponder 类中提供了三个摇一摇的实现方法: 三个方法一次为: 开始摇一摇、结束摇一摇、取消摇一摇 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)e">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-09T19:03:32.950Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="态度决定一切，细节决定成败">
+<meta name="twitter:title" content="iOS「摇一摇」功能的实现">
+<meta name="twitter:description" content="iOS 系统在 UIResponder 类中提供了一个摇一摇的实现方法,大体实现思路为: 想让哪个 VC 实现摇一摇方案,将该 VC 变为第一响应者即可;在 UIResponder 类中提供了三个摇一摇的实现方法: 三个方法一次为: 开始摇一摇、结束摇一摇、取消摇一摇 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)e">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2018/01/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/10/iOS「摇一摇」功能的实现/">
 
 
 
 
 
-  <title>归档 | Hexo</title>
+  <title>iOS「摇一摇」功能的实现 | Hexo</title>
   
 
 
@@ -143,7 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,71 +218,174 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-         
-        
-        OK! 目前共计 36 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/iOS「摇一摇」功能的实现/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/01/22/iOS-开发总结/" itemprop="url">
-              
-                <span itemprop="name">iOS 开发总结</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">iOS「摇一摇」功能的实现</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-01-22T09:52:01+08:00" content="2018-01-22">
-          01-22
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T03:01:55+08:00">
+                2019-05-10
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>iOS 系统在 UIResponder 类中提供了一个摇一摇的实现方法,大体实现思路为: 想让哪个 VC 实现摇一摇方案,将该 VC 变为第一响应者即可;<br>在 UIResponder 类中提供了三个摇一摇的实现方法: 三个方法一次为: 开始摇一摇、结束摇一摇、取消摇一摇</p>
+<pre><code>- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+
+- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+</code></pre><a id="more"></a>
+<p>在viewDidLoad 中执行以下方法</p>
+<pre><code>- (void)viewDidLoad {  
+    [super viewDidLoad];  
+    // 设置允许摇一摇功能  
+    [UIApplication sharedApplication].applicationSupportsShakeToEdit = YES;  
+    // 并让自己成为第一响应者  
+    [self becomeFirstResponder];  
+    return;  
+}
+</code></pre><p>摇一摇相关方法:</p>
+<pre><code>- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {  
+    NSLog(@&quot;开始摇动&quot;);  
+    return;  
+}  
+
+- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {  
+    NSLog(@&quot;取消摇动&quot;);  
+    return;  
+}  
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {  
+    if (event.subtype == UIEventSubtypeMotionShake) { // 判断是否是摇动结束  
+        NSLog(@&quot;摇动结束&quot;);  
+    }  
+    return;  
+}  
+</code></pre><p>另外:在模拟器中运行时，可以通过「Hardware」-「Shake Gesture」来测试「摇一摇」功能</p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/09/关于git冲突报错-Line-XX-StartTag-invalid-element-name/" rel="next" title="关于git冲突报错-> Line XX: StartTag: invalid element name">
+                <i class="fa fa-chevron-left"></i> 关于git冲突报错-> Line XX: StartTag: invalid element name
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -289,6 +393,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -485,6 +593,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

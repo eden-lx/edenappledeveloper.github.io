@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="1.自适应宽度 //宽度够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal]; //宽度不够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UI">
+<meta name="description" content="#pragma mark - #pragma mark - mw_blurryImage: withBlurLevel: 传入图片返回设置毛玻璃效果后的图片/* Attention points:① 需要引入#import &amp;lt;Accelerate/Accelerate.h&amp;gt;② 传入变量 blur 代表毛玻璃设置的程度，值越大越模糊 范围须在0-1中间,默认为0.5 / + (UIIma">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用masonry自适应label高度和宽度">
-<meta property="og:url" content="http://yoursite.com/2017/07/24/用masonry自适应label高度和宽度/index.html">
+<meta property="og:title" content="UIImage 毛玻璃效果实现">
+<meta property="og:url" content="http://yoursite.com/2019/06/13/UIImage-毛玻璃效果实现/index.html">
 <meta property="og:site_name" content="Eden&#39;Blog">
-<meta property="og:description" content="1.自适应宽度 //宽度够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal]; //宽度不够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UI">
+<meta property="og:description" content="#pragma mark - #pragma mark - mw_blurryImage: withBlurLevel: 传入图片返回设置毛玻璃效果后的图片/* Attention points:① 需要引入#import &amp;lt;Accelerate/Accelerate.h&amp;gt;② 传入变量 blur 代表毛玻璃设置的程度，值越大越模糊 范围须在0-1中间,默认为0.5 / + (UIIma">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T09:54:20.000Z">
+<meta property="og:updated_time" content="2019-06-13T02:35:44.842Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用masonry自适应label高度和宽度">
-<meta name="twitter:description" content="1.自适应宽度 //宽度够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal]; //宽度不够时 [yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UI">
+<meta name="twitter:title" content="UIImage 毛玻璃效果实现">
+<meta name="twitter:description" content="#pragma mark - #pragma mark - mw_blurryImage: withBlurLevel: 传入图片返回设置毛玻璃效果后的图片/* Attention points:① 需要引入#import &amp;lt;Accelerate/Accelerate.h&amp;gt;② 传入变量 blur 代表毛玻璃设置的程度，值越大越模糊 范围须在0-1中间,默认为0.5 / + (UIIma">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/24/用masonry自适应label高度和宽度/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/13/UIImage-毛玻璃效果实现/">
 
 
 
 
 
-  <title>用masonry自适应label高度和宽度 | Eden'Blog</title>
+  <title>UIImage 毛玻璃效果实现 | Eden'Blog</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/24/用masonry自适应label高度和宽度/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/13/UIImage-毛玻璃效果实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">用masonry自适应label高度和宽度</h1>
+          <h1 class="post-title" itemprop="name headline">UIImage 毛玻璃效果实现</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T10:14:35+08:00">
-                2017-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-13T10:32:48+08:00">
+                2019-06-13
               </time>
             
 
@@ -299,15 +299,65 @@
       
 
       
-        <p>1.自适应宽度</p>
-<p>//宽度够时</p>
-<pre><code>[yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-</code></pre><p>//宽度不够时</p>
-<pre><code>[yourLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-</code></pre><p>2.label多行自适应高度</p>
-<pre><code>label.preferredMaxLayoutWidth = width;//给一个maxWidth[label
-
-setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];//设置huggingPrioritylabel.numberOfLines = 0;//设置换行
+        <p>#pragma mark -</p>
+<p>#pragma mark - mw_blurryImage: withBlurLevel: 传入图片返回设置毛玻璃效果后的图片<br>/*<em> Attention points:<br>① 需要引入#import &lt;Accelerate/Accelerate.h&gt;<br>② 传入变量 blur 代表毛玻璃设置的程度，值越大越模糊 范围须在0-1中间,默认为0.5
+</em>/</p>
+<pre><code>+ (UIImage *)mw_blurryImage:(UIImage *)image withBlurLevel:(CGFloat)blur {
+    if (blur &lt; 0.f || blur &gt; 1.f) {
+        blur = 0.5f;
+    }
+    int boxSize = (int)(blur * 40);
+    boxSize = boxSize - (boxSize % 2) + 1;
+    CGImageRef img = image.CGImage;
+    vImage_Buffer inBuffer, outBuffer;
+    vImage_Error error;
+    void *pixelBuffer;
+    CGDataProviderRef inProvider = CGImageGetDataProvider(img);
+    CFDataRef inBitmapData = CGDataProviderCopyData(inProvider);
+    inBuffer.width = CGImageGetWidth(img);
+    inBuffer.height = CGImageGetHeight(img);
+    inBuffer.rowBytes = CGImageGetBytesPerRow(img);
+    inBuffer.data = (void*)CFDataGetBytePtr(inBitmapData);
+    pixelBuffer = malloc(CGImageGetBytesPerRow(img) *
+    CGImageGetHeight(img));
+    if(pixelBuffer == NULL)
+    NSLog(@&quot;No pixelbuffer&quot;);
+    outBuffer.data = pixelBuffer;
+    outBuffer.width = CGImageGetWidth(img);
+    outBuffer.height = CGImageGetHeight(img);
+    outBuffer.rowBytes = CGImageGetBytesPerRow(img);
+    error = vImageBoxConvolve_ARGB8888(&amp;inBuffer,
+                                &amp;outBuffer,
+                                NULL,
+                                0,
+                                0,
+                                boxSize,
+                                boxSize,
+                                NULL,
+                                kvImageEdgeExtend);
+    if (error) {
+        NSLog(@&quot;error from convolution %ld&quot;, error);
+    }
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef ctx = CGBitmapContextCreate(
+                    outBuffer.data,
+                    outBuffer.width,
+                    outBuffer.height,
+                    8,
+                    outBuffer.rowBytes,
+                    colorSpace,
+                    kCGImageAlphaNoneSkipLast);
+    CGImageRef imageRef = CGBitmapContextCreateImage (ctx);
+    UIImage *returnImage = [UIImage imageWithCGImage:imageRef];
+    //clean up
+    CGContextRelease(ctx);
+    CGColorSpaceRelease(colorSpace);
+    free(pixelBuffer);
+    CFRelease(inBitmapData);
+    CGColorSpaceRelease(colorSpace);
+    CGImageRelease(imageRef);
+    return returnImage;
+}
 </code></pre>
       
     </div>
@@ -332,8 +382,8 @@ setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxi
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/08/iOS网易云音乐锁屏界面实现/" rel="next" title="iOS网易云音乐锁屏界面实现">
-                <i class="fa fa-chevron-left"></i> iOS网易云音乐锁屏界面实现
+              <a href="/2019/05/14/xcode-真机运行报错library-not-found-for-lstdc-6-0-9/" rel="next" title="xcode 真机运行报错library not found for -lstdc++.6.0.9">
+                <i class="fa fa-chevron-left"></i> xcode 真机运行报错library not found for -lstdc++.6.0.9
               </a>
             
           </div>
@@ -341,10 +391,6 @@ setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxi
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/28/Git详细分析/" rel="prev" title="Git详细分析">
-                Git详细分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SQLite 什么是SQLite SQLite是一款轻型的嵌入式数据库它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了它的处理速度比Mysql、PostgreSQL这两款著名的数据库都还快 什么是数据库数据库（Database）是按照数据结构来组织、存储和管理数据的仓库数据库可以分为2大种类 关系型数据库（主流）对象型数据库 数据库是如何存储数据数据库的存储结构和excel很像，以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FMDB基本使用以及常用SQList语句">
+<meta property="og:url" content="http://yoursite.com/2019/06/19/FMDB基本使用以及常用SQList语句/index.html">
+<meta property="og:site_name" content="Eden&#39;Blog">
+<meta property="og:description" content="SQLite 什么是SQLite SQLite是一款轻型的嵌入式数据库它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了它的处理速度比Mysql、PostgreSQL这两款著名的数据库都还快 什么是数据库数据库（Database）是按照数据结构来组织、存储和管理数据的仓库数据库可以分为2大种类 关系型数据库（主流）对象型数据库 数据库是如何存储数据数据库的存储结构和excel很像，以">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-19T02:06:54.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FMDB基本使用以及常用SQList语句">
+<meta name="twitter:description" content="SQLite 什么是SQLite SQLite是一款轻型的嵌入式数据库它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了它的处理速度比Mysql、PostgreSQL这两款著名的数据库都还快 什么是数据库数据库（Database）是按照数据结构来组织、存储和管理数据的仓库数据库可以分为2大种类 关系型数据库（主流）对象型数据库 数据库是如何存储数据数据库的存储结构和excel很像，以">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/19/FMDB基本使用以及常用SQList语句/">
+
+
+
+
+
+  <title>FMDB基本使用以及常用SQList语句 | Eden'Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Eden'Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">上个博客丢失，重新建立的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/19/FMDB基本使用以及常用SQList语句/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eden'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">FMDB基本使用以及常用SQList语句</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-19T09:54:48+08:00">
+                2019-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>SQLite</p>
+<p>什么是SQLite</p>
+<p>SQLite是一款轻型的嵌入式数据库<br>它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了<br>它的处理速度比Mysql、PostgreSQL这两款著名的数据库都还快</p>
+<p>什么是数据库<br>数据库（Database）是按照数据结构来组织、存储和管理数据的仓库<br>数据库可以分为2大种类</p>
+<p>关系型数据库（主流）<br>对象型数据库</p>
+<p>数据库是如何存储数据<br>数据库的存储结构和excel很像，以表（table）为单位<br>数据库存储数据的步骤</p>
+<p>新建一张表(table)<br>添加多个字段（column，列，属性）<br>添加多行记录（row，record，每行存放多个字段对应的值）</p>
+<a id="more"></a>
+<p>SQL语句</p>
+<p>什么是SQL<br>SQL（structured query language）：结构化查询语言<br>SQL是一种对关系型数据库中的数据进行定义和操作的语言<br>SQL语言简洁，语法简单，好学好用<br>什么是SQL语句<br>使用SQL语言编写出来的句子\代码，就是SQL语句<br>在程序运行过程中，要想操作（增删改查，CRUD）数据库中的数据，必须使用SQL语句<br>SQL语句的特点<br>不区分大小写<br>每条语句都必须以分号 ; 结尾<br>SQL常见关键字<br>select、insert、update、delete、from、create、where、desc、order、by、group、table、alter、view、index等等<br>数据库中不可以使用关键字来命名表、字段</p>
+<p>SQL语句的种类</p>
+<p>数据定义语句（DDL：Data Definition Language）<br>包括create和drop等操作<br>在数据库中创建新表或删除表(create table或 drop table)<br>数据操作语句（DML：Data Manipulation Language）<br>包括insert、update、delete等操作<br>上面的3种操作分别用于添加、修改、删除表中的数据<br>数据查询语句（DQL：Data Query Language）<br>可以用于查询获得表中的数据<br>关键字select是DQL（也是所有SQL）用得最多的操作<br>其他DQL常用的关键字有where，order by，group by和having</p>
+<p>创表</p>
+<pre><code>格式
+create table 表名 (字段名1 字段类, 字段名2 字段类型2,型1…) ;
+create table if not exists 表名 (字段名1 字段类型1, 字段名2 字段类型2, …) ;
+
+示例
+create table t_student (id integer, name text, age inetger, score real) ;
+</code></pre><p>删表</p>
+<pre><code>格式
+drop table 表名 ;
+drop table if exists 表名 ;
+
+示例
+drop table t_student ;
+</code></pre><p>字段类型</p>
+<ul>
+<li>SQLite将数据划分为一下几种存储类型</li>
+<li>integer : 整型值</li>
+<li>real : 浮点值</li>
+<li>text : 文本字符串</li>
+<li>blob : 二进制数据（比如文件）</li>
+<li>实际上SQLite是没有类型的<ul>
+<li>就算声明为integer类型，还是能存储字符串文本（主键除外）</li>
+</ul>
+</li>
+<li>建表时声明啥类型或者不声明类型都可以，也就意味着创表语句可以这么写： create table t_student(name, age);</li>
+</ul>
+<p>为了保持良好的编程规范、方便程序员之间的交流，编写建表语句的时候最好加上每个字段的具体类型<br>插入数据</p>
+<pre><code>格式
+insert into 表名 (字段1, 字段2, …) values (字段1的值, 字段2的值, …) ;
+
+示例
+insert into t_student (name, age) values (‘mj’, 10) ;
+
+注意
+数据库中的字符串内容应该用单引号 ’ 括住
+</code></pre><p>更新数据</p>
+<pre><code>格式
+update 表名 set 字段1 = 字段1的值, 字段2 = 字段2的值, … ; 
+
+示例
+update t_student set name = ‘jack’, age = 20 ; 
+
+注意
+上面的示例会将t_student表中所有记录的name都改为jack，age都改为20
+</code></pre><p>删除数据</p>
+<pre><code>格式
+delete from 表名 ;
+
+示例
+delete from t_student ;
+
+注意
+上面的示例会将t_student表中所有记录都删掉
+</code></pre><p>条件语句<br>如果只想更新或者删除某些固定的记录，那就必须在DML语句后加上一些条件</p>
+<pre><code>条件语句的常见格式
+where 字段 = 某个值 ;   // 不能用两个 =
+where 字段 is 某个值 ;   // is 相当于 = 
+where 字段 != 某个值 ; 
+where 字段 is not 某个值 ;   // is not 相当于 != 
+where 字段 &gt; 某个值 ; 
+where 字段1 = 某个值 and 字段2 &gt; 某个值 ;  // and相当于C语言中的 &amp;&amp;
+where 字段1 = 某个值 or 字段2 = 某个值 ;  //  or 相当于C语言中的 ||
+</code></pre><p>DQL语句</p>
+<pre><code>格式
+select 字段1, 字段2, … from 表名 ;
+select * from 表名;   //  查询所有的字段
+
+示例
+select name, age from t_student ;
+select * from t_student ;
+select * from t_student where age &gt; 10 ;  //  条件查询
+</code></pre><p>起别名</p>
+<pre><code>格式(字段和表都可以起别名)
+select 字段1 别名 , 字段2 别名 , … from 表名 别名 ; 
+select 字段1 别名, 字段2 as 别名, … from 表名 as 别名 ;
+select 别名.字段1, 别名.字段2, … from 表名 别名 ;
+
+示例
+select name myname, age myage from t_student ;
+给name起个叫做myname的别名，给age起个叫做myage的别名
+
+select s.name, s.age from t_student s ;
+给t_student表起个别名叫做s，利用s来引用表中的字段
+</code></pre><p>计算记录中的数量</p>
+<pre><code>格式
+select count (字段) from 表名 ;
+select count ( * ) from 表名 ;
+
+示例
+select count (age) from t_student ;
+select count ( * ) from t_student where score &gt;= 60;
+</code></pre><p>排序</p>
+<pre><code>查询出来的结果可以用order by进行排序
+select * from t_student order by 字段 ;
+select * from t_student order by age ;
+
+默认是按照升序排序（由小到大），也可以变为降序（由大到小）
+select * from t_student order by age desc ;  //降序
+select * from t_student order by age asc ;   // 升序（默认）
+
+也可以用多个字段进行排序
+select * from t_student order by age asc, height desc ;
+先按照年龄排序（升序），年龄相等就按照身高排序（降序）
+</code></pre><p>limit<br>使用limit可以精确地控制查询结果的数量，比如每次只查询10条数据</p>
+<pre><code>格式
+select * from 表名 limit 数值1, 数值2 ;
+
+示例
+select * from t_student limit 4, 8 ;
+可以理解为：跳过最前面4条语句，然后取8条记录
+</code></pre><p>limit常用来做分页查询，比如每页固定显示5条数据，那么应该这样取数据</p>
+<pre><code>第1页：limit 0, 5
+第2页：limit 5, 5
+第3页：limit 10, 5
+…
+第n页：limit 5*(n-1), 5
+</code></pre><p>约束<br>简单约束<br>建表时可以给特定的字段设置一些约束条件，常见的约束有</p>
+<ul>
+<li>not null ：规定字段的值不能为null</li>
+<li>unique ：规定字段的值必须唯一</li>
+<li>default ：指定字段的默认值</li>
+</ul>
+<pre><code>create table t_student (id integer, name text not null unique, age integer not null default 1) ;
+name字段不能为null，并且唯一
+age字段不能为null，并且默认为1
+</code></pre><p>主键约束<br>如果t_student表中就name和age两个字段，而且有些记录的name和age字段的值都一样时，那么就没法区分这些数据，造成数据库的记录不唯一，这样就不方便管理数据<br>良好的数据库编程规范应该要保证每条记录的唯一性，为此，增加了主键约束。也就是说，每张表都必须有一个主键，用来标识记录的唯一性</p>
+<ul>
+<li>什么是主键</li>
+<li>主键（Primary Key，简称PK）用来唯一地标识某一条记录</li>
+<li>例如t_student可以增加一个id字段作为主键，相当于人的身份证</li>
+<li>主键可以是一个字段或多个字段</li>
+</ul>
+<p>主键的设计原则</p>
+<ol>
+<li>主键应当是对用户没有意义的</li>
+<li>永远也不要更新主键</li>
+<li>主键不应包含动态变化的数据</li>
+<li>主键应当由计算机自动生成</li>
+</ol>
+<p>主键的声明</p>
+<pre><code>在创表的时候用primary key声明一个主键
+create table t_student (id integer primary key, name text, age integer) ;
+integer类型的id作为t_student表的主键
+
+主键字段
+只要声明为primary key，就说明是一个主键字段
+主键字段默认就包含了not null 和 unique 两个约束
+
+如果想要让主键自动增长（必须是integer类型），应该增加autoincrement
+create table t_student (id integer primary key autoincrement, name text, age integer) ;
+</code></pre><p>外键约束<br>利用外键约束可以用来建立表与表之间的联系，外键的一般情况是：一张表的某个字段，引用着另一张表的主键字段</p>
+<pre><code>新建一个外键
+create table t_student (id integer primary key autoincrement, name text, age integer, class_id integer, constraint fk_student_class foreign key (class_id) references t_class (id));
+t_student表中有一个叫做fk_t_student_class_id_t_class_id的外键
+这个外键的作用是用t_student表中的class_id字段引用t_class表的id字段
+</code></pre><p>表连接查询</p>
+<ul>
+<li>什么是表连接查询</li>
+<li>需要联合多张表才能查到想要的数据</li>
+<li>表连接的类型</li>
+<li>内连接：inner join 或者 join  （显示的是左右表都有完整字段值的记录）</li>
+<li>左外连接：left outer join （保证左表数据的完整性）</li>
+</ul>
+<p>##SQLite3<br>使用SQLite3，需要添加libsqlite3.dylib和导入主头文件<br>创建，打开，关闭数据库</p>
+<pre><code>创建或打开数据库
+// path是数据库文件的存放路径
+sqlite3 *db = NULL;
+int result = sqlite3_open([path UTF8String], &amp;db); 
+
+代码解析：
+sqlite3_open()将根据文件路径打开数据库，如果不存在，则会创建一个新的数据库。如果result等于常量SQLITE_OK，则表示成功打开数据库
+sqlite3 *db：一个打开的数据库实例
+数据库文件的路径必须以C字符串(而非NSString)传入
+
+关闭数据库：sqlite3_close(db);
+</code></pre><p>执行不返回数据的SQL语句</p>
+<pre><code>执行创表语句
+char *errorMsg = NULL;  // 用来存储错误信息
+char *sql = &quot;create table if not exists t_person(id integer primary key autoincrement, name text, age integer);&quot;;
+int result = sqlite3_exec(db, sql, NULL, NULL, &amp;errorMsg);
+
+代码解析：
+sqlite3_exec()可以执行任何SQL语句，比如创表、更新、插入和删除操作。但是一般不用它执行查询语句，因为它不会返回查询到的数据
+sqlite3_exec()还可以执行的语句：
+开启事务：begin transaction;
+回滚事务：rollback;
+提交事务：commit;
+</code></pre><p>带占位符插入数据</p>
+<pre><code>char *sql = &quot;insert into t_person(name, age) values(?, ?);&quot;;
+sqlite3_stmt *stmt;
+if (sqlite3_prepare_v2(db, sql, -1, &amp;stmt, NULL) == SQLITE_OK) {
+sqlite3_bind_text(stmt, 1, &quot;母鸡&quot;, -1, NULL);
+sqlite3_bind_int(stmt, 2, 27);
+}
+if (sqlite3_step(stmt) != SQLITE_DONE) {
+NSLog(@&quot;插入数据错误&quot;);
+}
+sqlite3_finalize(stmt);
+
+代码解析：
+sqlite3_prepare_v2()返回值等于SQLITE_OK，说明SQL语句已经准备成功，没有语法问题
+
+sqlite3_bind_text()：大部分绑定函数都只有3个参数
+第1个参数是sqlite3_stmt *类型
+第2个参数指占位符的位置，第一个占位符的位置是1，不是0
+第3个参数指占位符要绑定的值
+第4个参数指在第3个参数中所传递数据的长度，对于C字符串，可以传递-1代替字符串的长度
+第5个参数是一个可选的函数回调，一般用于在语句执行后完成内存清理工作
+sqlite_step()：执行SQL语句，返回SQLITE_DONE代表成功执行完毕
+sqlite_finalize()：销毁sqlite3_stmt *对象
+</code></pre><p>查询数据</p>
+<pre><code>char *sql = &quot;select id,name,age from t_person;&quot;;
+sqlite3_stmt *stmt;
+if (sqlite3_prepare_v2(db, sql, -1, &amp;stmt, NULL) == SQLITE_OK) {
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        int _id = sqlite3_column_int(stmt, 0);
+        char *_name = (char *)sqlite3_column_text(stmt, 1);
+        NSString *name = [NSString stringWithUTF8String:_name];
+        int _age = sqlite3_column_int(stmt, 2);
+        NSLog(@&quot;id=%i, name=%@, age=%i&quot;, _id, name, _age);
+    }
+}
+sqlite3_finalize(stmt);
+代码解析
+sqlite3_step()返回SQLITE_ROW代表遍历到一条新记录
+sqlite3_column_*()用于获取每个字段对应的值，第2个参数是字段的索引，从0开始
+</code></pre><p>#FMDB<br>FMDB核心类</p>
+<ul>
+<li>FMDatabase</li>
+<li>一个FMDatabase对象就代表一个单独的SQLite数据库</li>
+<li>用来执行SQL语句</li>
+<li>FMResultSet</li>
+<li>使用FMDatabase执行查询后的结果集</li>
+<li>FMDatabaseQueue</li>
+<li>用于在多线程中执行多个查询或更新，它是线程安全的</li>
+</ul>
+<p>打开数据库<br>通过指定SQLite数据库文件路径来创建FMDatabase对象</p>
+<pre><code>FMDatabase *db = [FMDatabase databaseWithPath:path];
+if (![db open]) {
+    NSLog(@&quot;数据库打开失败！&quot;);
+}
+</code></pre><p>文件路径有三种情况</p>
+<ul>
+<li>具体文件路径</li>
+<li>如果不存在会自动创建</li>
+<li>空字符串@””</li>
+<li>会在临时目录创建一个空的数据库</li>
+<li>当FMDatabase连接关闭时，数据库文件也被删除</li>
+<li>nil</li>
+<li>会创建一个内存中临时数据库，当FMDatabase连接关闭时，数据库会被销毁</li>
+</ul>
+<p>执行更新</p>
+<p>在FMDB中，除查询以外的所有操作，都称为“更新”，create、drop、insert、update、delete等<br>使用executeUpdate:方法执行更新</p>
+<pre><code>- (BOOL)executeUpdate:(NSString*)sql, ...
+- (BOOL)executeUpdateWithFormat:(NSString*)format, ...
+- (BOOL)executeUpdate:(NSString*)sql withArgumentsInArray:(NSArray *)arguments
+
+[db executeUpdate:@&quot;UPDATE t_student SET age = ? WHERE name = ?;&quot;, @20, @&quot;Jack&quot;]
+</code></pre><p>执行查询<br>查询方法</p>
+<pre><code>- (FMResultSet *)executeQuery:(NSString*)sql, ...
+- (FMResultSet *)executeQueryWithFormat:(NSString*)format, ...
+- (FMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arguments
+
+示例
+// 查询数据
+FMResultSet *rs = [db executeQuery:@&quot;SELECT * FROM t_student&quot;];
+
+// 遍历结果集
+while ([rs next]) {
+    NSString *name = [rs stringForColumn:@&quot;name&quot;];
+    int age = [rs intForColumn:@&quot;age&quot;];
+    double score = [rs doubleForColumn:@&quot;score&quot;];
+}
+</code></pre><p>FMDatabaseQueue<br>FMDatabase这个类是线程不安全的，如果在多个线程中同时使用一个FMDatabase实例，会造成数据混乱等问题，为了保证线程安全，FMDB提供方便快捷的FMDatabaseQueue类</p>
+<pre><code>FMDatabaseQueue的创建
+FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:path];
+
+简单使用
+[queue inDatabase:^(FMDatabase *db) {
+[db executeUpdate:@&quot;INSERT INTO t_student(name) VALUES (?)&quot;, @&quot;Jack&quot;];
+[db executeUpdate:@&quot;INSERT INTO t_student(name) VALUES (?)&quot;, @&quot;Rose&quot;];
+[db executeUpdate:@&quot;INSERT INTO t_student(name) VALUES (?)&quot;, @&quot;Jim&quot;];
+
+FMResultSet *rs = [db executeQuery:@&quot;select * from t_student&quot;];
+    while ([rs next]) {
+    // …
+    }
+}];
+
+使用事务
+[queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+    [db executeUpdate:@&quot;INSERT INTO t_student(name) VALUES (?)&quot;, @&quot;Jack&quot;];
+    [db executeUpdate:@&quot;INSERT INTO t_student(name) VALUES (?)&quot;, @&quot;Rose&quot;];
+    [db executeUpdate:@&quot;INSERT INTO t_student(name) VALUES (?)&quot;, @&quot;Jim&quot;];
+
+    FMResultSet *rs = [db executeQuery:@&quot;select * from t_student&quot;];
+    while ([rs next]) {
+        // …
+    }
+}];
+
+事务回滚
+*rollback = YES;
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/13/UIImage-毛玻璃效果实现/" rel="next" title="UIImage 毛玻璃效果实现">
+                <i class="fa fa-chevron-left"></i> UIImage 毛玻璃效果实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Eden</p>
+              <p class="site-description motion-element" itemprop="description">态度决定一切，细节决定成败</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eden</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

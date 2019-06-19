@@ -232,6 +232,136 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/19/FMDB基本使用以及常用SQList语句/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eden'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/19/FMDB基本使用以及常用SQList语句/" itemprop="url">FMDB基本使用以及常用SQList语句</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-19T09:54:48+08:00">
+                2019-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>SQLite</p>
+<p>什么是SQLite</p>
+<p>SQLite是一款轻型的嵌入式数据库<br>它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了<br>它的处理速度比Mysql、PostgreSQL这两款著名的数据库都还快</p>
+<p>什么是数据库<br>数据库（Database）是按照数据结构来组织、存储和管理数据的仓库<br>数据库可以分为2大种类</p>
+<p>关系型数据库（主流）<br>对象型数据库</p>
+<p>数据库是如何存储数据<br>数据库的存储结构和excel很像，以表（table）为单位<br>数据库存储数据的步骤</p>
+<p>新建一张表(table)<br>添加多个字段（column，列，属性）<br>添加多行记录（row，record，每行存放多个字段对应的值）</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/19/FMDB基本使用以及常用SQList语句/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/13/UIImage-毛玻璃效果实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -302,68 +432,16 @@
 
       
         
-          
-            <p>#pragma mark -</p>
+          <p>#pragma mark -</p>
 <p>#pragma mark - mw_blurryImage: withBlurLevel: 传入图片返回设置毛玻璃效果后的图片<br>/*<em> Attention points:<br>① 需要引入#import &lt;Accelerate/Accelerate.h&gt;<br>② 传入变量 blur 代表毛玻璃设置的程度，值越大越模糊 范围须在0-1中间,默认为0.5
 </em>/</p>
-<pre><code>+ (UIImage *)mw_blurryImage:(UIImage *)image withBlurLevel:(CGFloat)blur {
-    if (blur &lt; 0.f || blur &gt; 1.f) {
-        blur = 0.5f;
-    }
-    int boxSize = (int)(blur * 40);
-    boxSize = boxSize - (boxSize % 2) + 1;
-    CGImageRef img = image.CGImage;
-    vImage_Buffer inBuffer, outBuffer;
-    vImage_Error error;
-    void *pixelBuffer;
-    CGDataProviderRef inProvider = CGImageGetDataProvider(img);
-    CFDataRef inBitmapData = CGDataProviderCopyData(inProvider);
-    inBuffer.width = CGImageGetWidth(img);
-    inBuffer.height = CGImageGetHeight(img);
-    inBuffer.rowBytes = CGImageGetBytesPerRow(img);
-    inBuffer.data = (void*)CFDataGetBytePtr(inBitmapData);
-    pixelBuffer = malloc(CGImageGetBytesPerRow(img) *
-    CGImageGetHeight(img));
-    if(pixelBuffer == NULL)
-    NSLog(@&quot;No pixelbuffer&quot;);
-    outBuffer.data = pixelBuffer;
-    outBuffer.width = CGImageGetWidth(img);
-    outBuffer.height = CGImageGetHeight(img);
-    outBuffer.rowBytes = CGImageGetBytesPerRow(img);
-    error = vImageBoxConvolve_ARGB8888(&amp;inBuffer,
-                                &amp;outBuffer,
-                                NULL,
-                                0,
-                                0,
-                                boxSize,
-                                boxSize,
-                                NULL,
-                                kvImageEdgeExtend);
-    if (error) {
-        NSLog(@&quot;error from convolution %ld&quot;, error);
-    }
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef ctx = CGBitmapContextCreate(
-                    outBuffer.data,
-                    outBuffer.width,
-                    outBuffer.height,
-                    8,
-                    outBuffer.rowBytes,
-                    colorSpace,
-                    kCGImageAlphaNoneSkipLast);
-    CGImageRef imageRef = CGBitmapContextCreateImage (ctx);
-    UIImage *returnImage = [UIImage imageWithCGImage:imageRef];
-    //clean up
-    CGContextRelease(ctx);
-    CGColorSpaceRelease(colorSpace);
-    free(pixelBuffer);
-    CFRelease(inBitmapData);
-    CGColorSpaceRelease(colorSpace);
-    CGImageRelease(imageRef);
-    return returnImage;
-}
-</code></pre>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/13/UIImage-毛玻璃效果实现/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1427,131 +1505,6 @@ for (UIButton * button in self.selectedBtnArr)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/UICollectionView的加载动画/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Eden'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/13/UICollectionView的加载动画/" itemprop="url">UICollectionView的加载动画</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T10:13:29+08:00">
-                2018-09-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>之前工作中遇到了在UIcollectionview添加的开场加载动画，现在又遇到了，记录实现效果</p>
-<p>需要实现加载cell时的动画效果的话，重点就是在collectionview的数据源方法：<br>-(void)collectionView:(UICollectionView <em>)collectionView willDisplayCell:(UICollectionViewCell </em>)cell forItemAtIndexPath:(NSIndexPath *)indexPath;</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/13/UICollectionView的加载动画/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1602,7 +1555,7 @@ for (UIButton * button in self.selectedBtnArr)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

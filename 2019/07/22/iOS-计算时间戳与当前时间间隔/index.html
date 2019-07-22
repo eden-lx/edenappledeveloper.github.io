@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="工作中遇到一个需求是在一个页面中使用定时器来执行一个呼吸动画形式的动画过程，但是在呼吸动画过程中需要view来响应事件，具体实现贴上代码：">
+<meta name="description" content="NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init]; [dateFormatter setDateFormat:@&amp;quot;yyyy-MM-dd HH:mm:ss&amp;quot;]; NSDate *timeDate = [dateFormatter dateFromString:model.created_at];//mod">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS动画执行过程中响应事件">
-<meta property="og:url" content="http://yoursite.com/2018/04/16/iOS动画执行过程中响应事件/index.html">
+<meta property="og:title" content="iOS 计算时间戳与当前时间间隔">
+<meta property="og:url" content="http://yoursite.com/2019/07/22/iOS-计算时间戳与当前时间间隔/index.html">
 <meta property="og:site_name" content="Eden&#39;Blog">
-<meta property="og:description" content="工作中遇到一个需求是在一个页面中使用定时器来执行一个呼吸动画形式的动画过程，但是在呼吸动画过程中需要view来响应事件，具体实现贴上代码：">
+<meta property="og:description" content="NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init]; [dateFormatter setDateFormat:@&amp;quot;yyyy-MM-dd HH:mm:ss&amp;quot;]; NSDate *timeDate = [dateFormatter dateFromString:model.created_at];//mod">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T09:56:46.000Z">
+<meta property="og:updated_time" content="2019-07-22T08:29:50.186Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS动画执行过程中响应事件">
-<meta name="twitter:description" content="工作中遇到一个需求是在一个页面中使用定时器来执行一个呼吸动画形式的动画过程，但是在呼吸动画过程中需要view来响应事件，具体实现贴上代码：">
+<meta name="twitter:title" content="iOS 计算时间戳与当前时间间隔">
+<meta name="twitter:description" content="NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init]; [dateFormatter setDateFormat:@&amp;quot;yyyy-MM-dd HH:mm:ss&amp;quot;]; NSDate *timeDate = [dateFormatter dateFromString:model.created_at];//mod">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/16/iOS动画执行过程中响应事件/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/22/iOS-计算时间戳与当前时间间隔/">
 
 
 
 
 
-  <title>iOS动画执行过程中响应事件 | Eden'Blog</title>
+  <title>iOS 计算时间戳与当前时间间隔 | Eden'Blog</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/16/iOS动画执行过程中响应事件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/22/iOS-计算时间戳与当前时间间隔/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS动画执行过程中响应事件</h1>
+          <h1 class="post-title" itemprop="name headline">iOS 计算时间戳与当前时间间隔</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-16T17:36:45+08:00">
-                2018-04-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-22T16:28:16+08:00">
+                2019-07-22
               </time>
             
 
@@ -299,35 +299,33 @@
       
 
       
-        <p>工作中遇到一个需求是在一个页面中使用定时器来执行一个呼吸动画形式的动画过程，但是在呼吸动画过程中需要view来响应事件，具体实现贴上代码：</p>
-<a id="more"></a>
-<pre><code>// 添加定时器来实现呼吸动画效果，leftView与rightView也需要响应事件
-- (void)addAnimateTimer {
-
-MJWeakSelf
-_timer = [NSTimer timerWithTimeInterval:2 block:^(NSTimer * _Nonnull timer) {
-
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-
-    weakSelf.rightView.transform = CGAffineTransformMakeScale(1.1, 1.1);
-    weakSelf.leftView.transform = CGAffineTransformMakeScale(0.9, 0.9);
-
-} completion:^(BOOL finished) {
-
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-
-        weakSelf.leftView.transform = CGAffineTransformIdentity;
-        weakSelf.rightView.transform = CGAffineTransformIdentity;
-    } completion:nil];
-
-    }];
-
-} repeats:YES];
-
-[[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
+        <pre><code>NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+[dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm:ss&quot;];
+NSDate *timeDate = [dateFormatter dateFromString:model.created_at];//model.created_at 时间
+//八小时时区
+NSTimeZone *zone = [NSTimeZone systemTimeZone];
+NSInteger interval = [zone secondsFromGMTForDate:timeDate];
+NSDate *mydate = [timeDate dateByAddingTimeInterval:interval];
+NSDate *nowDate = [[NSDate date]dateByAddingTimeInterval:interval];
+//两个时间间隔
+NSTimeInterval timeInterval = [mydate timeIntervalSinceDate:nowDate];
+timeInterval = -timeInterval;
+long temp = 0;
+//    NSString *time;
+if (timeInterval&lt;60) {
+self.timeLabel.text = [NSString         stringWithFormat:@&quot;刚刚&quot;];
+}else if ((temp = timeInterval/60)&lt;60){
+    self.timeLabel.text = [NSString stringWithFormat:@&quot;%ld分钟前&quot;,temp];
+}else if ((temp =           timeInterval/(60*60))&lt;24){
+    self.timeLabel.text = [NSString stringWithFormat:@&quot;%ld小时前&quot;,temp];
+}else if((temp = timeInterval/(24*60*60))&lt;30){
+    self.timeLabel.text = [NSString stringWithFormat:@&quot;%ld天前&quot;,temp];
+}else if (((temp = timeInterval/(24*60*60*30)))&lt;12){
+    self.timeLabel.text = [NSString stringWithFormat:@&quot;%ld月前&quot;,temp];
+}else {
+    temp = timeInterval/(24*60*60*30*12);
+    self.timeLabel.text = [NSString stringWithFormat:@&quot;%ld年前&quot;,temp];
 }
-</code></pre><p>动画执行效果没问题，但是我给leftView与rightView两个view中都添加了点击手势，动画效果实现后，两个view的点击手势无法响应事件，所以这里需要设置一下在动画过程中需要让view来响应事件，重点：</p>
-<pre><code>执行动画参数中options需要设置成为UIViewAnimationOptionAllowUserInteraction
 </code></pre>
       
     </div>
@@ -352,8 +350,8 @@ _timer = [NSTimer timerWithTimeInterval:2 block:^(NSTimer * _Nonnull timer) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/08/iOS-音频录制以及播放/" rel="next" title="iOS 音频录制以及播放">
-                <i class="fa fa-chevron-left"></i> iOS 音频录制以及播放
+              <a href="/2019/06/19/FMDB基本使用以及常用SQList语句/" rel="next" title="FMDB基本使用以及常用SQList语句">
+                <i class="fa fa-chevron-left"></i> FMDB基本使用以及常用SQList语句
               </a>
             
           </div>
@@ -361,10 +359,6 @@ _timer = [NSTimer timerWithTimeInterval:2 block:^(NSTimer * _Nonnull timer) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/24/iOS如何定位Masonry约束报错的控件/" rel="prev" title="iOS如何定位Masonry约束报错的控件">
-                iOS如何定位Masonry约束报错的控件 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

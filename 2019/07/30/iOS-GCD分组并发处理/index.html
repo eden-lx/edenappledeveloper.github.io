@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="一、获取当前时间 //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateFormatte">
+<meta name="description" content="在日常开发中会遇到等待任务完成，再去处理其他操作，比如多请求等等，目前实现的是模拟的多图上传功能，具体上代码 NSMutableArray *imgurlArr = [NSMutableArray array];  [MWTools showHUDProgress];  dispatch_group_t group = dispatch_group_create(); dispatch_queue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS时间和时间戳使用">
-<meta property="og:url" content="http://yoursite.com/2017/05/08/iOS时间和时间戳使用/index.html">
+<meta property="og:title" content="iOS GCD分组并发处理">
+<meta property="og:url" content="http://yoursite.com/2019/07/30/iOS-GCD分组并发处理/index.html">
 <meta property="og:site_name" content="Eden&#39;Blog">
-<meta property="og:description" content="一、获取当前时间 //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateFormatte">
+<meta property="og:description" content="在日常开发中会遇到等待任务完成，再去处理其他操作，比如多请求等等，目前实现的是模拟的多图上传功能，具体上代码 NSMutableArray *imgurlArr = [NSMutableArray array];  [MWTools showHUDProgress];  dispatch_group_t group = dispatch_group_create(); dispatch_queue">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-29T09:00:10.000Z">
+<meta property="og:updated_time" content="2019-07-30T03:17:57.360Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS时间和时间戳使用">
-<meta name="twitter:description" content="一、获取当前时间 //获取当前时间 - (NSString *)currentDateStr{     NSDate *currentDate = [NSDate date];//获取当前时间，日期     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象     [dateFormatte">
+<meta name="twitter:title" content="iOS GCD分组并发处理">
+<meta name="twitter:description" content="在日常开发中会遇到等待任务完成，再去处理其他操作，比如多请求等等，目前实现的是模拟的多图上传功能，具体上代码 NSMutableArray *imgurlArr = [NSMutableArray array];  [MWTools showHUDProgress];  dispatch_group_t group = dispatch_group_create(); dispatch_queue">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/08/iOS时间和时间戳使用/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/30/iOS-GCD分组并发处理/">
 
 
 
 
 
-  <title>iOS时间和时间戳使用 | Eden'Blog</title>
+  <title>iOS GCD分组并发处理 | Eden'Blog</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/08/iOS时间和时间戳使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/30/iOS-GCD分组并发处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS时间和时间戳使用</h1>
+          <h1 class="post-title" itemprop="name headline">iOS GCD分组并发处理</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-08T16:57:55+08:00">
-                2017-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-30T11:14:14+08:00">
+                2019-07-30
               </time>
             
 
@@ -299,47 +299,47 @@
       
 
       
-        <p>一、获取当前时间</p>
-<pre><code>//获取当前时间
-- (NSString *)currentDateStr{
-    NSDate *currentDate = [NSDate date];//获取当前时间，日期
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
-    [dateFormatter setDateFormat:@&quot;YYYY/MM/dd hh:mm:ss SS &quot;];//设定时间格式,这里可以设置成自己需要的格式
-    NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
-    return dateString;
-}
-</code></pre><a id="more"></a>
-<p>二、获取当前时间戳</p>
-<pre><code>//获取当前时间戳
-- (NSString *)currentTimeStr{
-    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
-    NSTimeInterval time=[date timeIntervalSince1970]*1000;// *1000 是精确到毫秒，不乘就是精确到秒
-    NSString *timeString = [NSString stringWithFormat:@&quot;%.0f&quot;, time];
-    return timeString;
-}
-</code></pre><p>三、时间戳转时间</p>
-<pre><code>// 时间戳转时间,时间戳为13位是精确到毫秒的，10位精确到秒
-- (NSString *)getDateStringWithTimeStr:(NSString *)str{
-    NSTimeInterval time=[str doubleValue]/1000;//传入的时间戳str如果是精确到毫秒的记得要/1000
-    NSDate *detailDate=[NSDate dateWithTimeIntervalSince1970:time];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; //实例化一个NSDateFormatter对象
-    //设定时间格式,这里可以设置成自己需要的格式
-    [dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm:ss SS&quot;];
-    NSString *currentDateStr = [dateFormatter stringFromDate: detailDate];
-    return currentDateStr;
-}
-</code></pre><p>四、字符串转时间戳</p>
-<pre><code>//字符串转时间戳 如：2017-4-10 17:15:10
-- (NSString *)getTimeStrWithString:(NSString *)str{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
-    [dateFormatter setDateFormat:@&quot;YYYY-MM-dd HH:mm:ss&quot;]; //设定时间的格式
-    NSDate *tempDate = [dateFormatter dateFromString:str];//将字符串转换为时间对象
-    NSString *timeStr = [NSString stringWithFormat:@&quot;%ld&quot;, (long)[tempDate timeIntervalSince1970]*1000];//字符串转成时间戳,精确到毫秒*1000
-    return timeStr;
-}
-</code></pre><p>IOS–Objecti</p>
-<p>作者：尼古拉斯超仔<br>链接：<a href="https://www.jianshu.com/p/43d2b343d7f4" target="_blank" rel="noopener">https://www.jianshu.com/p/43d2b343d7f4</a><br>来源：简书<br>简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。</p>
+        <p>在日常开发中会遇到等待任务完成，再去处理其他操作，比如多请求等等，目前实现的是模拟的多图上传功能，具体上代码</p>
+<pre><code>NSMutableArray *imgurlArr = [NSMutableArray array];
 
+[MWTools showHUDProgress];
+
+dispatch_group_t group = dispatch_group_create();
+dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+
+dispatch_group_async(group, queue, ^{
+
+for (int i = 0; i &lt; self.imageArr.count; ++i) {
+
+dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+UIImage *img = self.imageArr[i];
+[MWUpLoadFileRequest requestUpLoadImageWithImage:img Completion:^(NSString * _Nonnull imageUrl) {
+
+[imgurlArr addObject:imageUrl];
+dispatch_semaphore_signal(semaphore);
+}];
+
+dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+}
+
+dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+[MWTools dismissHUD];
+
+NSString *urls = [imgurlArr componentsJoinedByString:@&quot;;&quot;];
+
+[MWFeedbackSettingRequest requestFeedbackSettingWithBody:@{@&quot;text&quot;:cell_a.inputTextView.text,@&quot;urls&quot;:urls} Completion:^(BOOL isSuccessful) {
+
+    if (isSuccessful) {
+
+    [MWTools showWithTitle:@&quot;提交成功&quot;];
+    [self.navigationController popViewControllerAnimated:YES];
+    }
+}];
+});
+
+});
+</code></pre>
       
     </div>
     
@@ -363,8 +363,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/28/获取手机信息/" rel="next" title="获取手机信息">
-                <i class="fa fa-chevron-left"></i> 获取手机信息
+              <a href="/2019/07/22/iOS-计算时间戳与当前时间间隔/" rel="next" title="iOS 计算时间戳与当前时间间隔">
+                <i class="fa fa-chevron-left"></i> iOS 计算时间戳与当前时间间隔
               </a>
             
           </div>
@@ -372,10 +372,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/08/iOS网易云音乐锁屏界面实现/" rel="prev" title="iOS网易云音乐锁屏界面实现">
-                iOS网易云音乐锁屏界面实现 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

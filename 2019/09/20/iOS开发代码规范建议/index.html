@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.精简代码, 返回最后一句的值，这个方法有一个优点，所有的变量都在代码块中，也就是只在代码块的区域中有效，这意味着可以减少对其他作用域的命名污染。但缺点是可读性比较差 NSURL url = ({ NSString urlString = [NSString stringWithFormat:@”%@/%@”, baseURLString, endpoint]; [NSURL URLWithSt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发代码规范建议">
+<meta property="og:url" content="http://yoursite.com/2019/09/20/iOS开发代码规范建议/index.html">
+<meta property="og:site_name" content="Eden&#39;Blog">
+<meta property="og:description" content="1.精简代码, 返回最后一句的值，这个方法有一个优点，所有的变量都在代码块中，也就是只在代码块的区域中有效，这意味着可以减少对其他作用域的命名污染。但缺点是可读性比较差 NSURL url = ({ NSString urlString = [NSString stringWithFormat:@”%@/%@”, baseURLString, endpoint]; [NSURL URLWithSt">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-20T03:23:50.078Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发代码规范建议">
+<meta name="twitter:description" content="1.精简代码, 返回最后一句的值，这个方法有一个优点，所有的变量都在代码块中，也就是只在代码块的区域中有效，这意味着可以减少对其他作用域的命名污染。但缺点是可读性比较差 NSURL url = ({ NSString urlString = [NSString stringWithFormat:@”%@/%@”, baseURLString, endpoint]; [NSURL URLWithSt">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/20/iOS开发代码规范建议/">
+
+
+
+
+
+  <title>iOS开发代码规范建议 | Eden'Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Eden'Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">上个博客丢失，重新建立的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/20/iOS开发代码规范建议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eden'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS开发代码规范建议</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T11:22:51+08:00">
+                2019-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1.精简代码, 返回最后一句的值，这个方法有一个优点，所有的变量都在代码块中，也就是只在代码块的区域中有效，这意味着可以减少对其他作用域的命名污染。但缺点是可读性比较差</p>
+<p>NSURL <em>url = ({ NSString </em>urlString = [NSString stringWithFormat:@”%@/%@”, baseURLString, endpoint];</p>
+<p>[NSURL URLWithString:urlString];</p>
+<p>});</p>
+<a id="more"></a>
+<p>2.关于编译器：关闭警告：</p>
+<p>#pragma clang diagnostic push</p>
+<p>#pragma clang diagnostic ignored “-Warc-performSelector-leaks”</p>
+<p>[myObj performSelector:mySelector withObject:name];</p>
+<p>#pragma clang diagnostic pop</p>
+<p>3.忽略没用的变量</p>
+<p>#pragma unused (foo)</p>
+<p>明确定义错误和警告</p>
+<p>#error Whoa, buddy, you need to check for zero here!</p>
+<p>#warning Dude, don’t compare floating point numbers like this!</p>
+<p>4.避免循环引用</p>
+<p>如果【block内部】使用【外部声明的强引用】访问【对象A】, 那么【block内部】会自动产生一个【强引用】指向【对象A】</p>
+<p>如果【block内部】使用【外部声明的弱引用】访问【对象A】, 那么【block内部】会自动产生一个【弱引用】指向【对象A】</p>
+<p>__weak typeof(self) weakSelf = self;</p>
+<p>dispatch_block_t block = ^{</p>
+<p>[weakSelf doSomething]; // weakSelf != nil</p>
+<p>// preemption, weakSelf turned nil</p>
+<p>[weakSelf doSomethingElse]; // weakSelf == nil</p>
+<p>};</p>
+<p>最好这样调用：</p>
+<p>__weak typeof(self) weakSelf = self;</p>
+<p>myObj.myBlock = ^{</p>
+<p>__strong typeof(self) strongSelf = weakSelf;</p>
+<p>if (strongSelf) {</p>
+<p>[strongSelf doSomething]; // strongSelf != nil</p>
+<p>// preemption, strongSelf still not nil（抢占的时候，strongSelf 还是非 nil 的)</p>
+<p>[strongSelf doSomethingElse]; // strongSelf != nil }</p>
+<p>else { // Probably nothing… return;</p>
+<p>}</p>
+<p>};</p>
+<p>5.宏要写成大写,至少要有大写,全部小写有时候书写不提示参数;</p>
+<p>6.建议书写枚举模仿苹果——在列出枚举内容的同时绑定了枚举数据类型NSUInteger，这样带来的好处是增强的类型检查和更好的代码可读性,示例:</p>
+<p>// 不推荐写法</p>
+<p>typedef enum{</p>
+<p>UIControlStateNormal       = 0,</p>
+<p>UIControlStateHighlighted  = 1 &lt;&lt; 0,</p>
+<p>UIControlStateDisabled     = 1 &lt;&lt; 1,</p>
+<p>} UIControlState;</p>
+<p>// 推荐写法</p>
+<p>typedef NS_OPTIONS(NSUInteger, UIControlState) {</p>
+<p>UIControlStateNormal       = 0,</p>
+<p>UIControlStateHighlighted  = 1 &lt;&lt; 0,</p>
+<p>UIControlStateDisabled     = 1 &lt;&lt; 1,</p>
+<p>};</p>
+<p>7.建议加载xib,xib名称用NSStringFromClass(),避免书写错误</p>
+<p>// 推荐写法</p>
+<p>[self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DXRecommendTagVCell class]) bundle:nil] forCellReuseIdentifier:ID];</p>
+<p>// 不推荐写法</p>
+<p>[self.tableView registerNib:[UINib nibWithNibName:@”DXRecommendTagVCell” bundle:nil] forCellReuseIdentifier:ID];</p>
+<p>8.场景需求:在继承中,凡是要求子类重写父类的方法必须先调用父类的这个方法进行初始化操作;建议:父类的方法名后面加上NS_REQUIRES_SUPER; 子类重写这个方法就会自动警告提示要调用这个super方法,示例代码</p>
+<p>// 注意:父类中的方法加<code>NS_REQUIRES_SUPER</code>,子类重写才有警告提示</p>
+<ul>
+<li>(void)prepare NS_REQUIRES_SUPER;</li>
+</ul>
+<p>9.建议书写属性名不要和系统一样,避免发生莫名其妙的问题;特别注意的是label;属性名不要写成textLabel</p>
+<p>10.项目中添加plist类型文件,不要命名为info.plist,以防止和系统自带的文件重名,发生莫名其妙的问题;</p>
+<p>11.如果控制器已经加载过,就不用再次加载,优化性能</p>
+<p>if (vc.isViewLoaded) return;</p>
+<p>12.id类型属性不能用点语法,调用get方法只能用中括号调用,[id 方法名],利用iOS9新特性泛型就可以; 比如数组;</p>
+<p>@property (nonatomic,strong) NSMutableArray *topicsM;</p>
+<p>13.如果不是属性,尽量不要点语法,一个老程序员的建议;</p>
+<p>14.使用第三方框架,尽量不要更改内部文件,而应该再次封装,个性定制;</p>
+<p>15.判断if书写方式</p>
+<p>建议这样写</p>
+<ul>
+<li>(CGFloat)tableView:(UITableView <em>)tableView heightForRowAtIndexPath:(NSIndexPath </em>)indexPath</li>
+</ul>
+<p>{</p>
+<p>if (indexPath.row == 0) return 44;</p>
+<p>if (indexPath.row == 1) return 80;</p>
+<p>if (indexPath.row == 2) return 50;</p>
+<p>return 44;</p>
+<p>}</p>
+<p>而不是</p>
+<ul>
+<li>(CGFloat)tableView:(UITableView <em>)tableView heightForRowAtIndexPath:(NSIndexPath </em>)indexPath</li>
+</ul>
+<p>{</p>
+<p>if (indexPath.row == 0) {</p>
+<p>return 44;</p>
+<p>}else if (indexPath.row == 1){</p>
+<p>return 80;</p>
+<p>}else if (indexPath.row == 2){</p>
+<p>return 50;</p>
+<p>}else{</p>
+<p>return 44;</p>
+<p>}</p>
+<p>}</p>
+<p>16.接手一个新项目,快速的调试,查看某个模块或者方法的作用,需要注释掉一个方法,或者某个代码块,直接写return;而不是全选,注释掉;</p>
+<p>比如:查看这个方法loadNewRecommendTags作用</p>
+<ul>
+<li>(void)loadNewRecommendTags</li>
+</ul>
+<p>{</p>
+<p>return;</p>
+<p>[SVProgressHUD show];</p>
+<p>// 取消之前的任务</p>
+<p>[self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];</p>
+<p>NSMutableDictionary *params = [NSMutableDictionary dictionary];</p>
+<p>params[@”a”] = @”tag_recommend”;</p>
+<p>params[@”c”] = @”topic”;</p>
+<p>params[@”action”] = @”sub”;</p>
+<p>[self.manager GET:DXCommonUrlPath parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {</p>
+<p>self.recommendTag = [DXRecommendTag mj_objectArrayWithKeyValuesArray:responseObject];</p>
+<p>[self.tableView reloadData];</p>
+<p>[SVProgressHUD dismiss];</p>
+<p>} failure:^(NSURLSessionDataTask <em> _Nullable task, NSError </em> _Nonnull error) {</p>
+<p>DXLog(@”%@”,error);</p>
+<p>[SVProgressHUD dismiss];</p>
+<p>}];</p>
+<p>}</p>
+<p>17.在一个自定义的View中,或者自定义cell中,modal出一个控制器建议:</p>
+<p>[UIApplication sharedApplication].keyWindow.rootViewController</p>
+<p>代替</p>
+<p>self.window.rootViewController,因为程序可能不止一个window,self.window可能不是主窗口;</p>
+<p>18.建议:用CGSizeZero 代替 CGSizeMake(0,0);</p>
+<p>CGRectZero代替CGRectMake(0, 0, 0, 0);</p>
+<p>CGPointZero代替CGPointMake(0, 0)</p>
+<p>19.监听键盘的通知建议:</p>
+<p>UIKIT_EXTERN NSString *const UIKeyboardWillChangeFrameNotification</p>
+<p>而不是,下面代码;因为键盘可能因为改变输入法,切换成表情输入,切换成英文,那么frame可能会变高,变矮,不一定会发出下面这些通知,但是肯定会发上面的通知</p>
+<p>UIKIT_EXTERN?NSString *const UIKeyboardWillShowNotification;</p>
+<p>UIKIT_EXTERN?NSString *const UIKeyboardDidShowNotification;</p>
+<p>UIKIT_EXTERN?NSString *const UIKeyboardWillHideNotification;</p>
+<p>UIKIT_EXTERN?NSString *const UIKeyboardDidHideNotification;</p>
+<p>20.发布通知的字符串常量规范,建议模仿苹果;如上键盘的通知的书写,加上const 保证字符串不可更改,以Notification结尾,一看就知道是通知;应尽量保证可读性,不要怕句子太长;</p>
+<p>NSString *const buttonDidClickNotification = @”buttonDidClickNotification”;</p>
+<p>21.如果除数为0,iOS8以下会直接报错,(NaN—&gt;Not a Number)iOS9不会,所以应该判断,比如服务器返回图片的宽高,按比例缩放,CGFloat contentH = textW * self.height / self.width;</p>
+<p>22.如果声明的属性,只想使用的get方法,不使用set方法,并且不想让外界更改这个属性的值,那么建议在括号里面加readonly;示例:</p>
+<p>@property(nonatomic,readonly,getter=isKeyWindow) BOOL keyWindow;</p>
+<p>23.如果属性是BOOL类型,建议在括号中重写get方法名称,以提高可读性,示例代码如上;</p>
+<p>24.从系统相册中取照片之前,应该判断系统相册是否可用,如果从相机中拍照获取,要判断相机是否可用</p>
+<p>// 判断相册是否可以打开</p>
+<p>if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) return;</p>
+<p>// 判断相机是否可以打开</p>
+<p>if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) return;</p>
+<p>25.在导航控制中,或它的子控制器,设置导航栏的标题应该用self.navigationItem.title = @“标题”而不建议self.title = @“标题”;</p>
+<p>26.给cell设置分割线,建议用setFrame:通过设置它高度,设置分割线,而不推荐用给cell底部添加一个高度的UIView,这样做增加了一个控件,从性能上来讲,不如用setFrame设置高度</p>
+<p>27.大量操作图层会可能造成应用很卡,给用户体验差,所以尽量不要操作图层;比如设置按钮圆角,比如给button设置圆角;</p>
+<p>self.loginBtn.layer.cornerRadius = 5;</p>
+<p>self.loginBtn.layer.masksToBounds = YES;</p>
+<p>28.给分类扩充方法,建议加上前缀,比如第三方框架SDWebImage,这样做跟系统的方法很容易区分开,减少了程序员之间的沟通成本,同理跟分类添加属性(利用运行时),建议加前缀,以防止苹果官方过一段时间添加了一模一样的属性名,比如给UITextField分类添加了placeholderColor这个属性,万一某天官方给placeholder扩充了这个命名一模一样的属性,那么就不好了</p>
+<p>29.凡是在storyboard或者xib中给某个控件添加颜色,颜色对角线有分割线,表示可以设置透明度,如果给这个控件设置透明度建议在这里设置,而不是设置alpha,因为设置了alpha,那么上面有文字也会随着透明度变大,而变得不清楚;可以设置background –&gt;other –&gt;opacity</p>
+<p>30.整形转化成浮点型,不建议这么写 a / b 1.0,这样写是错误写法,示例1.5 / 2 1.0;根据运算法则,从作到右,0 1.0 == 0,而应该在前面写1.0 1.5 /2;建议直接强转;(double)a/b;</p>
+<p>31.抽取方法,或者写工具类,能写类方法,尽量写成类方法,减少了创建对象的步骤,比如给UIView扩充分类加载xib,viewWithXib;</p>
+<p>32.耗时操作应该放在子线程,避免卡主主线程,比如计算文件大小,下载大文件,清除缓存;</p>
+<p>33.声明一个属性,如果是对象,比如数组,不能以new单词开始,否则直接报错,因为new在OC中是生成一个对象的方法,有特殊含义;比如,</p>
+<p>@property (nonatomic,strong) NSMutableArray *newTopicsM;</p>
+<p>注意:如果newtopicsM是一个单词(区别于驼峰标志),这样写不会报错;如果是基本数据类型则不会报错,比如</p>
+<p>@property (nonatomic,assign) int newNumber;</p>
+<p>但是如果一定要写new单词开头的属性,那么声明属性的时候,重写getter方法名称只不过使用getter方法的时候注意下</p>
+<p>34.在自定义方法中,and这个词的用法应该保留。它不应该用于多个参数来说明，就像initWithWidth:height以下这个例子：</p>
+<ul>
+<li>(instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;</li>
+</ul>
+<p>而不应该</p>
+<ul>
+<li>(instancetype)initWithWidth:(CGFloat)width andHeight:(CGFloat)height;</li>
+</ul>
+<p>35.建议POST请求参数字典的写法,这样比较装逼~</p>
+<p>// NSDictionaryOfVariableBindings这个宏生成一个字典,这个宏可以生成一个变量名到变量值映射的Dictionary,比如:</p>
+<p>NSNumber * packId=@(2);</p>
+<p>NSNumber *userId=@(22);</p>
+<p>NSNumber *proxyType=@(2);</p>
+<p>NSDictionary *param=NSDictionaryOfVariableBindings(packId,userId,proxyType);</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/26/获取URL中获取文件名以及后缀/" rel="next" title="获取URL中获取文件名以及后缀">
+                <i class="fa fa-chevron-left"></i> 获取URL中获取文件名以及后缀
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Eden</p>
+              <p class="site-description motion-element" itemprop="description">态度决定一切，细节决定成败</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eden</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

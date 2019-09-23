@@ -232,6 +232,133 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/07/iOS-手机震动相关接口-长震动-短震动/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eden'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/07/iOS-手机震动相关接口-长震动-短震动/" itemprop="url">iOS-手机震动相关接口 长震动/短震动</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-07T10:24:27+08:00">
+                2019-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>一.长震动的方法<br>1.导入AudioToolBox.framework<br>2.在需要震动的文件中 #import &lt;AudioToolbox/AudioToolbox.h&gt;<br>3.调用震动的方法：</p>
+<p>方法一：</p>
+<pre><code>AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/07/iOS-手机震动相关接口-长震动-短震动/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/NSObiect对象占用多少内存/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1426,299 +1553,6 @@ self.playerController.repeatMode = MPMovieRepeatModeOne;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/iOS-基于AVPlayer视频播放/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Eden'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/13/iOS-基于AVPlayer视频播放/" itemprop="url">iOS 基于AVPlayer视频播放</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T17:01:41+08:00">
-                2018-05-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>AVPlayer相比上述两种方式，播放视频功能更加强大，使用也十分灵活，因为它更加接近底层。但是AVPlayer本身是不能直接显示视频的，必须创建一个播放层AVPlayerLayer并将其添加到其他的视图Layer上才能显示。</p>
-<ol>
-<li><p>使用AVPlayer需要了解的常用类</p>
-<ul>
-<li>AVAsset：一个用于获取多媒体信息的抽象类，但不能直接使用</li>
-<li>AVURLAsset：AVAsset的子类，可以根据一个URL路径创建一个包含媒体信息的AVURLAsset对象</li>
-<li>AVPlayerItem：一个媒体资源管理对象，用于管理视频的基本信息和状态，一个AVPlayerItem对应一个视频资源</li>
-<li>AVPlayer：负责视频播放、暂停、时间控制等操作</li>
-<li>AVPlayerLayer：负责显示视频的图层，如果不设置此属性，视频就只有声音没有图像</li>
-</ul>
-</li>
-<li><p>AVPlayer的使用步骤</p>
-<pre><code>//第一步:引用AVFoundation框架，添加播放器属性
-#import &lt;AVFoundation/AVFoundation.h&gt;
-@property (nonatomic,strong)AVPlayer *player;//播放器对象
-@property (nonatomic,strong)AVPlayerItem *currentPlayerItem;
-
-//第二步:获取播放地址URL
-//本地视频路径
-NSString* localFilePath=[[NSBundle mainBundle]pathForResource:@&quot;不能说的秘密&quot; ofType:@&quot;mp4&quot;];
-NSURL *localVideoUrl = [NSURL fileURLWithPath:localFilePath];
-//网络视频路径
-NSString *webVideoPath = @&quot;http://api.junqingguanchashi.net/yunpan/bd/c.php?vid=/junqing/1129.mp4&quot;;
-NSURL *webVideoUrl = [NSURL URLWithString:webVideoPath];
-
-//第三步:创建播放器(四种方法)
-//如果使用URL创建的方式会默认为AVPlayer创建一个AVPlayerItem
-//self.player = [AVPlayer playerWithURL:localVideoUrl];
-//self.player = [[AVPlayer alloc] initWithURL:localVideoUrl];
-//self.player = [AVPlayer playerWithPlayerItem:playerItem];
-AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:webVideoUrl];
-self.currentPlayerItem = playerItem;
-self.player = [[AVPlayer alloc] initWithPlayerItem:playerItem];
-
-//第四步:创建显示视频的AVPlayerLayer,设置视频显示属性，并添加视频图层
-//contentView是一个普通View,用于放置视频视图
-/*
-AVLayerVideoGravityResizeAspectFill等比例铺满，宽或高有可能出屏幕
-AVLayerVideoGravityResizeAspect 等比例  默认
-AVLayerVideoGravityResize 完全适应宽高
-*/
-AVPlayerLayer *avLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-avLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-avLayer.frame = _containerView.bounds;
-[_containerView.layer addSublayer:avLayer];
-
-//第六步：执行play方法，开始播放
-//本地视频可以直接播放
-//网络视频需要监测AVPlayerItem的status属性为AVPlayerStatusReadyToPlay时方法才会生效
-[self.player play];
-</code></pre></li>
-<li><p>添加属性观察<br>一个AVPlayerItem对象对应着一个视频，我们需要通过AVPlayerItem来获取视频属性。但是AVPlayerItem必须是在视频资源加载到可以播放的时候才能使用，这是受限于网络的原因。解决这一问题，我们需要使用KVO监测AVPlayerItem的status属性，当其为AVPlayerItemStatusReadyToPlay的时候我们才能获取视频相关属性。相关的代码示例如下：</p>
-<pre><code>//1.注册观察者，监测播放器属性
-//观察Status属性，可以在加载成功之后得到视频的长度
-[self.player.currentItem addObserver:self forKeyPath:@&quot;status&quot; options:NSKeyValueObservingOptionNew context:nil];
-    //观察loadedTimeRanges，可以获取缓存进度，实现缓冲进度条
-    [self.player.currentItem addObserver:self forKeyPath:@&quot;loadedTimeRanges&quot; options:NSKeyValueObservingOptionNew context:nil];
-
-//2.添加属性观察
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    AVPlayerItem *playerItem = (AVPlayerItem *)object;
-    if ([keyPath isEqualToString:@&quot;status&quot;]) {
-        //获取playerItem的status属性最新的状态
-        AVPlayerStatus status = [[change objectForKey:@&quot;new&quot;] intValue];
-        switch (status) {
-            case AVPlayerStatusReadyToPlay:{
-                //获取视频长度
-                CMTime duration = playerItem.duration; 
-                //更新显示:视频总时长(自定义方法显示时间的格式)
-                self.totalNeedPlayTimeLabel.text = [self formatTimeWithTimeInterVal:CMTimeGetSeconds(duration)];
-                //开启滑块的滑动功能
-                self.sliderView.enabled = YES;
-                //关闭加载Loading提示
-                [self showaAtivityInDicatorView:NO];
-                //开始播放视频
-                [self.player play];
-                break;
-            }
-            case AVPlayerStatusFailed:{//视频加载失败，点击重新加载
-                [self showaAtivityInDicatorView:NO];//关闭Loading视图
-                self.playerInfoButton.hidden = NO; //显示错误提示按钮，点击后重新加载视频
-                [self.playerInfoButton setTitle:@&quot;资源加载失败，点击继续尝试加载&quot; forState: UIControlStateNormal];
-            break;
-            }
-            case AVPlayerStatusUnknown:{
-                NSLog(@&quot;加载遇到未知问题:AVPlayerStatusUnknown&quot;);
-                break;
-            }
-            default:
-            break;
-            }
-} else if ([keyPath isEqualToString:@&quot;loadedTimeRanges&quot;]) {
-    //获取视频缓冲进度数组，这些缓冲的数组可能不是连续的
-    NSArray *loadedTimeRanges = playerItem.loadedTimeRanges;
-    //获取最新的缓冲区间
-    CMTimeRange timeRange = [loadedTimeRanges.firstObject CMTimeRangeValue];
-    //缓冲区间的开始的时间
-    NSTimeInterval loadStartSeconds = CMTimeGetSeconds(timeRange.start);
-    //缓冲区间的时长
-    NSTimeInterval loadDurationSeconds = CMTimeGetSeconds(timeRange.duration);
-    //当前视频缓冲时间总长度
-    NSTimeInterval currentLoadTotalTime = loadStartSeconds + loadDurationSeconds;
-    //NSLog(@&quot;开始缓冲:%f,缓冲时长:%f,总时间:%f&quot;, loadStartSeconds, loadDurationSeconds, currentLoadTotalTime);
-    //更新显示：当前缓冲总时长
-    _currentLoadTimeLabel.text = [self formatTimeWithTimeInterVal:currentLoadTotalTime];
-    //更新显示：视频的总时长
-    _totalNeedLoadTimeLabel.text = [self formatTimeWithTimeInterVal:CMTimeGetSeconds(self.player.currentItem.duration)];
-    //更新显示：缓冲进度条的值
-    _progressView.progress = currentLoadTotalTime/CMTimeGetSeconds(self.player.currentItem.duration);
-    }
-}
-
-//转换时间格式的方法
-- (NSString *)formatTimeWithTimeInterVal:(NSTimeInterval)timeInterVal{
-    int minute = 0, hour = 0, secend = timeInterVal;
-    minute = (secend % 3600)/60;
-    hour = secend / 3600;
-    secend = secend % 60;
-    return [NSString stringWithFormat:@&quot;%02d:%02d:%02d&quot;, hour, minute, secend];
-}
-</code></pre></li>
-<li><p>获取当前播放时间与总时间<br>在此之前我们需要首先了解一个数据类型，也就是上述操作中的CMTime, 在AVPlayer的使用中我们会经常用到它，其实CMTime是一个结构体如下：</p>
-<pre><code>typedef struct{
-    CMTimeValue    value;      // 帧数
-    CMTimeScale    timescale;  // 帧率（影片每秒有几帧）
-    CMTimeFlags    flags;
-    CMTimeEpoch    epoch;
-} CMTi
-</code></pre></li>
-</ol>
-<p>在上面的操作中我们看到AVPlayerItem的Duration属性就是一个CMTime类型的数据。所以获取视频的总时长(秒)需要duration.value/duration.timeScale。当然系统也为我们提供了CMTimeGetSeconds函数更加方便计算:</p>
-<pre><code>总时长: duration.value == CMTimeGetSeconds(duration) 。
-</code></pre><p>在快进视频到某一个位置的时候我们也需要创建CMTime作为参数，那么CMTime的创建方法有两种:</p>
-<pre><code>//方法1：
-CMTimeMakeWithSeconds(Flout64 seconds, int32_t scale)
-//方法2：
-CMTimeMake(int64_t value, int32_t scale)
-//注：两者的区别在于方法一的第一个参数可以是float
-</code></pre><p>至于获取视频的总时间在上述代码中已有体现，是在检测播放状态变为AVPlayerStatusReadyToPlay的时候获取的</p>
-<pre><code>//视频总时长，在AVPlayerItem状态为AVPlayerStatusReadyToPlay时获取
-CMTime duration = self.player.currentItem.duration;
-CGFloat totalTime = CMTimeGetSeconds(duration);
-//当前AVPlayer的播放时长
-CMTime cmTime = self.player.currentTime;
-CGFloat currentTime  = CMTimeGetSeconds(cmTime);
-</code></pre><ol start="5">
-<li><p>播放进度与状态的刷新<br>实时更新当前播放时间，这时候我们不必使用定时器，因为AVPlayer已经提供了方法：<br>addPeriodicTimeObserverForInterval: queue: usingBlock。当播放进度改变的时候方法中的回调会被执行。我们可以在这里做刷新时间的操作，代码示例如下：</p>
-<pre><code>__weak __typeof(self) weakSelf = self;
-[self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-    //当前播放的时间
-    NSTimeInterval currentTime = CMTimeGetSeconds(time);
-    //视频的总时间
-    NSTimeInterval totalTime = CMTimeGetSeconds(weakSelf.player.currentItem.duration);
-    //设置滑块的当前进度
-    weakSelf.sliderView.value = currentTime/totalTime;
-    //设置显示的时间：以00:00:00的格式
-    weakSelf.currentTimeLabel.text = [weakSelf formatTimeWithTimeInterVal:currentTime];
-}];
-</code></pre></li>
-<li><p>滑块拖拽修改视频播放进度</p>
-<pre><code>//UISlider的响应方法:拖动滑块，改变播放进度
-- (IBAction)sliderViewChange:(id)sender {
-    if(self.player.status == AVPlayerStatusReadyToPlay){
-        NSTimeInterval playTime = self.sliderView.value * CMTimeGetSeconds(self.player.currentItem.duration);
-        CMTime seekTime = CMTimeMake(playTime, 1);
-        [self.player seekToTime:seekTime completionHandler:^(BOOL finished) {
-        }];
-    }
-}
-</code></pre></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1769,7 +1603,7 @@ CGFloat currentTime  = CMTimeGetSeconds(cmTime);
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

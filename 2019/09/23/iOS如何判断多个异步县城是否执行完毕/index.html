@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="程序启动的完整过程:1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。argc、argv:标准main函数的参数，直接传递给UIApplicat">
+<meta name="description" content="前言在实际开发中有A、B、C、D异步请求，需要A、B、C、D执行完，然后去执行其他线程。有什么办法可以处理？ 方法一：RunLoop NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@&amp;qu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="程序启动的完成过程">
-<meta property="og:url" content="http://yoursite.com/2017/04/02/程序启动的完成过程/index.html">
+<meta property="og:title" content="iOS如何判断多个异步县城是否执行完毕">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/iOS如何判断多个异步县城是否执行完毕/index.html">
 <meta property="og:site_name" content="Eden&#39;Blog">
-<meta property="og:description" content="程序启动的完整过程:1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。argc、argv:标准main函数的参数，直接传递给UIApplicat">
+<meta property="og:description" content="前言在实际开发中有A、B、C、D异步请求，需要A、B、C、D执行完，然后去执行其他线程。有什么办法可以处理？ 方法一：RunLoop NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@&amp;qu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T09:52:36.000Z">
+<meta property="og:updated_time" content="2019-09-23T08:34:24.939Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="程序启动的完成过程">
-<meta name="twitter:description" content="程序启动的完整过程:1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。argc、argv:标准main函数的参数，直接传递给UIApplicat">
+<meta name="twitter:title" content="iOS如何判断多个异步县城是否执行完毕">
+<meta name="twitter:description" content="前言在实际开发中有A、B、C、D异步请求，需要A、B、C、D执行完，然后去执行其他线程。有什么办法可以处理？ 方法一：RunLoop NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@&amp;qu">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/02/程序启动的完成过程/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/23/iOS如何判断多个异步县城是否执行完毕/">
 
 
 
 
 
-  <title>程序启动的完成过程 | Eden'Blog</title>
+  <title>iOS如何判断多个异步县城是否执行完毕 | Eden'Blog</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/02/程序启动的完成过程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/iOS如何判断多个异步县城是否执行完毕/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">程序启动的完成过程</h1>
+          <h1 class="post-title" itemprop="name headline">iOS如何判断多个异步县城是否执行完毕</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-02T18:37:14+08:00">
-                2017-04-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T16:32:02+08:00">
+                2019-09-23
               </time>
             
 
@@ -299,9 +299,64 @@
       
 
       
-        <p>程序启动的完整过程:<br>1、先执行main函数，main内部会调用UIApplicationMain函数,该函数的声明如下:<br>int UIApplicationMain(int argc, char argv[], NSString principalClassName, NSString *delegateClassName)。<br>argc、argv:标准main函数的参数，直接传递给UIApplicationMain进行相关处理即可<br>principalClassName:指定应用程序类，该类必须是UIApplication(或子类)。如果为nil,则用UIApplication类作为默认值<br>　　 delegateClassName:指定应用程序类的代理类，该类必须遵守UIApplicationDelegate协议。</p>
+        <p>前言<br>在实际开发中有A、B、C、D异步请求，需要A、B、C、D执行完，然后去执行其他线程。有什么办法可以处理？</p>
+<p>方法一：RunLoop</p>
+<pre><code>NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@&quot;http://www.baidu.com&quot;]] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+NSLog(@&quot;A&quot;);
+CFRunLoopStop(CFRunLoopGetMain());
+}] ;
+[task resume];
+CFRunLoopRun();
+NSLog(@&quot;B&quot;);
+</code></pre><p>这里执行结果是先输出A后在输出B，注意CFRunLoopRun()的位置</p>
 <a id="more"></a>
-<p>　　 2、在UIApplicationMain函数里面做了如下几件事情:<br>　　 　　(1)、根据传入的第三个参数创建UIApplication对象或它的子类对象。如果该参数为nil,直接使用该UIApplication来创建。(该参数只能传人UIApplication或者是它的子类)<br>　　 　　<br>　　 　　　　(2)、根据传入的第四个参数创建AppDelegate对象,并将该对象赋值给第1步创建的 UIApplication对象的delegate属性。<br>　　 　　　　<br>　　 　　　　　　(3)、开启一个事件循环,循环监控应用程序发生的事件。每监听到对应的系统事件时，就会通知AppDelegate。<br>　　 　　　　　　<br>　　 　　　　　　3、分两种情况:<br>　　 　　　　　　(1)有stroyboard<br>　　 　　　　　　<br>　　 　　　　　　应用程创建一个UIWindow对象(继承自UIView),并设置为AppDelegate的window属性。<br>　　 　　　　　　加载Info.plist文件，读取最主要storyboard文件的名称。<br>　　 　　　　　　加载最主要的storyboard文件，创建白色箭头所指的控制器对象。并且设置控制器为UIWindow的rootViewController属性(根控制器)。<br>　　 　　　　　　展示UIWindow,展示之前会将添加rootViewController的view到UIWindow上面(在这一步才会创建控制器的view),其内部会执行该行代码:[window addSubview: window.rootViewControler.view];<br>　　 　　　　　　<br>　　 　　　　　　(2)没有stroyboard<br>　　 　　　　　　<br>　　 　　　　　　首先会调用delegate对象的application:didFinishLaunchingWithOptions:方法。<br>　　 　　　　　　在application:didFinishLaunchingWithOptions:方法中需要主动创建 UIWindow对象。并设置为AppDelegate的window属性。<br>　　 　　　　　　主动创建一个 UIViewController对象，并赋值给window的rootViewController属性。<br>　　 　　　　　　调用 window的makeKeyAndVisible方法显示窗口。</p>
+<p>方法二：GCD的group<br>原理就是利用dispatch_group_async执行完queue会执行dispatch_group_notify回调<br>多线程操作时这个方法使用频繁</p>
+<pre><code>dispatch_group_t group = dispatch_group_create();
+dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+dispatch_group_async(group, queue, ^{
+    NSLog(@&quot;A&quot;);
+});
+dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+    NSLog(@&quot;B&quot;);
+});
+</code></pre><p>输出A后再输出B</p>
+<p>方法三：dispatch_barrier_async<br>一般使用dispatch_barrier_async, 会让barrier之前的线程执行完成之后才会执行barrier后面的操作，起到一个阻挡的作用。</p>
+<pre><code>dispatch_queue_t queue =  dispatch_queue_create(0, DISPATCH_QUEUE_CONCURRENT);
+dispatch_async(queue, ^{
+    NSLog(@&quot;A&quot;);
+});
+dispatch_async(queue, ^{
+    NSLog(@&quot;C&quot;);
+});
+dispatch_barrier_async(queue, ^{
+    NSLog(@&quot;拿到了A的值&quot;);
+});
+
+dispatch_async(queue, ^{
+    NSLog(@&quot;D&quot;);
+});
+dispatch_async(queue, ^{
+    NSLog(@&quot;E&quot;);
+});dispatch_async(queue, ^{
+    NSLog(@&quot;F&quot;);
+});
+</code></pre><p>A、C输出顺序不固定，然后输出拿到了A的值，然后D、E、F输出顺序不固定<br>这里指定的并发队列是自己通过dispatch_queue_create函数创建的，如果你传的是一个串行队列或者全局并发队列，这个函数等同于dispatch_async函数</p>
+<p>方法四：NSOperationQueue<br>主要就是用到NSOperationQueue的一个对象方法addDependency :<br>需要注意一点:waitUntilFinished如果是YES,必须等到queue中所有Operation执行完毕之后, 才会打D, 起到一个阻塞的作用，反之的话, D的打印顺序是随机的了,就看哪个线程跑得快了…</p>
+<pre><code>NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+NSBlockOperation *p1 = [NSBlockOperation blockOperationWithBlock:^{
+    NSLog(@&quot;A&quot;);
+}];
+NSBlockOperation *p2 = [NSBlockOperation blockOperationWithBlock:^{
+    NSLog(@&quot;B&quot;);
+}];
+NSBlockOperation *p3 = [NSBlockOperation blockOperationWithBlock:^{
+    NSLog(@&quot;C&quot;);
+}];
+[p3 addDependency:p1];
+[p1 addDependency:p2];
+// waitUntilFinished是否阻塞当前线程
+[queue addOperations:@[p1,p2,p3] waitUntilFinished:YES];
+</code></pre><p>// 如果是NO,那么这行打印就是随机的, 反之就是等A,B,C都打印完之后才执行<br>NSLog(@”D”);<br>输出C、A、B再输出D</p>
 
       
     </div>
@@ -326,8 +381,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/28/博客转移/" rel="next" title="博客转移">
-                <i class="fa fa-chevron-left"></i> 博客转移
+              <a href="/2019/09/20/iOS开发代码规范建议/" rel="next" title="iOS开发代码规范建议">
+                <i class="fa fa-chevron-left"></i> iOS开发代码规范建议
               </a>
             
           </div>
@@ -335,10 +390,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/28/关于runtime/" rel="prev" title="关于runtime">
-                关于runtime <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

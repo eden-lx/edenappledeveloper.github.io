@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、WKWebView涉及的一些类  WKWebView：网页的渲染与展示 注意： #import &amp;lt;WebKit/WebKit.h&amp;gt; //初始化 _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) configuration:config]; // UI代理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ios-WKWebView交互使用整理">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/ios-WKWebView交互使用整理/index.html">
+<meta property="og:site_name" content="Eden&#39;Blog">
+<meta property="og:description" content="一、WKWebView涉及的一些类  WKWebView：网页的渲染与展示 注意： #import &amp;lt;WebKit/WebKit.h&amp;gt; //初始化 _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) configuration:config]; // UI代理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-23T08:52:18.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ios-WKWebView交互使用整理">
+<meta name="twitter:description" content="一、WKWebView涉及的一些类  WKWebView：网页的渲染与展示 注意： #import &amp;lt;WebKit/WebKit.h&amp;gt; //初始化 _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) configuration:config]; // UI代理">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/23/ios-WKWebView交互使用整理/">
+
+
+
+
+
+  <title>ios-WKWebView交互使用整理 | Eden'Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Eden'Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">上个博客丢失，重新建立的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/ios-WKWebView交互使用整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eden'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ios-WKWebView交互使用整理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T16:42:28+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一、WKWebView涉及的一些类</p>
+<ul>
+<li><p>WKWebView：网页的渲染与展示</p>
+<pre><code>注意： #import &lt;WebKit/WebKit.h&gt;
+//初始化
+_webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) configuration:config];
+// UI代理
+_webView.UIDelegate = self;
+// 导航代理
+_webView.navigationDelegate = self;
+// 是否允许手势左滑返回上一级, 类似导航控制的左滑返回
+_webView.allowsBackForwardNavigationGestures = YES;
+//可返回的页面列表, 存储已打开过的网页 
+WKBackForwardList * backForwardList = [_webView backForwardList];
+
+//        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@&quot;http://www.chinadaily.com.cn&quot;]];
+//        [request addValue:[self readCurrentCookieWithDomain:@&quot;http://www.chinadaily.com.cn&quot;] forHTTPHeaderField:@&quot;Cookie&quot;];
+//        [_webView loadRequest:request];
+//页面后退
+[_webView goBack];
+//页面前进
+[_webView goForward];
+//刷新当前页面
+[_webView reload];
+
+NSString *path = [[NSBundle mainBundle] pathForResource:@&quot;JStoOC.html&quot; ofType:nil];
+NSString *htmlString = [[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//加载本地html文件
+[_webView loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+</code></pre></li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>WKWebViewConfiguration：为添加WKWebView配置信息</p>
+<pre><code>//创建网页配置对象
+WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+
+// 创建设置对象
+WKPreferences *preference = [[WKPreferences alloc]init];
+//最小字体大小 当将javaScriptEnabled属性设置为NO时，可以看到明显的效果
+preference.minimumFontSize = 0;
+//设置是否支持javaScript 默认是支持的
+preference.javaScriptEnabled = YES;
+// 在iOS上默认为NO，表示是否允许不经过用户交互由javaScript自动打开窗口
+preference.javaScriptCanOpenWindowsAutomatically = YES;
+config.preferences = preference;
+
+// 是使用h5的视频播放器在线播放, 还是使用原生播放器全屏播放
+config.allowsInlineMediaPlayback = YES;
+//设置视频是否需要用户手动播放  设置为NO则会允许自动播放
+config.requiresUserActionForMediaPlayback = YES;
+//设置是否允许画中画技术 在特定设备上有效
+config.allowsPictureInPictureMediaPlayback = YES;
+//设置请求的User-Agent信息中应用程序名称 iOS9后可用
+config.applicationNameForUserAgent = @&quot;ChinaDailyForiPad&quot;;
+//自定义的WKScriptMessageHandler 是为了解决内存不释放的问题
+WeakWebViewScriptMessageDelegate *weakScriptMessageDelegate = [[WeakWebViewScriptMessageDelegate alloc] initWithDelegate:self];
+//这个类主要用来做native与JavaScript的交互管理
+WKUserContentController * wkUController = [[WKUserContentController alloc] init];
+//注册一个name为jsToOcNoPrams的js方法
+[wkUController addScriptMessageHandler:weakScriptMessageDelegate  name:@&quot;jsToOcNoPrams&quot;];
+[wkUController addScriptMessageHandler:weakScriptMessageDelegate  name:@&quot;jsToOcWithPrams&quot;]; 
+config.userContentController = wkUController;
+</code></pre></li>
+</ul>
+<ul>
+<li><p>WKUserScript：用于进行JavaScript注入</p>
+<pre><code>//以下代码适配文本大小，由UIWebView换为WKWebView后，会发现字体小了很多，这应该是WKWebView与html的兼容问题，解决办法是修改原网页，要么我们手动注入JS
+NSString *jSString = @&quot;var meta = document.createElement(&apos;meta&apos;); meta.setAttribute(&apos;name&apos;, &apos;viewport&apos;); meta.setAttribute(&apos;content&apos;, &apos;width=device-width&apos;); document.getElementsByTagName(&apos;head&apos;)[0].appendChild(meta);&quot;;
+//用于进行JavaScript注入
+WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jSString injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+[config.userContentController addUserScript:wkUScript];
+</code></pre></li>
+</ul>
+<ul>
+<li><p>WKUserContentController：这个类主要用来做native与JavaScript的交互管理</p>
+<pre><code>//这个类主要用来做native与JavaScript的交互管理
+WKUserContentController * wkUController = [[WKUserContentController alloc] init];
+//注册一个name为jsToOcNoPrams的js方法，设置处理接收JS方法的代理
+[wkUController addScriptMessageHandler:self  name:@&quot;jsToOcNoPrams&quot;];
+[wkUController addScriptMessageHandler:self  name:@&quot;jsToOcWithPrams&quot;];
+config.userContentController = wkUController;
+//用完记得移除
+//移除注册的js方法
+[[_webView configuration].userContentController removeScriptMessageHandlerForName:@&quot;jsToOcNoPrams&quot;];
+[[_webView configuration].userContentController removeScriptMessageHandlerForName:@&quot;jsToOcWithPrams&quot;];
+</code></pre></li>
+</ul>
+<ul>
+<li><p>WKScriptMessageHandler：这个协议类专门用来处理监听JavaScript方法从而调用原生OC方法，和WKUserContentController搭配使用。</p>
+<pre><code>注意：遵守WKScriptMessageHandler协议，代理是由WKUserContentControl设置
+
+//通过接收JS传出消息的name进行捕捉的回调方法
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
+    NSLog(@&quot;name:%@\\\\n body:%@\\\\n frameInfo:%@\\\\n&quot;,message.name,message.body,message.frameInfo);
+//用message.body获得JS传出的参数体
+NSDictionary * parameter = message.body;
+//JS调用OC
+if([message.name isEqualToString:@&quot;jsToOcNoPrams&quot;]){
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;js调用到了oc&quot; message:@&quot;不带参数&quot; preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:([UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }])];
+    [self presentViewController:alertController animated:YES completion:nil];
+
+}else if([message.name isEqualToString:@&quot;jsToOcWithPrams&quot;]){
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;js调用到了oc&quot; message:parameter[@&quot;params&quot;] preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:([UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }])];
+    [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+</code></pre></li>
+</ul>
+<p>二、WKWebView涉及的代理方法</p>
+<ul>
+<li><p>WKNavigationDelegate ：主要处理一些跳转、加载处理操作</p>
+<pre><code>// 页面开始加载时调用
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+}
+// 页面加载失败时调用
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
+[self.progressView setProgress:0.0f animated:NO];
+} 
+// 当内容开始返回时调用
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
+}
+// 页面加载完成之后调用
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+[self getCookie];
+}
+//提交发生错误时调用
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+[self.progressView setProgress:0.0f animated:NO];
+}  
+// 接收到服务器跳转请求即服务重定向时之后调用
+- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation {
+}
+// 根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+
+NSString * urlStr = navigationAction.request.URL.absoluteString;
+NSLog(@&quot;发送跳转请求：%@&quot;,urlStr);
+//自己定义的协议头
+NSString *htmlHeadString = @&quot;github://&quot;;
+if([urlStr hasPrefix:htmlHeadString]){
+UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;通过截取URL调用OC&quot; message:@&quot;你想前往我的Github主页?&quot; preferredStyle:UIAlertControllerStyleAlert];
+[alertController addAction:([UIAlertAction actionWithTitle:@&quot;取消&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {   
+}])];
+[alertController addAction:([UIAlertAction actionWithTitle:@&quot;打开&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+NSURL * url = [NSURL URLWithString:[urlStr stringByReplacingOccurrencesOfString:@&quot;github://callName_?&quot; withString:@&quot;&quot;]];
+[[UIApplication sharedApplication] openURL:url];
+}])];
+[self presentViewController:alertController animated:YES completion:nil];
+decisionHandler(WKNavigationActionPolicyCancel);
+}else{
+decisionHandler(WKNavigationActionPolicyAllow);
+}
+}
+
+// 根据客户端受到的服务器响应头以及response相关信息来决定是否可以跳转
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
+NSString * urlStr = navigationResponse.response.URL.absoluteString;
+NSLog(@&quot;当前跳转地址：%@&quot;,urlStr);
+//允许跳转
+decisionHandler(WKNavigationResponsePolicyAllow);
+//不允许跳转
+//decisionHandler(WKNavigationResponsePolicyCancel);
+} 
+//需要响应身份验证时调用 同样在block中需要传入用户身份凭证
+- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler{
+//用户身份信息
+NSURLCredential * newCred = [[NSURLCredential alloc] initWithUser:@&quot;user123&quot; password:@&quot;123&quot; persistence:NSURLCredentialPersistenceNone];
+//为 challenge 的发送方提供 credential
+[challenge.sender useCredential:newCred forAuthenticationChallenge:challenge];
+completionHandler(NSURLSessionAuthChallengeUseCredential,newCred);
+}
+//进程被终止时调用
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView{
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>WKUIDelegate ：主要处理JS脚本，确认框，警告框等</p>
+<pre><code>/**
+*  web界面中有弹出警告框时调用
+*
+*  @param webView           实现该代理的webview
+*  @param message           警告框中的内容
+*  @param completionHandler 警告框消失调用
+*/
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;HTML的弹出框&quot; message:message?:@&quot;&quot; preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:([UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    completionHandler();
+    }])];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+// 确认框
+//JavaScript调用confirm方法后回调的方法 confirm是js中的确定框，需要在block中把用户选择的情况传递进去
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;&quot; message:message?:@&quot;&quot; preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:([UIAlertAction actionWithTitle:@&quot;Cancel&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    completionHandler(NO);
+    }])];
+    [alertController addAction:([UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    completionHandler(YES);
+    }])];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+// 输入框
+//JavaScript调用prompt方法后回调的方法 prompt是js中的输入框 需要在block中把用户输入的信息传入
+- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:prompt message:@&quot;&quot; preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = defaultText;
+    }];
+    [alertController addAction:([UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler(alertController.textFields[0].text?:@&quot;&quot;);
+    }])];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+// 页面是弹出窗口 _blank 处理
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
+    if (!navigationAction.targetFrame.isMainFrame) {
+        [webView loadRequest:navigationAction.request];
+    }
+    return nil;
+}
+</code></pre></li>
+</ul>
+<p>三、网页内容加载进度条和title的实现</p>
+<pre><code>//添加监测网页加载进度的观察者
+[self.webView addObserver:self
+        forKeyPath:@&quot;estimatedProgress&quot;
+           options:0
+           context:nil];
+//添加监测网页标题title的观察者
+[self.webView addObserver:self
+               forKeyPath:@&quot;title&quot;
+                  options:NSKeyValueObservingOptionNew
+                  context:nil];
+
+//kvo 监听进度 必须实现此方法
+-(void)observeValueForKeyPath:(NSString *)keyPath
+ofObject:(id)object
+change:(NSDictionary&lt;NSKeyValueChangeKey,id&gt; *)change
+context:(void *)context{
+    if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))]
+    &amp;&amp; object == _webView) {
+    NSLog(@&quot;网页加载进度 = %f&quot;,_webView.estimatedProgress);
+    self.progressView.progress = _webView.estimatedProgress;
+    if (_webView.estimatedProgress &gt;= 1.0f) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.progressView.progress = 0;
+    });
+        } 
+    }else if([keyPath isEqualToString:@&quot;title&quot;]
+            &amp;&amp; object == _webView){
+    self.navigationItem.title = _webView.title;
+    }else{
+        [super observeValueForKeyPath:keyPath
+            ofObject:object
+              change:change
+             context:context];
+             }
+}
+//移除观察者
+[_webView removeObserver:self
+              forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
+[_webView removeObserver:self
+              forKeyPath:NSStringFromSelector(@selector(title))];
+</code></pre><p>四、JS和OC的交互</p>
+<ul>
+<li><p>JS调用OC<br>  这个实现主要是依靠WKScriptMessageHandler协议类和WKUserContentController两个类：WKUserContentController对象负责注册JS方法，设置处理接收JS方法的代理，代理遵守WKScriptMessageHandler，实现捕捉到JS消息的回调方法，详情可以看第一步中对这两个类的介绍。</p>
+<pre><code>//这个类主要用来做native与JavaScript的交互管理
+WKUserContentController * wkUController = [[WKUserContentController alloc] init];
+//注册一个name为jsToOcNoPrams的js方法，设置处理接收JS方法的代理
+[wkUController addScriptMessageHandler:self  name:@&quot;jsToOcNoPrams&quot;];
+[wkUController addScriptMessageHandler:self  name:@&quot;jsToOcWithPrams&quot;];
+config.userContentController = wkUController;
+
+注意：遵守WKScriptMessageHandler协议，代理是由WKUserContentControl设置
+//通过接收JS传出消息的name进行捕捉的回调方法  js调OC
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
+    NSLog(@&quot;name:%@\\\\n body:%@\\\\n frameInfo:%@\\\\n&quot;,message.name,message.body,message.frameInfo);
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>OC调用JS</p>
+<pre><code>//OC调用JS  changeColor()是JS方法名，completionHandler是异步回调block
+NSString *jsString = [NSString stringWithFormat:@&quot;changeColor(&apos;%@&apos;)&quot;, @&quot;Js参数&quot;];
+[_webView evaluateJavaScript:jsString completionHandler:^(id _Nullable data, NSError * _Nullable error) {
+    NSLog(@&quot;改变HTML的背景色&quot;);
+}];
+
+//改变字体大小 调用原生JS方法
+NSString *jsFont = [NSString stringWithFormat:@&quot;document.getElementsByTagName(&apos;body&apos;)[0].style.webkitTextSizeAdjust= &apos;%d%%&apos;&quot;, arc4random()%99 + 100];
+[_webView evaluateJavaScript:jsFont completionHandler:nil];
+</code></pre></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/23/iOS如何判断多个异步线程是否执行完毕/" rel="next" title="iOS如何判断多个异步线程是否执行完毕">
+                <i class="fa fa-chevron-left"></i> iOS如何判断多个异步线程是否执行完毕
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Eden</p>
+              <p class="site-description motion-element" itemprop="description">态度决定一切，细节决定成败</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eden</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

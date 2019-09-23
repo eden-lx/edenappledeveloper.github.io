@@ -81,14 +81,14 @@
 
 <meta name="description" content="前言在实际开发中有A、B、C、D异步请求，需要A、B、C、D执行完，然后去执行其他线程。有什么办法可以处理？ 方法一：RunLoop NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@&amp;qu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS如何判断多个异步县城是否执行完毕">
+<meta property="og:title" content="iOS如何判断多个异步线程是否执行完毕">
 <meta property="og:url" content="http://yoursite.com/2019/09/23/iOS如何判断多个异步线程是否执行完毕/index.html">
 <meta property="og:site_name" content="Eden&#39;Blog">
 <meta property="og:description" content="前言在实际开发中有A、B、C、D异步请求，需要A、B、C、D执行完，然后去执行其他线程。有什么办法可以处理？ 方法一：RunLoop NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@&amp;qu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-23T08:34:24.939Z">
+<meta property="og:updated_time" content="2019-09-23T08:41:01.618Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS如何判断多个异步县城是否执行完毕">
+<meta name="twitter:title" content="iOS如何判断多个异步线程是否执行完毕">
 <meta name="twitter:description" content="前言在实际开发中有A、B、C、D异步请求，需要A、B、C、D执行完，然后去执行其他线程。有什么办法可以处理？ 方法一：RunLoop NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@&amp;qu">
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>iOS如何判断多个异步县城是否执行完毕 | Eden'Blog</title>
+  <title>iOS如何判断多个异步线程是否执行完毕 | Eden'Blog</title>
   
 
 
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS如何判断多个异步县城是否执行完毕</h1>
+          <h1 class="post-title" itemprop="name headline">iOS如何判断多个异步线程是否执行完毕</h1>
         
 
         <div class="post-meta">
@@ -391,6 +391,10 @@ NSBlockOperation *p3 = [NSBlockOperation blockOperationWithBlock:^{
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/09/23/ios-WKWebView交互使用整理/" rel="prev" title="ios-WKWebView交互使用整理">
+                ios-WKWebView交互使用整理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -457,7 +461,7 @@ NSBlockOperation *p3 = [NSBlockOperation blockOperationWithBlock:^{
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

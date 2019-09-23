@@ -6,10 +6,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/2/">
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
@@ -153,7 +153,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
+      <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Eden'Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -183,7 +183,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
           </a>
@@ -193,7 +193,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
           </a>
@@ -232,11 +232,133 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/关于git冲突报错-Line-XX-StartTag-invalid-element-name/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eden">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eden'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/09/关于git冲突报错-Line-XX-StartTag-invalid-element-name/" itemprop="url">关于git冲突报错-> Line XX: StartTag: invalid element name</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T19:18:42+08:00">
+                2019-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>xib 报错解决方式</p>
+<p>如果团队合作使用Git来控制版本，在执行git pull 指令时，有时候会遇见文件发生冲突，就是两个人同时改了同一个文件的东西，导致git不知道谁改的才是对的，多以就产生了冲突，此时编译的时候就会报错  Line 80: StartTag: invalid element name</p>
+<p>解决办法：<br>1、找到路径下的xib文件  右键   打开方式 - 文本编辑<br>2、然后搜索  &lt;&lt;&lt; （图中&lt;&lt;&lt;&lt;&lt;&lt;<head 一直到><meta name="generator" content="Hexo 3.8.0">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;8f7f……中间的部分就是冲突部分，等号上面是自己的， 等号下面是别人提交的）<br>3、把冲突的位置   解决一下  然后保存就行了（把冲突的地方只保留一份， 其他的都删掉，包括&lt;&lt;&lt;&lt;<head =="========="><meta name="generator" content="Hexo 3.8.0">&gt;&gt;&gt;&gt;&gt;&gt;8f7f….，最后只保留下面图片中的样式就OK了），把所有的类似报错的Xib文件都修改一下，编译就会通过了，之后再执行git pull origin master  指令就不会有冲突了。</head></head></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/07/iOS-手机震动相关接口-长震动-短震动/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -363,7 +485,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -490,7 +612,7 @@ NSLog(@&quot;%zd&quot;,sizeof(obj));
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -632,7 +754,7 @@ instanceProperties：表示Category里所有的properties，这就是我们可�
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -647,7 +769,7 @@ instanceProperties：表示Category里所有的properties，这就是我们可�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/12/NSArrayM-XXXXXX-was-mutated-while-being-enumerated/" itemprop="url"><__nsarraym:xxxxxx> was mutated while being enumerated.</__nsarraym:xxxxxx></a></h1>
+                <a class="post-title-link" href="/2018/11/12/NSArrayM-XXXXXX-was-mutated-while-being-enumerated/" itemprop="url"><__NSArrayM:XXXXXX> was mutated while being enumerated.</a></h1>
         
 
         <div class="post-meta">
@@ -765,7 +887,7 @@ for (UIButton * button in self.selectedBtnArr)
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -890,7 +1012,7 @@ for (UIButton * button in self.selectedBtnArr)
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -1015,7 +1137,7 @@ for (UIButton * button in self.selectedBtnArr)
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -1141,7 +1263,7 @@ for (UIButton * button in self.selectedBtnArr)
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -1266,7 +1388,7 @@ for (UIButton * button in self.selectedBtnArr)
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -1386,173 +1508,6 @@ playerViewController.moviePlayer.scalingMode = MPMovieScalingModeFill;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/iOS-基于MediaPlayer框架进行视频播放/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eden">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Eden'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/23/iOS-基于MediaPlayer框架进行视频播放/" itemprop="url">iOS -基于MediaPlayer框架进行视频播放</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T13:12:50+08:00">
-                2018-05-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>1.播放视频<br>MPMoviewPlayerController继承于NSObject，使用它播放视频需要将其自带的视频View添加到视图控制器的View上才能显示视频，使用步骤如下：</p>
-<pre><code>第一步:引用MediaPlayer框架，声明视图控制器属性PlayerController
-#import &lt;MediaPlayer/MediaPlayer.h&gt;
-
-@property(nonatomic,strong)MPMoviePlayerController *playerController;
-
-//第二步：获取视频路径，创建播放器
-//本地视频路径
-NSString* localFilePath=[[NSBundle mainBundle]pathForResource:@&quot;不能说的秘密&quot; ofType:@&quot;mp4&quot;];
-NSURL *localVideoUrl = [NSURL fileURLWithPath:localFilePath];
-//网络视频路径
-NSString *webVideoPath = @&quot;http://api.junqingguanchashi.net/yunpan/bd/c.php?vid=/junqing/1115.mp4&quot;;
-NSURL *webVideoUrl = [NSURL URLWithString:webVideoPath];
-self.playerController =[[MPMoviePlayerController alloc]initWithContentURL:webVideoUrl];
-
-//第三步：设置Frame将播放器View添加到视图控制器View上
-self.playerController.view.frame = CGRectMake(0, 10, kDeviceWidth, 300);
-[self.view addSubview: self.playerController.view];
-
-//第四步：设置播放器属性
-//设置控制面板风格:无，嵌入，全屏，默认
-self.playerController.controlStyle = MPMovieControlStyleDefault;
-//设置是否自动播放(默认为YES）
-self.playerController.shouldAutoplay = NO;
-//设置播放器显示模式，类似于图片的处理，设置Fill有可能造成部分区域被裁剪
-self.playerController.scalingMode = MPMovieScalingModeAspectFit;
-//设置重复模式
-self.playerController.repeatMode = MPMovieRepeatModeOne;
-
-//第五步：播放视频
-//播放前的准备，会中断当前正在活跃的音频会话
-[ self.playerController  prepareToPlay];
-//播放视频，设置了自动播放之后可以不调用此方法
-//[ self.playerController  play];
-
-//第六步：在退出界面的时候，关闭播放器，移除通知
-- (void)dealloc{
-    //当前视图控制器pop之后并不会关闭播放，需要手动关闭
-    [self.playerController stop];
-    self.playerController = nil;
-    //移除播放器相关的通知
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/23/iOS-基于MediaPlayer框架进行视频播放/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1603,7 +1558,7 @@ self.playerController.repeatMode = MPMovieRepeatModeOne;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
